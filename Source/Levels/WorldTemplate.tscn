@@ -82,13 +82,13 @@ playerPath = NodePath("../../../Player")
 navpoly = SubResource( 4 )
 
 [node name="NavigationPolygonInstance2" type="NavigationPolygonInstance" parent="Navigation2D"]
-position = Vector2( -1, -1 )
+position = Vector2( -12, 1 )
 navpoly = SubResource( 5 )
 
 [node name="NavigationPolygonInstance3" type="NavigationPolygonInstance" parent="Navigation2D"]
 navpoly = SubResource( 6 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 152, 175 )
+position = Vector2( 169, 236 )
 
 [editable path="Navigation2D/Enemies/Stomper"]
