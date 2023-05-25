@@ -1,14 +1,14 @@
 extends KinematicBody2D
 #exports
-export var maxSpeed: int  = 200
-export var playerPath := NodePath()		#allows importing of the player scene
+export var maxSpeed: int  = 150
+export var playerPath := NodePath()#allows importing of the player scene
 
 #Nodes
 onready var animPlayer = $AnimationPlayer #access to animation player
 onready var player := get_node(playerPath)
-onready var agent = $NavigationAgent2D		# access to the navigation of the level
-onready var pathTimer = $pathTimer		#access to timer to update pathfinding
-onready var los = $RayCast2D		##acess to the Stompers line of sight
+onready var agent = $NavigationAgent2D# access to the navigation of the level
+onready var pathTimer = $pathTimer#access to timer to update pathfinding
+onready var los = $RayCast2D#acess to the Stompers line of sight
 
 #other
 var velocity := Vector2.ZERO
@@ -18,11 +18,11 @@ var awoken = false
 
 
 func _ready():
-	playerSpotted = false		#by default player is not spotted
-	updatePathfinding()			#sets up the pathfinding loop
-	pathTimer.connect("timeout",self,"updatePathfinding") #calls the updatepathfinding function everytime the timer timesout
+	playerSpotted = false#by default player is not spotted
+	updatePathfinding()#sets up the pathfinding loop
+	pathTimer.connect("timeout",self,"updatePathfinding")#calls the updatepathfinding function everytime the timer timesout
 
-func _physics_process(delta):		#function calls every frame of the game
+func _physics_process(delta):#function calls every frame of the game
 	animate()
 	checkPlayer()
 	
