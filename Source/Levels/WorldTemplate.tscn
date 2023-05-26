@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Source/Actors/Stomper.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Source/Actors/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Tech Dungeon/tileset x3.png" type="Texture" id=3]
+[ext_resource path="res://Source/Actors/Drone.tscn" type="PackedScene" id=4]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
@@ -55,9 +56,9 @@ polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 2, 4, 5, 3 ), PoolIntArra
 outlines = [ PoolVector2Array( 275, 114, 275, 181, 503, 178, 506, 557, 774, 557, 759, 473, 850, 491, 851, 106 ) ]
 
 [sub_resource type="NavigationPolygon" id=6]
-vertices = PoolVector2Array( 1134, 1032, 1131, 972, 1651, 985, 1801, 1025, 1802, 125, 1651, 953, 1651, 466, 854, 174, 851, 114, 1083, 175, 1513, 463, 1081, 493, 1470, 485 )
+vertices = PoolVector2Array( 1134, 1032, 1131, 972, 1651, 985, 1803, 1036, 1802, 125, 1651, 953, 1651, 466, 854, 174, 851, 114, 1083, 175, 1513, 463, 1081, 493, 1470, 485 )
 polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 3, 2, 5 ), PoolIntArray( 4, 5, 6 ), PoolIntArray( 7, 8, 4, 9 ), PoolIntArray( 9, 4, 6, 10 ), PoolIntArray( 11, 9, 10, 12 ) ]
-outlines = [ PoolVector2Array( 851, 114, 854, 174, 1083, 175, 1081, 493, 1470, 485, 1513, 463, 1651, 466, 1651, 953, 1651, 985, 1131, 972, 1134, 1032, 1801, 1025, 1802, 125 ) ]
+outlines = [ PoolVector2Array( 851, 114, 854, 174, 1083, 175, 1081, 493, 1470, 485, 1513, 463, 1651, 466, 1651, 953, 1651, 985, 1131, 972, 1134, 1032, 1803, 1036, 1802, 125 ) ]
 
 [node name="WorldTemplate" type="Node2D"]
 
@@ -78,6 +79,10 @@ edge_connection_margin = 20.0
 position = Vector2( 615, 297 )
 playerPath = NodePath("../../../Player")
 
+[node name="Drone" parent="Navigation2D/Enemies" instance=ExtResource( 4 )]
+position = Vector2( 501, 939 )
+playerPath = NodePath("../../../Player")
+
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
 navpoly = SubResource( 4 )
 
@@ -89,6 +94,4 @@ navpoly = SubResource( 5 )
 navpoly = SubResource( 6 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 169, 236 )
-
-[editable path="Navigation2D/Enemies/Stomper"]
+position = Vector2( 960, 778 )
