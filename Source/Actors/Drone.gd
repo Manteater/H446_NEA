@@ -1,8 +1,8 @@
 extends KinematicBody2D
 
 #exported variables
-export var speed = 225
-export var patrolSpeed = 150
+export var speed = 225#this defines the speed of the drone when it is chasing the player
+export var patrolSpeed = 150#this defines the speed of the drone when it is patrolling
 export var playerPath := NodePath() #gives access to the player node if it is in the same tree
 
 #nodes
@@ -27,18 +27,18 @@ var patrolDirection = null
 
 func _ready():
 		pathTimer.connect("timeout",self,"updatePathfinding")#calls the updatepathfinding function everytime the timer timesout
-		rng.randomize()
+		rng.randomize()#resets the seed for the randomizer - else it would keep spitting out the same number as it is only pseudo random
 		patrolDirection = rng.randi_range(1,2)#1 and 2 refer to x or y direction for patrolling
 
 func _physics_process(delta):
-	checkPlayer()
+	checkPlayer()#checks if the player is in sight
 	if patrolling:
 		patrol(patrolDirection)#if the drone should be patrolling the procecdure is called
-	animate()
+	animate()#plays the drones animations
 	if playerSpotted:
 		patrolling = false
-		updatePathfinding()
-	if not patrolling:#if the drone has een the player
+		updatePathfinding()#sets the target location of the path as the player 
+	if not patrolling:#if the drone has seen the player at least once
 		move(delta)
 
 func move(delta):
@@ -54,7 +54,7 @@ func patrol(direction):
 	if direction == 1:#1 means x -axis
 		if collided:#if the drone has hit a wall then it turns around
 			patrolSpeed = -1*patrolSpeed#speed is flipped
-			collided = false
+			collided = false#collided must be reset back to false in order to stop drone switching direction again
 		velocity.x = patrolSpeed
 		move_and_slide(velocity)#the drone is moved
 	elif direction == 2:#same thing for the y - axis
@@ -87,5 +87,4 @@ func checkPlayer():
 		
 
 func _on_WallDetector_body_entered(body):
-	#print("collided")
-	collided = true
+	collided = true#when a walls hitbox enters the drones hitbox this function is called
