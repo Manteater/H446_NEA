@@ -24,7 +24,8 @@ func _ready():
 
 func _physics_process(delta):#function calls every frame of the game
 	animate()
-	checkPlayer()
+	if is_instance_valid(player):
+		checkPlayer()
 	
 	if playerSpotted:
 		move(delta)

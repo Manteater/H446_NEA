@@ -220,7 +220,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="CircleShape2D" id=9]
-radius = 23.0
+radius = 35.0
 
 [sub_resource type="CircleShape2D" id=10]
 radius = 30.0167
@@ -230,7 +230,7 @@ radius = 271.002
 
 [node name="Drone" type="KinematicBody2D"]
 collision_layer = 2
-collision_mask = 5
+collision_mask = 16
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -250,7 +250,7 @@ anims/idleRight = SubResource( 6 )
 anims/shootLeft = SubResource( 7 )
 anims/shootRight = SubResource( 8 )
 
-[node name="Hitbox" type="CollisionShape2D" parent="."]
+[node name="Hurtbox" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 1 )
 shape = SubResource( 9 )
 

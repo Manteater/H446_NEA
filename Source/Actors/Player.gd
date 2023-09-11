@@ -17,7 +17,7 @@ func _physics_process(delta: float) -> void:
 	#fetches the position vector of the cursor
 	var mouse = get_global_mouse_position()
 	#moves the player
-	move(delta)
+	read_input(delta)
 	#animates the players movements
 	animate(mouse)
 	
@@ -39,7 +39,7 @@ func calculate_move_velocity(
 		out.y = speed*direction.y
 		return out
 
-func move(delta):
+func read_input(delta):
 	
 	var direction = get_direction()#gets the direction the player is moving in
 	_velocity = calculate_move_velocity(_velocity, direction,speed)#calculates the speed at which the player is moving
@@ -47,6 +47,10 @@ func move(delta):
 
 	if Input.is_action_pressed("dash") and $dash_cooldown.time_left == 0:#if the dash key is pressed and cooldown has reset the player dashes
 		dash()
+	
+	if Input.is_action_pressed("shoot"):
+		var gun = $Gun
+		gun.fire()
 
 func dash():
 	speed = speed*4#increases the speed of the player

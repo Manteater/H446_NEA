@@ -1,7 +1,6 @@
-extends KinematicBody2D
-
+extends Enemy
 #exported variables
-export var speed = 225#this defines the speed of the drone when it is chasing the player
+#this defines the speed of the drone when it is chasing the player
 export var patrolSpeed = 150#this defines the speed of the drone when it is patrolling
 export var playerPath := NodePath() #gives access to the player node if it is in the same tree
 
@@ -31,7 +30,8 @@ func _ready():
 		patrolDirection = rng.randi_range(1,2)#1 and 2 refer to x or y direction for patrolling
 
 func _physics_process(delta):
-	checkPlayer()#checks if the player is in sight
+	if is_instance_valid(player):
+		checkPlayer()#checks if the player is in sight
 	if patrolling:
 		patrol(patrolDirection)#if the drone should be patrolling the procecdure is called
 	animate()#plays the drones animations
