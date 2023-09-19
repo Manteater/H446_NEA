@@ -28,11 +28,11 @@ func _physics_process(delta: float)-> void:
 		var collision = p.move_and_collide(i["velocity"]*delta)#an in-built function is used to make the bullet move
 		
 		if (collision):
-			print("collided")
+			#print("collided")
 			var collider = collision.collider
-			print(collider.get_class())
-			if (collider.get_class()=="Enemy"):
-				print("hit")
+			#print(collider.get_class())
+			if (collider.is_in_group("enemy")):
+				#print("hit")
 				collider.applyDamage(50)
 			p.queue_free()#the projectile is destroyed
 			projectiles.erase(i)#the infromation is erased from the array

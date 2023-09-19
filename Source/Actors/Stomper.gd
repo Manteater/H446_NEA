@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends Enemy
 #exports
 export var maxSpeed: int  = 150
 export var playerPath := NodePath()#allows importing of the player scene

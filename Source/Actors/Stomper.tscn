@@ -172,7 +172,7 @@ tracks/0/keys = {
 "values": [ 50, 52, 53 ]
 }
 
-[node name="Stomper" type="KinematicBody2D"]
+[node name="Stomper" type="KinematicBody2D" groups=["enemy"]]
 collision_layer = 2
 collision_mask = 5
 script = ExtResource( 2 )
