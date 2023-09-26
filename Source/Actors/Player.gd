@@ -9,6 +9,7 @@ var _velocity = Vector2.ZERO
 
 
 func _ready():
+	var interactions = []
 	player = tree.get_nodes_in_group("Player")[0]#fetches the player node to access certain attributes
 
 func _physics_process(delta: float) -> void:
@@ -95,7 +96,5 @@ func die():
 
 
 
-
-
-
-	
+func _on_interactionArea_area_entered(area):
+	interactions

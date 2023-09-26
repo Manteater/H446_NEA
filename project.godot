@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "Enemy",
 "language": "GDScript",
 "path": "res://Source/Actors/enemy.gd"
+}, {
+"base": "Area2D",
+"class": "interact",
+"language": "GDScript",
+"path": "res://interactArea.gd"
 } ]
 _global_script_class_icons={
-"Enemy": ""
+"Enemy": "",
+"interact": ""
 }
 
 [application]
@@ -74,6 +80,7 @@ shoot={
 2d_physics/layer_4="items"
 2d_physics/layer_5="playerProjectiles"
 2d_physics/layer_6="enemyProjectiles"
+2d_physics/layer_7="Interaction"
 
 [physics]
 
