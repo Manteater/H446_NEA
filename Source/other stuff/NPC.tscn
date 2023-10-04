@@ -41,5 +41,6 @@ anims/Idle = SubResource( 2 )
 [node name="interactArea" parent="." instance=ExtResource( 2 )]
 position = Vector2( 1, 8 )
 interactLbl = "Open Shop"
+interactValue = "open Shop"
 
 [editable path="interactArea"]

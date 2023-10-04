@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Assets/Tech Dungeon/Players/players blue x3.png" type="Texture" id=1]
 [ext_resource path="res://Source/Actors/Player.gd" type="Script" id=2]
@@ -7,6 +7,9 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 13, 14 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 15.5, 22 )
 
 [sub_resource type="Animation" id=6]
 resource_name = "Death"
@@ -37,9 +40,6 @@ tracks/1/keys = {
 "method": "queue_free"
 } ]
 }
-
-[sub_resource type="Animation" id=4]
-length = 0.001
 
 [sub_resource type="Animation" id=2]
 resource_name = "idle_left"
@@ -99,7 +99,7 @@ tracks/1/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=10]
 resource_name = "run_left"
 length = 0.82
 loop = true
@@ -157,35 +157,22 @@ tracks/1/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 15.5, 22 )
-
 [sub_resource type="CircleShape2D" id=9]
 radius = 56.0
 
 [node name="Player" type="KinematicBody2D" groups=["Player"]]
 collision_mask = 30
 script = ExtResource( 2 )
-speed = null
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "idle_left"
-anims/Death = SubResource( 6 )
-anims/RESET = SubResource( 4 )
-anims/idle_left = SubResource( 2 )
-anims/idle_right = SubResource( 3 )
-anims/run_left = SubResource( 7 )
-anims/run_right = SubResource( 5 )
-
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 1, -23 )
 texture = ExtResource( 1 )
-flip_h = true
 hframes = 8
 vframes = 13
+frame = 24
 
 [node name="dash_timer" type="Timer" parent="."]
 wait_time = 0.1
@@ -202,8 +189,13 @@ collision_mask = 32
 modulate = Color( 0.619608, 0.117647, 0.117647, 1 )
 shape = SubResource( 8 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
-current = true
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle_left"
+anims/Death = SubResource( 6 )
+anims/idle_left = SubResource( 2 )
+anims/idle_right = SubResource( 3 )
+anims/run_left = SubResource( 10 )
+anims/run_right = SubResource( 5 )
 
 [node name="Gun" type="Sprite" parent="."]
 position = Vector2( 5, 9.5 )
@@ -215,23 +207,26 @@ cooldown = 10
 [node name="Muzzle" type="Position2D" parent="Gun"]
 position = Vector2( 8.75, -0.421052 )
 
-[node name="Interact stuff" type="Node" parent="."]
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
 
-[node name="Label" type="Label" parent="Interact stuff"]
-margin_left = -20.0
+[node name="interactLabel" type="Label" parent="."]
+margin_left = -96.0
 margin_top = -44.0
-margin_right = 20.0
+margin_right = 97.0
 margin_bottom = -30.0
 text = "Hello"
+align = 1
 
-[node name="interactionArea" type="Area2D" parent="Interact stuff"]
+[node name="interactionArea" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 64
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Interact stuff/interactionArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interactionArea"]
 shape = SubResource( 9 )
 
 [connection signal="timeout" from="dash_timer" to="." method="_on_dash_timer_timeout"]
 [connection signal="body_entered" from="hit_detector" to="." method="_on_hit_detector_body_entered"]
-[connection signal="area_entered" from="Interact stuff/interactionArea" to="." method="_on_interactionArea_area_entered"]
+[connection signal="area_entered" from="interactionArea" to="." method="_on_interactionArea_area_entered"]
+[connection signal="area_exited" from="interactionArea" to="." method="_on_interactionArea_area_exited"]
