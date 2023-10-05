@@ -14,10 +14,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Source/Actors/enemy.gd"
 }, {
-"base": "Area2D",
+"base": "Reference",
 "class": "interact",
 "language": "GDScript",
-"path": "res://interactArea.gd"
+"path": "res://Source/other stuff/interactArea.gd"
 } ]
 _global_script_class_icons={
 "Enemy": "",

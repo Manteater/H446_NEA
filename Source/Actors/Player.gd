@@ -22,7 +22,7 @@ func _physics_process(delta: float) -> void:
 	#moves the player
 	read_input(delta)
 	#animates the players movements
-	#animate(mouse)
+	animate(mouse)
 	
 	
 

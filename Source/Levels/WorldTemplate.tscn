@@ -46,9 +46,9 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 1/z_index = 0
 
 [sub_resource type="NavigationPolygon" id=6]
-vertices = PoolVector2Array( 1134, 1032, 1131, 972, 1651, 985, 1803, 1036, 1802, 125, 1651, 953, 1651, 466, 854, 174, 851, 114, 1083, 175, 1513, 463, 1081, 493, 1470, 485 )
+vertices = PoolVector2Array( 984, 1038, 972, 982, 1651, 985, 1803, 1036, 1802, 125, 1651, 953, 1651, 466, 854, 174, 851, 114, 1083, 175, 1513, 463, 1081, 493, 1470, 485 )
 polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 3, 2, 5 ), PoolIntArray( 4, 5, 6 ), PoolIntArray( 7, 8, 4, 9 ), PoolIntArray( 9, 4, 6, 10 ), PoolIntArray( 11, 9, 10, 12 ) ]
-outlines = [ PoolVector2Array( 851, 114, 854, 174, 1083, 175, 1081, 493, 1470, 485, 1513, 463, 1651, 466, 1651, 953, 1651, 985, 1131, 972, 1134, 1032, 1803, 1036, 1802, 125 ) ]
+outlines = [ PoolVector2Array( 851, 114, 854, 174, 1083, 175, 1081, 493, 1470, 485, 1513, 463, 1651, 466, 1651, 953, 1651, 985, 972, 982, 984, 1038, 1803, 1036, 1802, 125 ) ]
 
 [sub_resource type="NavigationPolygon" id=5]
 vertices = PoolVector2Array( 851, 106, 850, 491, 759, 473, 503, 178, 774, 557, 506, 557, 275, 114, 275, 181 )
@@ -56,9 +56,9 @@ polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 2, 4, 5, 3 ), PoolIntArra
 outlines = [ PoolVector2Array( 275, 114, 275, 181, 503, 178, 506, 557, 774, 557, 759, 473, 850, 491, 851, 106 ) ]
 
 [sub_resource type="NavigationPolygon" id=4]
-vertices = PoolVector2Array( 786, 571, 762, 481, 859, 496, 1131, 829, 510, 567, 562, 564, 559, 694, 478, 608, 237, 921, 123, 928, 118, 120, 272, 123, 273, 617, 780, 694, 1129, 1037, 232, 1039, 1501, 490, 1502, 836 )
-polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 5, 6, 7 ), PoolIntArray( 8, 9, 10, 11, 12 ), PoolIntArray( 13, 3, 14, 15, 8, 6 ), PoolIntArray( 16, 17, 3, 2 ), PoolIntArray( 13, 0, 3 ), PoolIntArray( 6, 8, 12, 7 ) ]
-outlines = [ PoolVector2Array( 118, 120, 123, 928, 237, 921, 232, 1039, 1129, 1037, 1131, 829, 1502, 836, 1501, 490, 859, 496, 762, 481, 786, 571, 780, 694, 559, 694, 562, 564, 510, 567, 478, 608, 273, 617, 272, 123 ) ]
+vertices = PoolVector2Array( 786, 571, 762, 481, 859, 496, 1523, 478, 1502, 836, 1131, 829, 856, 837, 790, 688, 510, 567, 572, 564, 569, 685, 478, 608, 123, 928, 115, 104, 268, 112, 273, 617, 222, 931, 858, 1036, 232, 1039 )
+polygons = [ PoolIntArray( 0, 1, 2 ), PoolIntArray( 2, 3, 4, 5 ), PoolIntArray( 0, 2, 5, 6, 7 ), PoolIntArray( 8, 9, 10, 11 ), PoolIntArray( 12, 13, 14, 15, 16 ), PoolIntArray( 6, 17, 18, 16, 15, 10 ), PoolIntArray( 10, 7, 6 ), PoolIntArray( 10, 15, 11 ) ]
+outlines = [ PoolVector2Array( 115, 104, 123, 928, 222, 931, 232, 1039, 858, 1036, 856, 837, 1131, 829, 1502, 836, 1523, 478, 859, 496, 762, 481, 786, 571, 790, 688, 569, 685, 572, 564, 510, 567, 478, 608, 273, 617, 268, 112 ) ]
 
 [node name="WorldTemplate" type="Node2D"]
 
@@ -81,7 +81,7 @@ position = Vector2( -12, 1 )
 navpoly = SubResource( 5 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
-position = Vector2( -10, 2 )
+position = Vector2( -9, 2 )
 navpoly = SubResource( 4 )
 
 [node name="Enemies" type="Node" parent="Navigation2D"]
