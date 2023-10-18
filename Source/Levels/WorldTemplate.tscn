@@ -78,6 +78,7 @@ navpoly = SubResource( 6 )
 
 [node name="NavigationPolygonInstance2" type="NavigationPolygonInstance" parent="Navigation2D"]
 position = Vector2( -12, 1 )
+scale = Vector2( 1.01211, 1.01077 )
 navpoly = SubResource( 5 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]

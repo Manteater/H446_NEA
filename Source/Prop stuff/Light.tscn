@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Assets/light.png" type="Texture" id=1]
+
+[node name="Light" type="Light2D"]
+texture = ExtResource( 1 )
+texture_scale = 3.45
+shadow_enabled = true

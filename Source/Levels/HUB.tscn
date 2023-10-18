@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Assets/wallTiles.tres" type="TileSet" id=1]
 [ext_resource path="res://Assets/floorTiles.tres" type="TileSet" id=2]
 [ext_resource path="res://Source/Actors/Player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Source/other stuff/NPC.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Source/Prop stuff/NPC.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Source/Prop stuff/Light.tscn" type="PackedScene" id=5]
 
 [node name="HUB" type="Node2D"]
 
@@ -30,5 +31,43 @@ position = Vector2( 147, 856 )
 [node name="NPC" parent="." instance=ExtResource( 4 )]
 position = Vector2( 1957, 1385 )
 
-[node name="Light2D" type="Light2D" parent="."]
-position = Vector2( 200, 469 )
+[node name="Lights" type="Node" parent="."]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="Lights"]
+color = Color( 0, 0, 0, 0.105882 )
+
+[node name="Light2" parent="Lights" instance=ExtResource( 5 )]
+position = Vector2( 223, 801 )
+
+[node name="Light7" parent="Lights/Light2" instance=ExtResource( 5 )]
+position = Vector2( 991, 43 )
+
+[node name="Light" parent="Lights/Light2" instance=ExtResource( 5 )]
+position = Vector2( -19, -479 )
+
+[node name="Light8" parent="Lights/Light2" instance=ExtResource( 5 )]
+position = Vector2( 2736, 12 )
+
+[node name="Light9" parent="Lights/Light2" instance=ExtResource( 5 )]
+position = Vector2( 3590, 12 )
+
+[node name="Light10" parent="Lights/Light2" instance=ExtResource( 5 )]
+position = Vector2( 4268, 7 )
+
+[node name="Light11" parent="Lights/Light2" instance=ExtResource( 5 )]
+position = Vector2( 5581, 44 )
+
+[node name="Light2" parent="Lights/Light2" instance=ExtResource( 5 )]
+position = Vector2( -30, 555 )
+
+[node name="Light3" parent="Lights/Light2" instance=ExtResource( 5 )]
+position = Vector2( 1816, 600 )
+
+[node name="Light4" parent="Lights/Light2" instance=ExtResource( 5 )]
+position = Vector2( 1786, 19 )
+
+[node name="Light5" parent="Lights/Light2" instance=ExtResource( 5 )]
+position = Vector2( 1280, -540 )
+
+[node name="Light6" parent="Lights/Light2" instance=ExtResource( 5 )]
+position = Vector2( 551, 548 )

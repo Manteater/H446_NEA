@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/TheUltimateWeaponsPack_Sheet.png-0f52a36aba053326006dab53d9b6f292.stex"
+path="res://.import/down.png-d1d4af30b0fbb5e0e1ae76e54fc101c2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/TheUltimateWeaponsPack_Sheet.png"
-dest_files=[ "res://.import/TheUltimateWeaponsPack_Sheet.png-0f52a36aba053326006dab53d9b6f292.stex" ]
+source_file="res://Assets/Tiles/down.png"
+dest_files=[ "res://.import/down.png-d1d4af30b0fbb5e0e1ae76e54fc101c2.stex" ]
 
 [params]
 

@@ -14,13 +14,25 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Source/Actors/enemy.gd"
 }, {
-"base": "Area2D",
+"base": "KinematicBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://Source/Actors/Player.gd"
+}, {
+"base": "Node2D",
+"class": "Room_",
+"language": "GDScript",
+"path": "res://Source/Levels/Rooms/baseRoom.gd"
+}, {
+"base": "Reference",
 "class": "interact",
 "language": "GDScript",
-"path": "res://Source/other stuff/interactArea.gd"
+"path": "res://Source/Prop stuff/interactArea.gd"
 } ]
 _global_script_class_icons={
 "Enemy": "",
+"Player": "",
+"Room_": "",
 "interact": ""
 }
 
@@ -29,6 +41,10 @@ _global_script_class_icons={
 config/name="H446_NEA Project"
 run/main_scene="res://Source/Levels/WorldTemplate.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+LevelGenerator="*res://Source/Levels/LevelGenerator.gd"
 
 [gui]
 

@@ -1,4 +1,5 @@
 extends KinematicBody2D
+class_name Player
 
 export var speed: = 300#determines speed of player
 onready var anim_player: AnimationPlayer = $AnimationPlayer#fetches the animationplayer node
@@ -22,7 +23,7 @@ func _physics_process(delta: float) -> void:
 	#moves the player
 	read_input(delta)
 	#animates the players movements
-	#animate(mouse)
+	animate(mouse)
 	
 	
 
