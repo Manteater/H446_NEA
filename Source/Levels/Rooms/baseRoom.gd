@@ -1,13 +1,14 @@
 extends Node2D
 class_name Room_
 
-onready var border = $borderorder #this is the part of the tilemap that outlines the room
+onready var border = $border #this is the part of the tilemap that outlines the room
+onready var connection = $connections
 export var avoid_collisions := true#this means the room avoids collisions with toher rooms
 export var add_connections := true#this means that the room can accept new connections
 
 enum Directions{down,left,right,up}#stores the connections in each direction
 
-func get_connection_tiles():
+func getConnectionTiles():
 	var result = {"up":[],"down":[],"left":[],"right":[]}#dictionary to store arrays of all connections in each direction
 	
 	for i in $connections.get_used_cells():#iterates over all used tiles in the tilemap of connections

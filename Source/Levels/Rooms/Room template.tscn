@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Assets/wallTiles.tres" type="TileSet" id=1]
+[ext_resource path="res://Assets/Tiles/wallTiles.tres" type="TileSet" id=1]
 [ext_resource path="res://Source/Actors/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Tech Dungeon/Props and Items/props and items x3.png" type="Texture" id=3]
-[ext_resource path="res://Assets/floorTiles.tres" type="TileSet" id=4]
+[ext_resource path="res://Assets/Tiles/floorTiles.tres" type="TileSet" id=4]
 [ext_resource path="res://Assets/Tech Dungeon/tileset x3.png" type="Texture" id=5]
 
 [sub_resource type="TileSet" id=26]

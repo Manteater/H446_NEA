@@ -58,32 +58,28 @@ func clearMap():
 		i.queue_free()
 
 func makeConnection(startCell:Vector2,direction = Directions.down,length=5):
-	#makes a connection from a stating cell
+	#makes a connection from a starting cell
 	var newStartPos:Vector2
-	
+	#print("startCell ",startCell)
 	for i in range(length):#makes the connection the specified length
-		var directionVec = directionsVector[direction]
+		var directionVec = directionsVector[direction]#gets the direction vector e.g. right is (0,1) as only x increases
+		#print("direction: ",directionVec)
 		var coordX = startCell.x + (directionVec*i).x#updates the vector by moving it in the direction specified
-		var coordY = startCell.x + (directionVec*i).y
-		
-		border.set_cell(coordX,coordY,0)
-		border.update_bitmask_area(Vector2(coordX,coordY))
-		if directionVec.y == 0:
+		var coordY = startCell.y + (directionVec*i).y
+		#print("coordinate (", coordX,",",coordY,")")
+		border.set_cell(coordX,coordY,1)
+		if directionVec.y == 0:#if the y value doesnt change then the path must be horizontal
 			#either up or down
 			#puts tiles up and below the y coordinates
 			border.set_cell(coordX,coordY+1,0)
-			border.update_bitmask_area(Vector2(coordX,coordY+1))
 			ground.set_cell(coordX,coordY+1,0)
 			border.set_cell(coordX,coordY-1,0)
-			border.update_bitmask_area(Vector2(coordX,coordY-1))
 			ground.set_cell(coordX,coordY-1,0)
-		else:
+		else:	#otherwise it must be vertical
 			#puts cells left and right of the coordinate
 			border.set_cell(coordX+1,coordY,0)
-			border.update_bitmask_area(Vector2(coordX,coordY+1))
 			ground.set_cell(coordX+1,coordY,0)
 			border.set_cell(coordX-1,coordY,0)
-			border.update_bitmask_area(Vector2(coordX,coordY-1))
 			ground.set_cell(coordX-1,coordY,0)
 
 		ground.set_cell(coordX,coordY,0)
@@ -112,24 +108,76 @@ func getOppositeDirection(direction):
 	if direction == Directions.left: return Directions.right
 	if direction == Directions.right: return Directions.left
 
-func saveRoomExits(currentCell:Vector2,room:Room_,exceptions = []):
+func saveRoomExits(currentCoord:Vector2,room:Room_,exceptions = []):
 	var exitCells = room.get_node("connections").get_used_cells()#gets the connections in the given room
 	for i in exitCells:
 		if i in exceptions: continue
-		#adds the coordinate to the current cooridinate - makinbg sure it is in relation to where the map is currently being generated
-		unusedDoors.append({"coord":currentCell+i, "direction":room.get_node("connections").get_cell(i.x,i.y)})
+		#adds the coordinate to the current cooridinate - making sure it is in relation to where the map is currently being generated
+		unusedDoors.append({"coord":i, "direction":room.get_node("connections").get_cell(i.x,i.y)})
 		
-		
-func drawRoom(curreenCell:Vector2,room:Room_):
-	#fetch all of the tilemaps native to the room
-	var borderCells = room.get_node("border").get_used_cells()
-	var groundCells = room.get_node("ground").get_used_cells()
-	var connectionCells = room.get_node("connections").get_used_cells()
+func getRandomDoor():
+	var door = unusedDoors[randi()%unusedDoors.size()]#picks a random door from the unused doors list
+	unusedDoors.erase(door)#the door is used so it is deletedfrom the unused door list
+	return door
 	
-	for i in borderCells:
-		border.set_cell()
 
 
+func generateMap(numberOfRooms):
+	var rooms= loadRoomPaths(roomFolderPath)#loads all of the rooms into an array
+	var currentCoord = Vector2.ZERO#the current coord from which the room is spawned
+	var currentCell = Vector2.ZERO
+	var roomsLeft = numberOfRooms
+	var door = null
+	var separation = 1920#the distance between the centres of the rooms
+	var direction = null
+	while roomsLeft>0:
+		var room = load(rooms[randi()%rooms.size()]).instance()#random room is picked from the list
+		if roomsLeft == numberOfRooms:
+			#the first room is placed
+			room.global_position = Vector2.ZERO#position is set to (0,0)
+			saveRoomExits(currentCell,room)#the exits are saved
+			door = getRandomDoor()#a new door is fetched
+
+		else:
+			#the direction of the door is determined
+			#and the location of the next room is calculated
+			if door["direction"]==0:
+				#down
+				#currentCoord = door["coord"]
+				currentCoord.y+=separation#creates the separation between the rooms
+			elif door["direction"]==1:
+				#left
+				#currentCoord = door["coord"]
+				currentCoord.x-=separation
+			elif door["direction"]==2:
+				#right
+				#currentCoord = door["coord"]
+				currentCoord.x+=separation
+			else:
+				#up
+				#currentCoord = door["coord"]
+				currentCoord.y-=separation
+			room.global_position = currentCoord#room position is set to current cell
+			currentCell = border.world_to_map(currentCoord)
+			saveRoomExits(currentCell,room)#the exits are saved into unusedDoors
+			var doorCoord = currentCell+door["coord"]
+			#print(door["coord"])
+			#print(door["direction"])
+#			if (door["coord"].x>50)or(door["coord"].y>50)or (door["coord"].x<-50)or (door["coord"].y<-50):
+#				var start = border.world_to_map(door["coord"])
+#				print("start",start)
+#				makeConnection(start,door["direction"],10)
+#			else:
+#				makeConnection(door["coord"],door["direction"],10)
+			makeConnection(doorCoord,door["direction"],10)#a path is made from the door and 10 cells into the doors direction
+			door = getRandomDoor()# a random door is fetched from all unused doors
+			
+		
+		get_tree().get_current_scene().add_child(room)
+		
+		
+		print(unusedDoors)
+		roomsLeft-=1
 
 
 

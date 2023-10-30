@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Assets/wallTiles.tres" type="TileSet" id=1]
-[ext_resource path="res://Assets/floorTiles.tres" type="TileSet" id=2]
+[ext_resource path="res://Assets/Tiles/wallTiles.tres" type="TileSet" id=1]
+[ext_resource path="res://Assets/Tiles/floorTiles.tres" type="TileSet" id=2]
 [ext_resource path="res://Source/Actors/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Source/Prop stuff/NPC.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Source/Prop stuff/Light.tscn" type="PackedScene" id=5]
@@ -34,7 +34,7 @@ position = Vector2( 1957, 1385 )
 [node name="Lights" type="Node" parent="."]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Lights"]
-color = Color( 0, 0, 0, 0.105882 )
+color = Color( 1, 1, 1, 0.486275 )
 
 [node name="Light2" parent="Lights" instance=ExtResource( 5 )]
 position = Vector2( 223, 801 )
@@ -70,4 +70,4 @@ position = Vector2( 1786, 19 )
 position = Vector2( 1280, -540 )
 
 [node name="Light6" parent="Lights/Light2" instance=ExtResource( 5 )]
-position = Vector2( 551, 548 )
+position = Vector2( 602, 112 )
