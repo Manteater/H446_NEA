@@ -130,15 +130,19 @@ func generateMap(numberOfRooms):
 	var door = null
 	var separation = 1920#the distance between the centres of the rooms
 	var direction = null
+	var doorCoord = null
+	var room: Room_
 	while roomsLeft>0:
-		var room = load(rooms[randi()%rooms.size()]).instance()#random room is picked from the list
+		
 		if roomsLeft == numberOfRooms:
 			#the first room is placed
+			room = load(rooms[randi()%rooms.size()]).instance()#random room is picked from the list
 			room.global_position = Vector2.ZERO#position is set to (0,0)
 			saveRoomExits(currentCell,room)#the exits are saved
-			door = getRandomDoor()#a new door is fetched
 
 		else:
+			#door is fetched
+			door = getRandomDoor()
 			#the direction of the door is determined
 			#and the location of the next room is calculated
 			if door["direction"]==0:
@@ -157,27 +161,23 @@ func generateMap(numberOfRooms):
 				#up
 				#currentCoord = door["coord"]
 				currentCoord.y-=separation
-			room.global_position = currentCoord#room position is set to current cell
-			currentCell = border.world_to_map(currentCoord)
-			saveRoomExits(currentCell,room)#the exits are saved into unusedDoors
-			var doorCoord = currentCell+door["coord"]
-			#print(door["coord"])
-			#print(door["direction"])
-#			if (door["coord"].x>50)or(door["coord"].y>50)or (door["coord"].x<-50)or (door["coord"].y<-50):
-#				var start = border.world_to_map(door["coord"])
-#				print("start",start)
-#				makeConnection(start,door["direction"],10)
-#			else:
-#				makeConnection(door["coord"],door["direction"],10)
+			#connection is drawn
+			#coordinate of the door is calculated as a tilemap co-oridinate
+			doorCoord = currentCell+door["coord"]
 			makeConnection(doorCoord,door["direction"],10)#a path is made from the door and 10 cells into the doors direction
-			door = getRandomDoor()# a random door is fetched from all unused doors
+			#the room is placed at the end of the connection
+			room = load(rooms[randi()%rooms.size()]).instance()#random room is picked from the list
+			room.global_position = currentCoord#room position is set to current actual co-ordinate
+			currentCell = border.world_to_map(currentCoord)#new cell is calculated from the position of the room
+			saveRoomExits(currentCell,room)#the exits are saved into unusedDoors
+			
 			
 		
-		get_tree().get_current_scene().add_child(room)
+		get_tree().get_current_scene().add_child(room)#the room is placed
 		
 		
-		print(unusedDoors)
-		roomsLeft-=1
+		#print(unusedDoors)
+		roomsLeft-=1#roomselft is reduced by one
 
 
 
