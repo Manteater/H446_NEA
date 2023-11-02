@@ -3,8 +3,14 @@ class_name Room_
 
 onready var border = $border #this is the part of the tilemap that outlines the room
 onready var connection = $connections
-export var avoid_collisions := true#this means the room avoids collisions with toher rooms
-export var add_connections := true#this means that the room can accept new connections
+#export var avoid_collisions := true#this means the room avoids collisions with toher rooms
+#export var add_connections := true#this means that the room can accept new connections
+export var rightRadius: int
+export var leftRadius: int
+export var downRadius: int
+export var upRadius: int
+
+
 
 enum Directions{down,left,right,up}#stores the connections in each direction
 

@@ -76,7 +76,7 @@ format = 1
 zoom = Vector2( 4, 4 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 19, -426 )
+position = Vector2( 1347, 260 )
 z_index = 1
 speed = 800
 
@@ -84,6 +84,6 @@ speed = 800
 zoom = Vector2( 4, 4 )
 
 [node name="CollisionShape2D" parent="Player/interactionArea" index="0"]
-position = Vector2( 2, -4 )
+position = Vector2( 2, -1 )
 
 [editable path="Player"]

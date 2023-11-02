@@ -1,6 +1,7 @@
 extends Node
 
 const roomFolderPath = "res://Source/Levels/Rooms/NormalRooms/"#the directory at which the rooms are stored
+const startRoomPath= "res://Source/Levels/Rooms/startRoom.tscn"
 
 var border : TileMap
 var ground : TileMap
@@ -116,6 +117,7 @@ func saveRoomExits(currentCoord:Vector2,room:Room_,exceptions = []):
 		unusedDoors.append({"coord":i, "direction":room.get_node("connections").get_cell(i.x,i.y)})
 		
 func getRandomDoor():
+	print(unusedDoors.size())
 	var door = unusedDoors[randi()%unusedDoors.size()]#picks a random door from the unused doors list
 	unusedDoors.erase(door)#the door is used so it is deletedfrom the unused door list
 	return door
@@ -130,36 +132,41 @@ func generateMap(numberOfRooms):
 	var door = null
 	var separation = 1920#the distance between the centres of the rooms
 	var direction = null
+	var prevDirection = null
 	var doorCoord = null
 	var room: Room_
+	var validDoor = false
 	while roomsLeft>0:
 		
 		if roomsLeft == numberOfRooms:
 			#the first room is placed
-			room = load(rooms[randi()%rooms.size()]).instance()#random room is picked from the list
+			room = load(startRoomPath).instance()#random room is picked from the list
 			room.global_position = Vector2.ZERO#position is set to (0,0)
 			saveRoomExits(currentCell,room)#the exits are saved
+			get_tree().get_current_scene().add_child(room)#the room is placed
+			print(unusedDoors)
 
 		else:
-			#door is fetched
-			door = getRandomDoor()
+			validDoor = false
+			while not validDoor:
+				#door is fetched
+				door = getRandomDoor()
+				direction = door["direction"]
+				if direction != getOppositeDirection(prevDirection):
+					validDoor = true
 			#the direction of the door is determined
 			#and the location of the next room is calculated
 			if door["direction"]==0:
 				#down
-				#currentCoord = door["coord"]
 				currentCoord.y+=separation#creates the separation between the rooms
 			elif door["direction"]==1:
 				#left
-				#currentCoord = door["coord"]
 				currentCoord.x-=separation
 			elif door["direction"]==2:
 				#right
-				#currentCoord = door["coord"]
 				currentCoord.x+=separation
 			else:
 				#up
-				#currentCoord = door["coord"]
 				currentCoord.y-=separation
 			#connection is drawn
 			#coordinate of the door is calculated as a tilemap co-oridinate
@@ -170,10 +177,11 @@ func generateMap(numberOfRooms):
 			room.global_position = currentCoord#room position is set to current actual co-ordinate
 			currentCell = border.world_to_map(currentCoord)#new cell is calculated from the position of the room
 			saveRoomExits(currentCell,room)#the exits are saved into unusedDoors
-			
+			get_tree().get_current_scene().add_child(room)#the room is placed
+			prevDirection = direction
 			
 		
-		get_tree().get_current_scene().add_child(room)#the room is placed
+		
 		
 		
 		#print(unusedDoors)
