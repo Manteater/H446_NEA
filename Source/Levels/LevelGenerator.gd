@@ -109,6 +109,8 @@ func getOppositeDirection(direction):
 	if direction == Directions.left: return Directions.right
 	if direction == Directions.right: return Directions.left
 
+
+
 func saveRoomExits(currentCoord:Vector2,room:Room_,exceptions = []):
 	var exitCells = room.get_node("connections").get_used_cells()#gets the connections in the given room
 	for i in exitCells:
@@ -117,11 +119,45 @@ func saveRoomExits(currentCoord:Vector2,room:Room_,exceptions = []):
 		unusedDoors.append({"coord":i, "direction":room.get_node("connections").get_cell(i.x,i.y)})
 		
 func getRandomDoor():
-	print(unusedDoors.size())
 	var door = unusedDoors[randi()%unusedDoors.size()]#picks a random door from the unused doors list
 	unusedDoors.erase(door)#the door is used so it is deletedfrom the unused door list
 	return door
-	
+
+func isOverlapping(newRoomPosition,newRoomSize = Vector2(500,500)):
+	var existingRooms = get_tree().get_nodes_in_group("rooms")#all existing rooms are stored in an array
+	var newRoomRect = Rect2(newRoomPosition,newRoomSize)#the projection of the new room is calculated
+	for room in existingRooms:
+		var existingRoomRect = Rect2(room.coord, room.getRoomSize())#the exisitng room is turned into a rectangle
+		if existingRoomRect.intersects(newRoomRect):#if they intersect then the room cannot be placed there
+			return true
+	return false
+
+func calcNewPosition(door,currentCoord,separation=1920):
+	#calculates the new co ordinate of the room
+	if door["direction"]==0:
+		#down
+		currentCoord.y+=separation#creates the separation between the rooms
+	elif door["direction"]==1:
+		#left
+		currentCoord.x-=separation
+	elif door["direction"]==2:
+		#right
+		currentCoord.x+=separation
+	else:
+		#up
+		currentCoord.y-=separation
+	return currentCoord
+
+func removeCollisions(room):
+	var roomTiles = room.get_node("border")#the tilemap for the walls is fetched from the room node
+	var worldUsed = ground.get_used_cells()#the cells that are used for the hallways are fetched
+	var roomUsed = roomTiles.get_used_cells()#the cells used in the tilemap for the room walls are fetched
+	for cell in roomUsed:
+		var worldPos = roomTiles.to_global(roomTiles.map_to_world(cell))#the global position of each cell in the room node is calculated
+		var localCell = ground.world_to_map(worldPos)#the map position of the cell that this co ordinate corresponds to is calculated
+		if ground.get_cell(localCell.x, localCell.y) != -1:#if the cell is set then it means that tiles are overlapping
+			roomTiles.set_cell(cell.x, cell.y, -1)#then the room tile is set to dissapear
+
 
 
 func generateMap(numberOfRooms):
@@ -132,59 +168,46 @@ func generateMap(numberOfRooms):
 	var door = null
 	var separation = 1920#the distance between the centres of the rooms
 	var direction = null
-	var prevDirection = null
 	var doorCoord = null
-	var room: Room_
 	var validDoor = false
+	var room: Room_
 	while roomsLeft>0:
 		
 		if roomsLeft == numberOfRooms:
 			#the first room is placed
 			room = load(startRoomPath).instance()#random room is picked from the list
 			room.global_position = Vector2.ZERO#position is set to (0,0)
+			room.coord = Vector2(0,0)
 			saveRoomExits(currentCell,room)#the exits are saved
 			get_tree().get_current_scene().add_child(room)#the room is placed
-			print(unusedDoors)
 
 		else:
-			validDoor = false
-			while not validDoor:
-				#door is fetched
-				door = getRandomDoor()
-				direction = door["direction"]
-				if direction != getOppositeDirection(prevDirection):
-					validDoor = true
 			#the direction of the door is determined
 			#and the location of the next room is calculated
-			if door["direction"]==0:
-				#down
-				currentCoord.y+=separation#creates the separation between the rooms
-			elif door["direction"]==1:
-				#left
-				currentCoord.x-=separation
-			elif door["direction"]==2:
-				#right
-				currentCoord.x+=separation
-			else:
-				#up
-				currentCoord.y-=separation
+			validDoor = false
+			while not validDoor:
+				door = getRandomDoor()# a new doors is fetched
+				
+				var newCoord = calcNewPosition(door,currentCoord)#the estimated new co ordinate is calculated
+				if not isOverlapping(newCoord,Vector2(500,500)):#the collision is checked
+					validDoor = true
+					currentCoord = newCoord
+			
+			direction = door["direction"]
 			#connection is drawn
 			#coordinate of the door is calculated as a tilemap co-oridinate
 			doorCoord = currentCell+door["coord"]
 			makeConnection(doorCoord,door["direction"],10)#a path is made from the door and 10 cells into the doors direction
+			removeCollisions(room)
 			#the room is placed at the end of the connection
 			room = load(rooms[randi()%rooms.size()]).instance()#random room is picked from the list
 			room.global_position = currentCoord#room position is set to current actual co-ordinate
+			
 			currentCell = border.world_to_map(currentCoord)#new cell is calculated from the position of the room
 			saveRoomExits(currentCell,room)#the exits are saved into unusedDoors
 			get_tree().get_current_scene().add_child(room)#the room is placed
-			prevDirection = direction
-			
-		
-		
-		
-		
-		#print(unusedDoors)
+			room.coord = currentCoord
+			removeCollisions(room)
 		roomsLeft-=1#roomselft is reduced by one
 
 

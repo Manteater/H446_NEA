@@ -9,7 +9,7 @@ export var rightRadius: int
 export var leftRadius: int
 export var downRadius: int
 export var upRadius: int
-
+var coord = null
 
 
 enum Directions{down,left,right,up}#stores the connections in each direction
@@ -25,3 +25,8 @@ func getConnectionTiles():
 			Directions.up: result.up.append(i)
 	
 	return result
+
+func getRoomSize():
+	var x = (rightRadius+leftRadius)*96
+	var y = (upRadius+downRadius)*96
+	return Vector2(x,y)
