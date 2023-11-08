@@ -68,7 +68,7 @@ func makeConnection(startCell:Vector2,direction = Directions.down,length=5):
 		var coordX = startCell.x + (directionVec*i).x#updates the vector by moving it in the direction specified
 		var coordY = startCell.y + (directionVec*i).y
 		#print("coordinate (", coordX,",",coordY,")")
-		border.set_cell(coordX,coordY,1)
+		ground.set_cell(coordX,coordY,1)
 		if directionVec.y == 0:#if the y value doesnt change then the path must be horizontal
 			#either up or down
 			#puts tiles up and below the y coordinates
@@ -78,9 +78,9 @@ func makeConnection(startCell:Vector2,direction = Directions.down,length=5):
 			ground.set_cell(coordX,coordY-1,0)
 		else:	#otherwise it must be vertical
 			#puts cells left and right of the coordinate
-			border.set_cell(coordX+1,coordY,0)
+			border.set_cell(coordX+1,coordY,2)
 			ground.set_cell(coordX+1,coordY,0)
-			border.set_cell(coordX-1,coordY,0)
+			border.set_cell(coordX-1,coordY,1)
 			ground.set_cell(coordX-1,coordY,0)
 
 		ground.set_cell(coordX,coordY,0)
@@ -149,14 +149,32 @@ func calcNewPosition(door,currentCoord,separation=1920):
 	return currentCoord
 
 func removeCollisions(room):
-	var roomTiles = room.get_node("border")#the tilemap for the walls is fetched from the room node
-	var worldUsed = ground.get_used_cells()#the cells that are used for the hallways are fetched
-	var roomUsed = roomTiles.get_used_cells()#the cells used in the tilemap for the room walls are fetched
-	for cell in roomUsed:
-		var worldPos = roomTiles.to_global(roomTiles.map_to_world(cell))#the global position of each cell in the room node is calculated
+	var roomConnectionTiles = room.get_node("connections")#the door tiles from the room are fetched
+	var roomBorderTiles = room.get_node("border")#the tilemap for the walls is fetched from the room node
+	var roomGroundtiles = room.get_node("floor")
+	var roomGroundUsed  = roomGroundtiles.get_used_cells()
+	var roomConnectionUsed = roomConnectionTiles.get_used_cells()
+	for cell in roomConnectionUsed:#each potential door is iterated over
+		var worldPos = roomBorderTiles.to_global(roomBorderTiles.map_to_world(cell))#the global position of each cell in the room node is calculated
 		var localCell = ground.world_to_map(worldPos)#the map position of the cell that this co ordinate corresponds to is calculated
 		if ground.get_cell(localCell.x, localCell.y) != -1:#if the cell is set then it means that tiles are overlapping
-			roomTiles.set_cell(cell.x, cell.y, -1)#then the room tile is set to dissapear
+			roomBorderTiles.set_cell(cell.x, cell.y, -1)#then the room tile is set to dissapear
+	for cell in roomGroundUsed:#every room cell used it iterated over
+		var worldPos = roomGroundtiles.to_global(roomGroundtiles.map_to_world(cell))#the global co ordinates of the tile is calculated
+		var localCell = border.world_to_map(worldPos)#the corresponding cell from the connection is fetched
+		if border.get_cell(localCell.x, localCell.y) != -1:#if the cell is collifding then it is removed 
+			border.set_cell(localCell.x,localCell.y,-1)
+
+
+func calcConnectionLength(room,direction,separation):
+	var radius = null
+	match direction:
+		0: radius = room.upRadius
+		1: radius = room.rightRadius
+		2: radius = room.leftRadius
+		3: radius = room.downRadius
+	var length = (separation - (radius*96))/96
+	return length
 
 
 
@@ -171,6 +189,7 @@ func generateMap(numberOfRooms):
 	var doorCoord = null
 	var validDoor = false
 	var room: Room_
+	var prevRoom:Room_
 	while roomsLeft>0:
 		
 		if roomsLeft == numberOfRooms:
@@ -180,27 +199,30 @@ func generateMap(numberOfRooms):
 			room.coord = Vector2(0,0)
 			saveRoomExits(currentCell,room)#the exits are saved
 			get_tree().get_current_scene().add_child(room)#the room is placed
+			prevRoom = room
 
 		else:
 			#the direction of the door is determined
 			#and the location of the next room is calculated
 			validDoor = false
+			room = load(rooms[randi()%rooms.size()]).instance()#random room is picked from the list
 			while not validDoor:
 				door = getRandomDoor()# a new doors is fetched
 				
-				var newCoord = calcNewPosition(door,currentCoord)#the estimated new co ordinate is calculated
-				if not isOverlapping(newCoord,Vector2(500,500)):#the collision is checked
+				var newCoord = calcNewPosition(door,currentCoord,separation)#the estimated new co ordinate is calculated
+				if not isOverlapping(newCoord,room.getRoomSize()):#the collision is checked
 					validDoor = true
 					currentCoord = newCoord
 			
 			direction = door["direction"]
+			var connectionLength = calcConnectionLength(room,direction,separation)
 			#connection is drawn
 			#coordinate of the door is calculated as a tilemap co-oridinate
 			doorCoord = currentCell+door["coord"]
-			makeConnection(doorCoord,door["direction"],10)#a path is made from the door and 10 cells into the doors direction
-			removeCollisions(room)
+			makeConnection(doorCoord,door["direction"],connectionLength)#a path is made from the door and 10 cells into the doors direction
+			removeCollisions(prevRoom)
 			#the room is placed at the end of the connection
-			room = load(rooms[randi()%rooms.size()]).instance()#random room is picked from the list
+			
 			room.global_position = currentCoord#room position is set to current actual co-ordinate
 			
 			currentCell = border.world_to_map(currentCoord)#new cell is calculated from the position of the room
@@ -208,6 +230,8 @@ func generateMap(numberOfRooms):
 			get_tree().get_current_scene().add_child(room)#the room is placed
 			room.coord = currentCoord
 			removeCollisions(room)
+			prevRoom = room
+			print(unusedDoors)
 		roomsLeft-=1#roomselft is reduced by one
 
 

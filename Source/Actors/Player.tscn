@@ -200,6 +200,7 @@ anims/run_right = SubResource( 5 )
 [node name="Gun" type="Sprite" parent="."]
 position = Vector2( 9, 3 )
 scale = Vector2( 1.14286, 1.1875 )
+z_index = 2
 texture = ExtResource( 3 )
 script = ExtResource( 4 )
 cooldown = 10
