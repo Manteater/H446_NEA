@@ -1,10 +1,8 @@
-class_name Enemy
 extends KinematicBody2D
+class_name Actor
 
-
-
-var health : int = 100
-var speed : int = 200
+export var health : int = 100
+export var speed : int = 200
 
 
 func applyDamage(amount):

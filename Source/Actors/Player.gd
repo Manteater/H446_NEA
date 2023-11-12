@@ -1,10 +1,8 @@
-extends KinematicBody2D
+extends Actor
 class_name Player
 
-export var speed: = 300#determines speed of player
 onready var anim_player: AnimationPlayer = $AnimationPlayer#fetches the animationplayer node
 onready var tree = get_tree()#fetches access to the node tree
-export onready var health = 3
 onready var interactions = []#stores all the objects being interacted with in a stack
 onready var interactLabel = $interactLabel
 var player = null

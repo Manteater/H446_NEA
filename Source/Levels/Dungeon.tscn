@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Source/Levels/Rooms/Dungeon.gd" type="Script" id=1]
+[ext_resource path="res://Source/Levels/Dungeon.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Tiles/connection_arrows.tres" type="TileSet" id=2]
 [ext_resource path="res://Source/Actors/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/Tech Dungeon/tileset x3.png" type="Texture" id=4]

@@ -56,7 +56,7 @@ cell_size = Vector2( 96, 96 )
 collision_layer = 0
 collision_mask = 0
 format = 1
-tile_data = PoolIntArray( -262144, 3, 0, 65530, 1, 0, 6, 2, 0, 393216, 0, 0 )
+tile_data = PoolIntArray( -262144, 3, 0, 65530, 1, 0, 131078, 2, 0, 458750, 0, 0 )
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
 

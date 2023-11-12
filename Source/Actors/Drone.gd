@@ -1,4 +1,4 @@
-extends Enemy
+extends Actor
 #exported variables
 #this defines the speed of the drone when it is chasing the player
 export var patrolSpeed = 150#this defines the speed of the drone when it is patrolling

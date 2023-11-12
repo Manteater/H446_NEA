@@ -111,7 +111,7 @@ func getOppositeDirection(direction):
 
 
 
-func saveRoomExits(currentCoord:Vector2,room:Room_,exceptions = []):
+func saveRoomExits(_currentCoord:Vector2,room:Room_,exceptions = []):
 	var exitCells = room.get_node("connections").get_used_cells()#gets the connections in the given room
 	for i in exitCells:
 		if i in exceptions: continue
@@ -123,7 +123,7 @@ func getRandomDoor():
 	unusedDoors.erase(door)#the door is used so it is deletedfrom the unused door list
 	return door
 
-func isOverlapping(newRoomPosition,newRoomSize = Vector2(500,500)):
+func isOverlapping(newRoomPosition,newRoomSize):
 	var existingRooms = get_tree().get_nodes_in_group("rooms")#all existing rooms are stored in an array
 	var newRoomRect = Rect2(newRoomPosition,newRoomSize)#the projection of the new room is calculated
 	for room in existingRooms:
@@ -149,15 +149,14 @@ func calcNewPosition(door,currentCoord,separation=1920):
 	return currentCoord
 
 func removeCollisions(room):
-	var roomConnectionTiles = room.get_node("connections")#the door tiles from the room are fetched
 	var roomBorderTiles = room.get_node("border")#the tilemap for the walls is fetched from the room node
 	var roomGroundtiles = room.get_node("floor")
 	var roomGroundUsed  = roomGroundtiles.get_used_cells()
-	var roomConnectionUsed = roomConnectionTiles.get_used_cells()
-	for cell in roomConnectionUsed:#each potential door is iterated over
+	var roomBorderUsed= roomBorderTiles.get_used_cells()
+	for cell in roomBorderUsed:#each potential door is iterated over
 		var worldPos = roomBorderTiles.to_global(roomBorderTiles.map_to_world(cell))#the global position of each cell in the room node is calculated
 		var localCell = ground.world_to_map(worldPos)#the map position of the cell that this co ordinate corresponds to is calculated
-		if ground.get_cell(localCell.x, localCell.y) != -1:#if the cell is set then it means that tiles are overlapping
+		if (ground.get_cell(localCell.x, localCell.y) != -1)and(border.get_cell(localCell.x,localCell.y)==-1):#if the cell is set then it means that tiles are overlapping
 			roomBorderTiles.set_cell(cell.x, cell.y, -1)#then the room tile is set to dissapear
 	for cell in roomGroundUsed:#every room cell used it iterated over
 		var worldPos = roomGroundtiles.to_global(roomGroundtiles.map_to_world(cell))#the global co ordinates of the tile is calculated
@@ -207,8 +206,7 @@ func generateMap(numberOfRooms):
 			validDoor = false
 			room = load(rooms[randi()%rooms.size()]).instance()#random room is picked from the list
 			while not validDoor:
-				door = getRandomDoor()# a new doors is fetched
-				
+				door = getRandomDoor()# a new door is fetched
 				var newCoord = calcNewPosition(door,currentCoord,separation)#the estimated new co ordinate is calculated
 				if not isOverlapping(newCoord,room.getRoomSize()):#the collision is checked
 					validDoor = true
@@ -218,20 +216,18 @@ func generateMap(numberOfRooms):
 			var connectionLength = calcConnectionLength(room,direction,separation)
 			#connection is drawn
 			#coordinate of the door is calculated as a tilemap co-oridinate
-			doorCoord = currentCell+door["coord"]
-			makeConnection(doorCoord,door["direction"],connectionLength)#a path is made from the door and 10 cells into the doors direction
+			doorCoord = border.world_to_map(border.map_to_world(currentCell)+border.map_to_world(door["coord"]))
+			print(doorCoord)
+			makeConnection(doorCoord,direction,connectionLength)#a path is made from the door and 10 cells into the doors direction
 			removeCollisions(prevRoom)
 			#the room is placed at the end of the connection
-			
 			room.global_position = currentCoord#room position is set to current actual co-ordinate
-			
 			currentCell = border.world_to_map(currentCoord)#new cell is calculated from the position of the room
 			saveRoomExits(currentCell,room)#the exits are saved into unusedDoors
 			get_tree().get_current_scene().add_child(room)#the room is placed
 			room.coord = currentCoord
 			removeCollisions(room)
 			prevRoom = room
-			print(unusedDoors)
 		roomsLeft-=1#roomselft is reduced by one
 
 
