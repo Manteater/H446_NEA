@@ -183,7 +183,7 @@ func generateMap(numberOfRooms):
 	var currentCell = Vector2.ZERO
 	var roomsLeft = numberOfRooms
 	var door = null
-	var separation = 1920#the distance between the centres of the rooms
+	var separation = 3264#the distance between the centres of the rooms
 	var direction = null
 	var doorCoord = null
 	var validDoor = false
