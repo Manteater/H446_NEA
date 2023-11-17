@@ -1,0 +1,87 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/UI/fonts/Blanka.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://Assets/UI/UI themes/kenneyUI.tres" type="Theme" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 85
+font_data = ExtResource( 1 )
+
+[node name="HUD" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 1, 1, 0 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
+margin_left = 250.0
+margin_top = 50.0
+margin_right = 774.0
+margin_bottom = 550.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 15
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer"]
+margin_right = 524.0
+margin_bottom = 88.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 1 )
+text = "Paused"
+align = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="ColorRect/VBoxContainer"]
+margin_top = 103.0
+margin_right = 524.0
+margin_bottom = 191.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ContinueButton" type="Button" parent="ColorRect/VBoxContainer/MarginContainer3"]
+margin_right = 524.0
+margin_bottom = 88.0
+theme = ExtResource( 2 )
+text = "Continue"
+
+[node name="MarginContainer4" type="MarginContainer" parent="ColorRect/VBoxContainer"]
+margin_top = 206.0
+margin_right = 524.0
+margin_bottom = 294.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SettingsButton" type="Button" parent="ColorRect/VBoxContainer/MarginContainer4"]
+margin_right = 524.0
+margin_bottom = 88.0
+theme = ExtResource( 2 )
+text = "Settings"
+
+[node name="MarginContainer5" type="MarginContainer" parent="ColorRect/VBoxContainer"]
+margin_top = 309.0
+margin_right = 524.0
+margin_bottom = 397.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="saveGameButton" type="Button" parent="ColorRect/VBoxContainer/MarginContainer5"]
+margin_right = 524.0
+margin_bottom = 88.0
+theme = ExtResource( 2 )
+text = "Save Game"
+
+[node name="MarginContainer6" type="MarginContainer" parent="ColorRect/VBoxContainer"]
+margin_top = 412.0
+margin_right = 524.0
+margin_bottom = 500.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="exitButton" type="Button" parent="ColorRect/VBoxContainer/MarginContainer6"]
+margin_right = 524.0
+margin_bottom = 88.0
+theme = ExtResource( 2 )
+text = "Quit"
