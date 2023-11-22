@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Source/Levels/Dungeon.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Tiles/connection_arrows.tres" type="TileSet" id=2]
 [ext_resource path="res://Source/Actors/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/Tech Dungeon/tileset x3.png" type="Texture" id=4]
+[ext_resource path="res://Source/UI/HUD.tscn" type="PackedScene" id=5]
 
 [sub_resource type="TileSet" id=2]
 0/name = "tileset x3.png 0"
@@ -129,11 +130,15 @@ format = 1
 zoom = Vector2( 4, 4 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( -13, -2 )
+position = Vector2( -133, -244 )
 z_index = 1
-speed = 800
 
 [node name="Camera2D" parent="Player" index="7"]
 zoom = Vector2( 4, 4 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 99
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource( 5 )]
 
 [editable path="Player"]

@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Assets/UI/UI themes/kenneyUI.tres" type="Theme" id=1]
 [ext_resource path="res://Assets/UI/fonts/Blanka.otf" type="DynamicFontData" id=2]
 [ext_resource path="res://Assets/UI/SpaceStationGenerator.png" type="Texture" id=3]
+[ext_resource path="res://Source/UI/Buttons/button.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Source/UI/Buttons/exitButton.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Source/UI/Buttons/changeSceneButton.tscn" type="PackedScene" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 100
@@ -20,8 +23,10 @@ texture = ExtResource( 3 )
 expand = true
 
 [node name="Label" type="Label" parent="."]
-margin_left = 200.0
-margin_right = 824.0
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -317.5
+margin_right = 317.5
 margin_bottom = 450.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 1 )
@@ -48,11 +53,9 @@ margin_bottom = 44.251
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="NewGameButton" type="Button" parent="VBoxContainer1/MarginContainer"]
-margin_right = 207.0
-margin_bottom = 44.251
-theme = ExtResource( 1 )
+[node name="changeSceneButton" parent="VBoxContainer1/MarginContainer" instance=ExtResource( 6 )]
 text = "New Game"
+next_scene_path = "res://Source/Levels/HUB.tscn"
 
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer1"]
 margin_top = 64.0
@@ -61,11 +64,9 @@ margin_bottom = 108.251
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="LoadGameButton" type="Button" parent="VBoxContainer1/MarginContainer2"]
-margin_right = 207.0
-margin_bottom = 44.251
-theme = ExtResource( 1 )
+[node name="loadGameButton" parent="VBoxContainer1/MarginContainer2" instance=ExtResource( 6 )]
 text = "Load Game"
+next_scene_path = "res://Source/UI/Menus/loadGamesMenu.tscn"
 
 [node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer1"]
 margin_top = 128.0
@@ -74,10 +75,7 @@ margin_bottom = 172.251
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="SettingsButton" type="Button" parent="VBoxContainer1/MarginContainer3"]
-margin_right = 207.0
-margin_bottom = 44.251
-theme = ExtResource( 1 )
+[node name="SettingsButton" parent="VBoxContainer1/MarginContainer3" instance=ExtResource( 4 )]
 text = "Settings"
 
 [node name="MarginContainer4" type="MarginContainer" parent="VBoxContainer1"]
@@ -87,8 +85,6 @@ margin_bottom = 236.251
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ExitButton" type="Button" parent="VBoxContainer1/MarginContainer4"]
+[node name="exitButton" parent="VBoxContainer1/MarginContainer4" instance=ExtResource( 5 )]
 margin_right = 207.0
 margin_bottom = 44.251
-theme = ExtResource( 1 )
-text = "Exit"

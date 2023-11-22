@@ -52,11 +52,11 @@ func clearMap():
 	wall.clear()#clears all walls
 	connectionArrows.clear()#clears all connecting arrow pointers
 	
-	for i in objects.get_children():
-		if i is Player:#removes the player if the player is still in the world
-			i.delete()
-			continue
-		i.queue_free()
+#	for i in objects.get_children():
+#		if i is Player:#removes the player if the player is still in the world
+#			i.delete()
+#			continue
+#		i.queue_free()
 
 func makeConnection(startCell:Vector2,direction = Directions.down,length=5):
 	#makes a connection from a starting cell
@@ -111,7 +111,7 @@ func getOppositeDirection(direction):
 
 
 
-func saveRoomExits(_currentCoord:Vector2,room:Room_,exceptions = []):
+func saveRoomExits(currentCoord:Vector2,room:Room_,exceptions = []):
 	var exitCells = room.get_node("connections").get_used_cells()#gets the connections in the given room
 	for i in exitCells:
 		if i in exceptions: continue
@@ -175,6 +175,23 @@ func calcConnectionLength(room,direction,separation):
 	var length = (separation - (radius*96))/96
 	return length
 
+func calcSeparation(room,prevRoom,direction):
+	var radius = null#radius of the new room
+	var prevRadius = null#radius of the old room
+	match direction:#matches the directio0n with the radius in
+		# the oppposite direction as this will be the side of the room facing to the door
+		0: radius = room.upRadius
+		1: radius = room.rightRadius
+		2: radius = room.leftRadius
+		3: radius = room.downRadius
+	match direction:#matches the direction with the radius in the same direction as it is the same door,
+		0:prevRadius = prevRoom.downRadius
+		1:prevRadius = prevRoom.downRadius
+		2:prevRadius = prevRoom.downRadius
+		3:prevRadius = prevRoom.downRadius
+	var separation = (96*radius)+(96*prevRadius)+(10*96)#everything is in multiples of 96 as the tileset is 96x96
+	return separation
+
 
 
 func generateMap(numberOfRooms):
@@ -183,7 +200,7 @@ func generateMap(numberOfRooms):
 	var currentCell = Vector2.ZERO
 	var roomsLeft = numberOfRooms
 	var door = null
-	var separation = 3264#the distance between the centres of the rooms
+	var separation = 1920#the distance between the centres of the rooms
 	var direction = null
 	var doorCoord = null
 	var validDoor = false
@@ -207,17 +224,19 @@ func generateMap(numberOfRooms):
 			room = load(rooms[randi()%rooms.size()]).instance()#random room is picked from the list
 			while not validDoor:
 				door = getRandomDoor()# a new door is fetched
+				direction = door["direction"]
+				separation = calcSeparation(prevRoom,room,direction)
 				var newCoord = calcNewPosition(door,currentCoord,separation)#the estimated new co ordinate is calculated
 				if not isOverlapping(newCoord,room.getRoomSize()):#the collision is checked
 					validDoor = true
 					currentCoord = newCoord
 			
-			direction = door["direction"]
+			
 			var connectionLength = calcConnectionLength(room,direction,separation)
 			#connection is drawn
 			#coordinate of the door is calculated as a tilemap co-oridinate
 			doorCoord = border.world_to_map(border.map_to_world(currentCell)+border.map_to_world(door["coord"]))
-			print(doorCoord)
+			#print(unusedDoors)
 			makeConnection(doorCoord,direction,connectionLength)#a path is made from the door and 10 cells into the doors direction
 			removeCollisions(prevRoom)
 			#the room is placed at the end of the connection

@@ -210,6 +210,7 @@ position = Vector2( 10.5, -1.68421 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
+smoothing_enabled = true
 
 [node name="interactLabel" type="Label" parent="."]
 margin_left = -96.0

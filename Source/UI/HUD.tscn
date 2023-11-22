@@ -1,31 +1,69 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Assets/UI/fonts/Blanka.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://Assets/UI/UI themes/kenneyUI.tres" type="Theme" id=2]
+[ext_resource path="res://Source/UI/Buttons/changeSceneButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Source/UI/Buttons/exitButton.tscn" type="PackedScene" id=4]
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Control
+
+onready var tree = get_tree()#this is the parent scene
+onready var pauseOverlay = $PauseOverlay#fetches the pauseoverlay node
+var paused := false setget setPaused#this calls the setPuased function everytime it is changed
+
+
+
+func setPaused(value):
+	#makes everything paused and causes the pause overly to be visible
+	paused = value
+	tree.paused = value
+	pauseOverlay.visible = value
+
+func _unhandled_input(event):#triggers when a button is pressed
+	if event.is_action_pressed(\"escape\"):#if that button is the escape key the game is paused
+		self.paused = not paused
+		tree.set_input_as_handled()
+
+func _on_ContinueButton_button_up():#if the continue button is pressed the game is unpaused again
+	self.paused = not paused
+	tree.set_input_as_handled()
+"
 
 [sub_resource type="DynamicFont" id=1]
 size = 85
 font_data = ExtResource( 1 )
 
 [node name="HUD" type="Control"]
+pause_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = SubResource( 2 )
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="PauseOverlay" type="ColorRect" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 color = Color( 1, 1, 1, 0 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
-margin_left = 250.0
-margin_top = 50.0
-margin_right = 774.0
-margin_bottom = 550.0
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseOverlay"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -262.0
+margin_top = -250.0
+margin_right = 262.0
+margin_bottom = 250.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 15
 
-[node name="Label" type="Label" parent="ColorRect/VBoxContainer"]
+[node name="Label" type="Label" parent="PauseOverlay/VBoxContainer"]
 margin_right = 524.0
 margin_bottom = 88.0
 size_flags_horizontal = 3
@@ -34,54 +72,52 @@ custom_fonts/font = SubResource( 1 )
 text = "Paused"
 align = 1
 
-[node name="MarginContainer3" type="MarginContainer" parent="ColorRect/VBoxContainer"]
+[node name="MarginContainer3" type="MarginContainer" parent="PauseOverlay/VBoxContainer"]
 margin_top = 103.0
 margin_right = 524.0
 margin_bottom = 191.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ContinueButton" type="Button" parent="ColorRect/VBoxContainer/MarginContainer3"]
+[node name="ContinueButton" type="Button" parent="PauseOverlay/VBoxContainer/MarginContainer3"]
 margin_right = 524.0
 margin_bottom = 88.0
 theme = ExtResource( 2 )
 text = "Continue"
 
-[node name="MarginContainer4" type="MarginContainer" parent="ColorRect/VBoxContainer"]
+[node name="MarginContainer4" type="MarginContainer" parent="PauseOverlay/VBoxContainer"]
 margin_top = 206.0
 margin_right = 524.0
 margin_bottom = 294.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="SettingsButton" type="Button" parent="ColorRect/VBoxContainer/MarginContainer4"]
+[node name="SettingsButton" type="Button" parent="PauseOverlay/VBoxContainer/MarginContainer4"]
 margin_right = 524.0
 margin_bottom = 88.0
 theme = ExtResource( 2 )
 text = "Settings"
 
-[node name="MarginContainer5" type="MarginContainer" parent="ColorRect/VBoxContainer"]
+[node name="MarginContainer5" type="MarginContainer" parent="PauseOverlay/VBoxContainer"]
 margin_top = 309.0
 margin_right = 524.0
 margin_bottom = 397.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="saveGameButton" type="Button" parent="ColorRect/VBoxContainer/MarginContainer5"]
+[node name="changeSceneButton" parent="PauseOverlay/VBoxContainer/MarginContainer5" instance=ExtResource( 3 )]
 margin_right = 524.0
 margin_bottom = 88.0
-theme = ExtResource( 2 )
-text = "Save Game"
+text = "SaveGame"
+next_scene_path = "res://Source/UI/Menus/saveGamesMenu.tscn"
 
-[node name="MarginContainer6" type="MarginContainer" parent="ColorRect/VBoxContainer"]
+[node name="MarginContainer6" type="MarginContainer" parent="PauseOverlay/VBoxContainer"]
 margin_top = 412.0
 margin_right = 524.0
 margin_bottom = 500.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="exitButton" type="Button" parent="ColorRect/VBoxContainer/MarginContainer6"]
-margin_right = 524.0
-margin_bottom = 88.0
-theme = ExtResource( 2 )
-text = "Quit"
+[node name="exitButton" parent="PauseOverlay/VBoxContainer/MarginContainer6" instance=ExtResource( 4 )]
+
+[connection signal="button_up" from="PauseOverlay/VBoxContainer/MarginContainer3/ContinueButton" to="." method="_on_ContinueButton_button_up"]
