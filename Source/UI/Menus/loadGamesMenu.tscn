@@ -40,7 +40,6 @@ size_flags_vertical = 3
 margin_right = 265.0
 margin_bottom = 136.0
 text = "Load Game 1"
-next_scene_path = "res://Source/Levels/HUB.tscn"
 
 [node name="MarginContainer2" type="MarginContainer" parent="GridContainer"]
 margin_left = 275.0
@@ -53,7 +52,7 @@ size_flags_vertical = 3
 margin_right = 264.0
 margin_bottom = 136.0
 text = "LoaD Game 2"
-saveGamePath = "user://save2"
+saveGamePath = "user://save2.tres"
 
 [node name="MarginContainer3" type="MarginContainer" parent="GridContainer"]
 margin_left = 549.0
@@ -66,7 +65,7 @@ size_flags_vertical = 3
 margin_right = 264.0
 margin_bottom = 136.0
 text = "LoaD Game 3"
-saveGamePath = "user://save3"
+saveGamePath = "user://save3.tres"
 
 [node name="MarginContainer4" type="MarginContainer" parent="GridContainer"]
 margin_top = 146.0
@@ -79,7 +78,7 @@ size_flags_vertical = 3
 margin_right = 265.0
 margin_bottom = 135.0
 text = "LoaD Game 4"
-saveGamePath = "user://save4"
+saveGamePath = "user://save4.tres"
 
 [node name="MarginContainer5" type="MarginContainer" parent="GridContainer"]
 margin_left = 275.0
@@ -93,7 +92,7 @@ size_flags_vertical = 3
 margin_right = 264.0
 margin_bottom = 135.0
 text = "LoaD Game 5"
-saveGamePath = "user://save5"
+saveGamePath = "user://save5.tres"
 
 [node name="MarginContainer6" type="MarginContainer" parent="GridContainer"]
 margin_left = 549.0
@@ -107,4 +106,4 @@ size_flags_vertical = 3
 margin_right = 264.0
 margin_bottom = 135.0
 text = "LoaD Game 6"
-saveGamePath = "user://save6"
+saveGamePath = "user://save6.tres"

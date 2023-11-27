@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-var stats: Character setget set_stats
+var stats: Character 
 
 onready var anim_player: AnimationPlayer = $AnimationPlayer#fetches the animationplayer node
 onready var tree = get_tree()#fetches access to the node tree
@@ -11,15 +11,16 @@ var _velocity = Vector2.ZERO
 var currentHealth = null
 var currentSpeed = null
 
-func _ready()-> void:
-	stats = Character.new()
-	#player = tree.get_nodes_in_group("Player")[0]#fetches the player node to access certain attributes
+func _ready():
+	stats = Global.characterSave#the ststs file is simply copied down from the global variable
 	currentSpeed = stats.speed
 	currentHealth = stats.maxHealth
 	updateInteractions()
 	
 
 func _physics_process(delta: float) -> void:
+	stats = Global.characterSave#refreshes the stats every frame, this means that other nodes can change variables in it
+	#allowing the player to upgrade
 	if currentHealth == 0:
 		die()
 	#fetches the position vector of the cursor
@@ -28,11 +29,6 @@ func _physics_process(delta: float) -> void:
 	read_input()
 	#animates the players movements
 	animate(mouse)
-	
-	
-func set_stats(newStats: Character):
-	stats = newStats
-	set_physics_process(stats!=null)
 
 
 func get_direction() -> Vector2:#returns a vector2 for the direction of movement based on the input

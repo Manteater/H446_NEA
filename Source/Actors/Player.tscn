@@ -175,7 +175,7 @@ vframes = 13
 frame = 24
 
 [node name="dash_timer" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.2
 one_shot = true
 
 [node name="dash_cooldown" type="Timer" parent="."]
@@ -203,7 +203,6 @@ scale = Vector2( 1.14286, 1.1875 )
 z_index = 2
 texture = ExtResource( 3 )
 script = ExtResource( 4 )
-cooldown = 10
 
 [node name="Muzzle" type="Position2D" parent="Gun"]
 position = Vector2( 10.5, -1.68421 )

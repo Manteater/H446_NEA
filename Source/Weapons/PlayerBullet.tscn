@@ -1,9 +1,40 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Assets/Tech Dungeon/Projectiles/projectiles x3.png" type="Texture" id=1]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 15, 4.75 )
+[sub_resource type="CircleShape2D" id=3]
+radius = 13.0216
+
+[sub_resource type="Animation" id=4]
+resource_name = "Collide"
+length = 0.3
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 25, 26, 27, 28 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
 
 [sub_resource type="Animation" id=2]
 resource_name = "alive"
@@ -19,7 +50,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 5, 6, 7, 8 ]
+"values": [ 15, 16, 17, 18 ]
 }
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
@@ -29,14 +60,15 @@ collision_mask = 6
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2( 0, 1.25 )
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 hframes = 5
 vframes = 8
-frame = 5
+frame = 26
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "alive"
+anims/Collide = SubResource( 4 )
 anims/alive = SubResource( 2 )

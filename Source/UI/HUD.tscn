@@ -1,34 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Assets/UI/fonts/Blanka.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://Assets/UI/UI themes/kenneyUI.tres" type="Theme" id=2]
-[ext_resource path="res://Source/UI/Buttons/changeSceneButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Source/UI/Buttons/button.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Source/UI/Buttons/exitButton.tscn" type="PackedScene" id=4]
-
-[sub_resource type="GDScript" id=2]
-script/source = "extends Control
-
-onready var tree = get_tree()#this is the parent scene
-onready var pauseOverlay = $PauseOverlay#fetches the pauseoverlay node
-var paused := false setget setPaused#this calls the setPuased function everytime it is changed
-
-
-
-func setPaused(value):
-	#makes everything paused and causes the pause overly to be visible
-	paused = value
-	tree.paused = value
-	pauseOverlay.visible = value
-
-func _unhandled_input(event):#triggers when a button is pressed
-	if event.is_action_pressed(\"escape\"):#if that button is the escape key the game is paused
-		self.paused = not paused
-		tree.set_input_as_handled()
-
-func _on_ContinueButton_button_up():#if the continue button is pressed the game is unpaused again
-	self.paused = not paused
-	tree.set_input_as_handled()
-"
+[ext_resource path="res://Source/UI/Menus/saveGamesMenu.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Source/UI/HUD.gd" type="Script" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 85
@@ -40,7 +17,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = SubResource( 2 )
+script = ExtResource( 6 )
 
 [node name="PauseOverlay" type="ColorRect" parent="."]
 visible = false
@@ -105,11 +82,10 @@ margin_bottom = 397.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="changeSceneButton" parent="PauseOverlay/VBoxContainer/MarginContainer5" instance=ExtResource( 3 )]
+[node name="button" parent="PauseOverlay/VBoxContainer/MarginContainer5" instance=ExtResource( 3 )]
 margin_right = 524.0
 margin_bottom = 88.0
-text = "SaveGame"
-next_scene_path = "res://Source/UI/Menus/saveGamesMenu.tscn"
+text = "Save Game"
 
 [node name="MarginContainer6" type="MarginContainer" parent="PauseOverlay/VBoxContainer"]
 margin_top = 412.0
@@ -120,4 +96,8 @@ size_flags_vertical = 3
 
 [node name="exitButton" parent="PauseOverlay/VBoxContainer/MarginContainer6" instance=ExtResource( 4 )]
 
+[node name="saveGamesMenu" parent="." instance=ExtResource( 5 )]
+visible = false
+
 [connection signal="button_up" from="PauseOverlay/VBoxContainer/MarginContainer3/ContinueButton" to="." method="_on_ContinueButton_button_up"]
+[connection signal="button_up" from="PauseOverlay/VBoxContainer/MarginContainer5/button" to="." method="_on_button_button_up"]
