@@ -5,6 +5,7 @@ var bullet = preload("res://Source/Weapons/PlayerBullet.tscn")
 
 var reloadTimer = 0#this is the timer that tracks when the cooldown is over
 var projectiles = []#the array to store all of the bullets
+var angles = [0,0.1,-0.1,0.2,-0.2,0.4,-0.3,0.4,-0.4]
 onready var stats = Global.characterSave
 
 func _ready():
@@ -32,7 +33,7 @@ func _physics_process(delta: float)-> void:
 			#print(collider.get_class())
 			if (collider.is_in_group("enemy")):
 				#print("hit")
-				collider.applyDamage(50)
+				collider.applyDamage(stats.bulletDamage)
 				p.get_node("AnimationPlayer").play("Collide")
 				projectiles.erase(i)#the infromation is erased from the array
 			elif i["bounces"]>0:
@@ -56,14 +57,20 @@ func animate(mouse):
 func fire():
 	if reloadTimer < stats.cooldown: return#this makes sure the gun can only shoot when the cooldown is over
 	else: reloadTimer = 0
-	var velocity = Vector2.ZERO
-	var projectile = bullet.instance()#creates an instance of the bullet scene
-	projectile.add_collision_exception_with(get_parent())#prevents the bullet from colliding with the parent
-	projectile.rotation=rotation#rotates the bullet to face the same way as the gun
-	projectile.global_position = $Muzzle.global_position#the bullet is moved to the position of the muzzle
-	get_node("/root").add_child(projectile)#the bullet is set as the child of the parent node
-	velocity = Vector2(stats.bulletSpeed,0).rotated(projectile.rotation)#the bullet is set to move at a certain speed
-	projectiles.append({"projectile":projectile,"velocity":velocity,"ticks":0,"bounces":stats.bulletBounces})#the information about the bullet is stored in the array as a dictionary
+	var bulletsLeft = stats.bulletAmount#tracks how many bullets there are left to fire
+	var bulletNum = 0#tracks which bullet is being fired
+	while bulletsLeft > 0:#while there are still bullets left to be shot
+		bulletsLeft-=1
+		var angle = angles[bulletNum]#chosses the angle from the angles stored in the array
+		bulletNum+=1
+		var velocity = Vector2.ZERO
+		var projectile = bullet.instance()#creates an instance of the bullet scene
+		projectile.add_collision_exception_with(get_parent())#prevents the bullet from colliding with the parent
+		projectile.rotation=rotation+angle#rotates the bullet to face the same way as the gun and taking into account the spread.
+		projectile.global_position = $Muzzle.global_position#the bullet is moved to the position of the muzzle
+		get_node("/root").add_child(projectile)#the bullet is set as the child of the parent node
+		velocity = Vector2(stats.bulletSpeed,0).rotated(projectile.rotation)#the bullet is set to move at a certain speed
+		projectiles.append({"projectile":projectile,"velocity":velocity,"ticks":0,"bounces":stats.bulletBounces})#the information about the bullet is stored in the array as a dictionary
 	
 	
 	
