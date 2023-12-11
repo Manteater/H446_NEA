@@ -29,23 +29,23 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Source/Tools/saveGame.gd"
 }, {
+"base": "TextureButton",
+"class": "SkillNode",
+"language": "GDScript",
+"path": "res://Source/UI/Buttons/skillButton.gd"
+}, {
 "base": "Area2D",
 "class": "interact",
 "language": "GDScript",
 "path": "res://Source/Prop stuff/interactArea.gd"
-}, {
-"base": "TextureButton",
-"class": "skillNode",
-"language": "GDScript",
-"path": "res://Source/UI/Buttons/skillButton.gd"
 } ]
 _global_script_class_icons={
 "Actor": "",
 "Character": "",
 "Room_": "",
 "SaveGame": "",
-"interact": "",
-"skillNode": ""
+"SkillNode": "",
+"interact": ""
 }
 
 [application]
