@@ -34,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Source/UI/Buttons/skillButton.gd"
 }, {
+"base": "Node",
+"class": "Upgrade",
+"language": "GDScript",
+"path": "res://Source/Prop stuff/Upgrades/Upgrade.gd"
+}, {
 "base": "Area2D",
 "class": "interact",
 "language": "GDScript",
@@ -45,6 +50,7 @@ _global_script_class_icons={
 "Room_": "",
 "SaveGame": "",
 "SkillNode": "",
+"Upgrade": "",
 "interact": ""
 }
 

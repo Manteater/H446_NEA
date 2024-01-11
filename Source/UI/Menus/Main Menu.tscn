@@ -49,42 +49,45 @@ custom_constants/separation = 20
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer1"]
 margin_right = 207.0
-margin_bottom = 44.251
+margin_bottom = 42.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="changeSceneButton" parent="VBoxContainer1/MarginContainer" instance=ExtResource( 6 )]
+margin_bottom = 42.0
 text = "New Game"
 next_scene_path = "res://Source/Levels/HUB.tscn"
 
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer1"]
-margin_top = 64.0
+margin_top = 62.0
 margin_right = 207.0
-margin_bottom = 108.251
+margin_bottom = 104.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="loadGameButton" parent="VBoxContainer1/MarginContainer2" instance=ExtResource( 6 )]
+margin_bottom = 42.0
 text = "Load Game"
 next_scene_path = "res://Source/UI/Menus/loadGamesMenu.tscn"
 
 [node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer1"]
-margin_top = 128.0
+margin_top = 124.0
 margin_right = 207.0
-margin_bottom = 172.251
+margin_bottom = 166.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="SettingsButton" parent="VBoxContainer1/MarginContainer3" instance=ExtResource( 4 )]
+margin_bottom = 42.0
 text = "Settings"
 
 [node name="MarginContainer4" type="MarginContainer" parent="VBoxContainer1"]
-margin_top = 192.0
+margin_top = 186.0
 margin_right = 207.0
-margin_bottom = 236.251
+margin_bottom = 228.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="exitButton" parent="VBoxContainer1/MarginContainer4" instance=ExtResource( 5 )]
 margin_right = 207.0
-margin_bottom = 44.251
+margin_bottom = 42.0
