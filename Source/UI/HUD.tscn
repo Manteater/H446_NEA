@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Assets/UI/fonts/Blanka.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://Assets/UI/UI themes/kenneyUI.tres" type="Theme" id=2]
@@ -6,6 +6,28 @@
 [ext_resource path="res://Source/UI/Buttons/exitButton.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Source/UI/Menus/saveGamesMenu.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Source/UI/HUD.gd" type="Script" id=6]
+[ext_resource path="res://Assets/UI/UI themes/kenneyUI-red.tres" type="Theme" id=7]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0, 0, 0, 0.364706 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 1, 0, 0, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color( 0.054902, 0.054902, 0.054902, 1 )
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 20
+shadow_color = Color( 0.0666667, 0.0666667, 0.0666667, 0.6 )
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0, 0, 0, 0 )
 
 [sub_resource type="DynamicFont" id=1]
 size = 85
@@ -18,6 +40,35 @@ anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 6 )
+
+[node name="xpBar" type="ProgressBar" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -442.0
+margin_top = 10.0
+margin_right = 442.0
+margin_bottom = 24.0
+theme = ExtResource( 2 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_styles/bg = SubResource( 2 )
+step = 1.0
+value = 50.0
+percent_visible = false
+
+[node name="healthBar" type="ProgressBar" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 442.0
+margin_top = 43.0
+margin_right = 692.0
+margin_bottom = 57.0
+rect_rotation = -180.0
+theme = ExtResource( 7 )
+custom_styles/fg = SubResource( 3 )
+custom_styles/bg = SubResource( 4 )
+step = 1.0
+value = 50.0
+percent_visible = false
 
 [node name="PauseOverlay" type="ColorRect" parent="."]
 visible = false

@@ -1,8 +1,9 @@
 extends Resource
 class_name Character
 
-export var speed := 300
+export var speed := 1000
 export var dashSpeed := 1000
+export var health: int
 
 export var level := 1
 export var xp := 0

@@ -248,6 +248,7 @@ func generateMap(numberOfRooms):
 			removeCollisions(room)
 			prevRoom = room
 		roomsLeft-=1#roomselft is reduced by one
+	print(unusedDoors)
 
 
 

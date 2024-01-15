@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Assets/Tiles/wallTiles.tres" type="TileSet" id=1]
 [ext_resource path="res://Assets/Tiles/floorTiles.tres" type="TileSet" id=2]
 [ext_resource path="res://Source/Actors/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Source/Prop stuff/NPC.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Source/Prop stuff/Light.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Source/Tools/Teleporter.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Source/Levels/Dungeon.tscn" type="PackedScene" id=7]
 
 [node name="HUB" type="Node2D"]
 
@@ -30,6 +32,13 @@ position = Vector2( 147, 856 )
 
 [node name="NPC" parent="." instance=ExtResource( 4 )]
 position = Vector2( 1957, 1385 )
+
+[node name="Teleporter" parent="." instance=ExtResource( 6 )]
+position = Vector2( 7538, 799 )
+scene = ExtResource( 7 )
+
+[node name="CollisionShape2D" parent="Teleporter" index="0"]
+position = Vector2( -87, 27 )
 
 [node name="Lights" type="Node" parent="."]
 
@@ -71,3 +80,5 @@ position = Vector2( 1280, -540 )
 
 [node name="Light6" parent="Lights/Light2" instance=ExtResource( 5 )]
 position = Vector2( 602, 112 )
+
+[editable path="Teleporter"]

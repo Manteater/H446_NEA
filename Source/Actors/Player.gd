@@ -20,6 +20,7 @@ func _ready():
 
 func _physics_process(delta: float) -> void:
 	stats = Global.characterSave#refreshes the stats every frame, this means that other nodes can change variables in it
+	stats.health = currentHealth
 	#allowing the player to upgrade
 	if currentHealth == 0:
 		die()

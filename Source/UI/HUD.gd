@@ -3,8 +3,21 @@ extends Control
 onready var tree = get_tree()#this is the parent scene
 onready var pauseOverlay = $PauseOverlay#fetches the pauseoverlay node
 var paused := false setget setPaused#this calls the setPuased function everytime it is changed
+onready var healthbar = $healthBar
+onready var expBar = $xpBar
+onready var playerStats = Global.characterSave
+
+func _ready():
+	healthbar.max_value = playerStats.maxHealth
+	
+	
 
 
+func _physics_process(delta):
+	playerStats = Global.characterSave
+	healthbar.value = playerStats.health
+	expBar.value = playerStats.xp
+	
 
 func setPaused(value):
 	#makes everything paused and causes the pause overly to be visible
