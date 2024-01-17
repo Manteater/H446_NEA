@@ -165,7 +165,8 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=7]
 resource_name = "shootLeft"
-length = 0.7
+length = 0.75
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -183,12 +184,26 @@ tracks/1/path = NodePath("Sprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
-tracks/1/enabled = true
+tracks/1/enabled = false
 tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.7 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "shoot"
+} ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -218,6 +233,20 @@ tracks/1/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.7 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "shoot"
+} ]
+}
 
 [sub_resource type="CircleShape2D" id=9]
 radius = 24.1868
@@ -239,6 +268,7 @@ texture = ExtResource( 1 )
 flip_h = true
 hframes = 10
 vframes = 16
+frame = 20
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/dieLeft = SubResource( 1 )
@@ -277,4 +307,5 @@ position = Vector2( 1, 0 )
 shape = SubResource( 11 )
 
 [connection signal="body_entered" from="WallDetector" to="." method="_on_WallDetector_body_entered"]
-[connection signal="area_shape_entered" from="Range" to="." method="_on_Range_area_shape_entered"]
+[connection signal="body_entered" from="Range" to="." method="_on_Range_body_entered"]
+[connection signal="body_exited" from="Range" to="." method="_on_Range_body_exited"]

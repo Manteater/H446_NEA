@@ -6,6 +6,8 @@ var paused := false setget setPaused#this calls the setPuased function everytime
 onready var healthbar = $healthBar
 onready var expBar = $xpBar
 onready var playerStats = Global.characterSave
+onready var xpLvl = $xpLvl
+onready var xpPoints = $xpPoints
 
 func _ready():
 	healthbar.max_value = playerStats.maxHealth
@@ -15,9 +17,14 @@ func _ready():
 
 func _physics_process(delta):
 	playerStats = Global.characterSave
-	healthbar.value = playerStats.health
+	healthbar.value = (playerStats.health/playerStats.maxHealth)*100
 	expBar.value = playerStats.xp
-	
+	xpLvl.text = "Lvl: "+ String(playerStats.level)
+	xpPoints.text = "Pts: "+String(playerStats.xp)
+	if playerStats.xp == playerStats.xpNeeded:
+		Global.characterSave.level += 1
+		Global.characterSave.xpNeeded = Global.characterSave.level*10 +100
+		Global.characterSave.xp = 0
 
 func setPaused(value):
 	#makes everything paused and causes the pause overly to be visible

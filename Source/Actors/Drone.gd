@@ -10,6 +10,7 @@ onready var lineOfSight = $lineOfSight#access to the RayCast2D
 onready var agent = $NavigationAgent2D#access to the navigation
 onready var pathTimer = $pathTimer#timer to update the pathfinding
 onready var player := get_node(playerPath)
+onready var bullet = preload("res://Source/Weapons/droneBullet.tscn")
 
 #bools
 var patrolling = true#this is the state that the drone spawns in at
@@ -18,11 +19,16 @@ var playerInRange = false#determines if the player is in range to shoot at
 var collided = false#is used to detect when the drone has collided with a wall
 var canShoot = false#determines if the drone can shoot at the player or not
 
+#weapons
+var projectiles = []
+export var damage = 20
+
 #other
 var velocity := Vector2.ZERO
 var collider = null
 var rng = RandomNumberGenerator.new() #used to make random numbers
 var patrolDirection = null
+
 
 func _ready():
 		pathTimer.connect("timeout",self,"updatePathfinding")#calls the updatepathfinding function everytime the timer timesout
@@ -34,12 +40,18 @@ func _physics_process(delta):
 		checkPlayer()#checks if the player is in sight
 	if patrolling:
 		patrol(patrolDirection)#if the drone should be patrolling the procecdure is called
-	animate()#plays the drones animations
+		animate()#plays the drones animations
 	if playerSpotted:
 		patrolling = false
 		updatePathfinding()#sets the target location of the path as the player 
 	if not patrolling:#if the drone has seen the player at least once
-		move(delta)
+		if playerInRange:
+			animPlayer.play("shootLeft")
+			#yield(animPlayer, "animation_finished")
+		else:
+			animate()
+			move(delta)
+	controlBullets(delta)
 
 func move(delta):
 	if agent.is_navigation_finished():#if the navigation is completed it cancels the function
@@ -85,6 +97,41 @@ func checkPlayer():
 	else:
 		playerSpotted = false
 		
+func shoot():
+	var velocity = Vector2.ZERO
+	var projectile = bullet.instance()
+	projectile.rotation = lineOfSight.rotation
+	projectile.add_collision_exception_with(get_parent())#prevents the bullet from colliding with the parent
+	projectile.global_position = global_position
+	get_node("/root").add_child(projectile)#the bullet is set as the child of the root node
+	velocity = Vector2(500,0).rotated(projectile.rotation)
+	projectiles.append({"projectile":projectile,"velocity":velocity,"ticks":0})
+
+func controlBullets(delta):
+	for i in projectiles:#loop through the array
+		var p = i["projectile"]#the bullet object is stored in the variable p
+		var velocity = i["velocity"]
+		print(velocity)
+		if i["ticks"] >= 200:#checks if the game has ticked more than the bulletlifetime
+			projectiles.erase(i)#the infromation is erased from the array
+		var collision = p.move_and_collide(velocity*delta)#an in-built function is used to make the bullet move
+		if (collision):
+			var collider = collision.collider
+			if (collider.is_in_group("Player")):
+				collider.applyDamage(damage)
+			projectiles.erase(i)
+		i["ticks"]+=1#ticks are incremented
+	
+	
+
 
 func _on_WallDetector_body_entered(body):
 	collided = true#when a walls hitbox enters the drones hitbox this function is called
+
+
+func _on_Range_body_entered(body):
+	playerInRange = true
+
+
+func _on_Range_body_exited(body):
+	playerInRange = false

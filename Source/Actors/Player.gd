@@ -54,6 +54,7 @@ func read_input():
 		dash()
 	
 	if Input.is_action_pressed("shoot"):
+		print("shoot")
 		var gun = $Gun
 		gun.fire()
 	

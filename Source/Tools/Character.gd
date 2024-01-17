@@ -8,12 +8,13 @@ export var health: int
 export var level := 1
 export var xp := 0
 export var maxHealth := 100
-export var xpPoints = 0
+export var xpNeeded = 100
 export var money = 0
 
 export var bulletSpeed = 1000#the speed that the bullet will travel at
-export var cooldown = 10#this is the cooldown in between shots
+export var cooldown = 5#this is the cooldown in between shots
 export var bulletLifetime = 200#this tracks how long the bullets are alive for
-export var bulletBounces = 0
-export var bulletAmount = 0
+export var bulletBounces = 3
+export var bulletAmount = 3
 export var bulletDamage = 10
+
