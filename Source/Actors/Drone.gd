@@ -20,8 +20,8 @@ var collided = false#is used to detect when the drone has collided with a wall
 var canShoot = false#determines if the drone can shoot at the player or not
 
 #weapons
-var projectiles = []
-export var damage = 20
+var projectiles = []#stores all of the drones projectiles
+export var damage = 20#the damage that the drones' bullets do
 
 #other
 var velocity := Vector2.ZERO
@@ -46,11 +46,10 @@ func _physics_process(delta):
 		updatePathfinding()#sets the target location of the path as the player 
 	if not patrolling:#if the drone has seen the player at least once
 		if playerInRange:
-			animPlayer.play("shootLeft")
-			#yield(animPlayer, "animation_finished")
+			animPlayer.play("shootLeft")#the shootLeft animation calls the shoot function at the end so this just means the drone shoots
 		else:
-			animate()
-			move(delta)
+			animate()#animates the drone as per usual
+			move(delta)#the drone moves toward the player
 	controlBullets(delta)
 
 func move(delta):
@@ -98,14 +97,14 @@ func checkPlayer():
 		playerSpotted = false
 		
 func shoot():
-	var velocity = Vector2.ZERO
-	var projectile = bullet.instance()
-	projectile.rotation = lineOfSight.rotation
+	var velocity = Vector2.ZERO#the velocity of the bullet
+	var projectile = bullet.instance()#a new instance of the drone bullet is created
+	projectile.rotation = lineOfSight.rotation# the line of sight tracks the player so the bullets rotation can be simply set to this
 	projectile.add_collision_exception_with(get_parent())#prevents the bullet from colliding with the parent
-	projectile.global_position = global_position
+	projectile.global_position = global_position#bullet position is set to the same position as the drone
 	get_node("/root").add_child(projectile)#the bullet is set as the child of the root node
-	velocity = Vector2(500,0).rotated(projectile.rotation)
-	projectiles.append({"projectile":projectile,"velocity":velocity,"ticks":0})
+	velocity = Vector2(500,0).rotated(projectile.rotation)#bullet velocity is at a speed of 500 in the direction of rotation
+	projectiles.append({"projectile":projectile,"velocity":velocity,"ticks":0})#the bullet is stored in the diciotnary with its velocity and lifetime
 
 func controlBullets(delta):
 	for i in projectiles:#loop through the array
@@ -115,11 +114,11 @@ func controlBullets(delta):
 		if i["ticks"] >= 200:#checks if the game has ticked more than the bulletlifetime
 			projectiles.erase(i)#the infromation is erased from the array
 		var collision = p.move_and_collide(velocity*delta)#an in-built function is used to make the bullet move
-		if (collision):
+		if (collision):#if a collsion is detected
 			var collider = collision.collider
-			if (collider.is_in_group("Player")):
+			if (collider.is_in_group("Player")):#if the collidr is the player then damage is applied to the player
 				collider.applyDamage(damage)
-			projectiles.erase(i)
+			projectiles.erase(i)#if the Sbullet collides then it is deleted
 		i["ticks"]+=1#ticks are incremented
 	
 	
@@ -130,8 +129,8 @@ func _on_WallDetector_body_entered(body):
 
 
 func _on_Range_body_entered(body):
-	playerInRange = true
+	playerInRange = true#detects when the player moves into range
 
 
 func _on_Range_body_exited(body):
-	playerInRange = false
+	playerInRange = false#detects whn the player leaves the range
