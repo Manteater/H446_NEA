@@ -6,10 +6,12 @@ onready var anim_player: AnimationPlayer = $AnimationPlayer#fetches the animatio
 onready var tree = get_tree()#fetches access to the node tree
 onready var interactions = []#stores all the objects being interacted with in a stack
 onready var interactLabel = $interactLabel
+onready var skillTree = $skillTree
 var player = null
 var _velocity = Vector2.ZERO
 var currentHealth = null
 var currentSpeed = null
+
 
 func _ready():
 	stats = Global.characterSave#the ststs file is simply copied down from the global variable
@@ -102,6 +104,10 @@ func immune(immunity)->void:
 func die():
 	anim_player.play("Death")#plays the death animation
 
+func handleSkillTree():
+	skillTree.visible = true
+	get_tree().paused = true
+
 
 
 func _on_interactionArea_area_entered(area):#when something enters the area
@@ -124,4 +130,6 @@ func executeInteractions():
 		var curInteraction = interactions[0]#fetches the object at index 0
 		match curInteraction.interactValue:#matches the interact value with a given action
 			"open Shop": stats.speed = 1000#in this case the shop will open
+			"open skillTree": handleSkillTree()
+			
 

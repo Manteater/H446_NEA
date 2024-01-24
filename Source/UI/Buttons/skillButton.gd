@@ -13,6 +13,8 @@ func _ready():
 		line.add_point(self.rect_global_position+self.rect_size/2)#points at the centreof itself and it parent are added to the line which is automatically drawn
 		line.add_point(get_parent().rect_global_position+self.rect_size/2)
 		line.set_as_toplevel(true)#the line is set to not inherit the position of its parent node
+		line.show_behind_parent = true
+		
 		
 func _on_TextureButton_pressed():
 	if upgradeCost - Global.characterSave.xpPoints >= 0:

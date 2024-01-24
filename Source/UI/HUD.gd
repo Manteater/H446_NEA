@@ -20,7 +20,7 @@ func _physics_process(delta):
 	healthbar.value = (playerStats.health/playerStats.maxHealth)*100
 	expBar.value = playerStats.xp
 	xpLvl.text = "Lvl: "+ String(playerStats.level)
-	xpPoints.text = "Pts: "+String(playerStats.xp)
+	xpPoints.text = "Pts: "+String(playerStats.xpPoints)
 	if playerStats.xp == playerStats.xpNeeded:
 		Global.characterSave.level += 1
 		Global.characterSave.xpNeeded = Global.characterSave.level*10 +100

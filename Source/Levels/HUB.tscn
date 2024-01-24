@@ -33,6 +33,10 @@ position = Vector2( 147, 856 )
 [node name="NPC" parent="." instance=ExtResource( 4 )]
 position = Vector2( 1957, 1385 )
 
+[node name="interactArea" parent="NPC" index="3"]
+interactLbl = "Open Skill Tree"
+interactValue = "open skillTree"
+
 [node name="Teleporter" parent="." instance=ExtResource( 6 )]
 position = Vector2( 7538, 799 )
 scene = ExtResource( 7 )
@@ -81,4 +85,6 @@ position = Vector2( 1280, -540 )
 [node name="Light6" parent="Lights/Light2" instance=ExtResource( 5 )]
 position = Vector2( 602, 112 )
 
+[editable path="NPC"]
+[editable path="NPC/interactArea"]
 [editable path="Teleporter"]

@@ -7,6 +7,7 @@ export var health: int
 
 export var level := 1
 export var xp := 0
+export var xpPoints := 0
 export var maxHealth := 100
 export var xpNeeded = 100
 export var money = 0
