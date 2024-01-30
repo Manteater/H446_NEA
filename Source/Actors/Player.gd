@@ -11,7 +11,7 @@ var player = null
 var _velocity = Vector2.ZERO
 var currentHealth = null
 var currentSpeed = null
-
+var dead = false
 
 func _ready():
 	stats = Global.characterSave#the ststs file is simply copied down from the global variable
@@ -31,7 +31,8 @@ func _physics_process(delta: float) -> void:
 	#moves the player
 	read_input()
 	#animates the players movements
-	animate(mouse)
+	if not dead:
+		animate(mouse)
 
 
 func get_direction() -> Vector2:#returns a vector2 for the direction of movement based on the input
@@ -101,13 +102,23 @@ func immune(immunity)->void:
 		modulate.a = 1.0#makes the player look normal again
 		$hit_detector/bullet_detector.disabled = false#enables the player's hitbox
 
-func die():
-	anim_player.play("Death")#plays the death animation
+
 
 func handleSkillTree():
 	skillTree.visible = true
 	get_tree().paused = true
 
+func applyDamage(damage):
+	currentHealth -= damage#applies the damage to the player
+	print(currentHealth)
+	if currentHealth < 0:
+		dead = true#this boolean controls wether the other animations are completed
+		
+		die()#the die function is called
+
+func die():
+	anim_player.play("Death")#plays the death animation
+	yield(anim_player,"animation_finished")#waits until the player is dead, so the other processes dont happen
 
 
 func _on_interactionArea_area_entered(area):#when something enters the area

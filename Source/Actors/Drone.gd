@@ -38,18 +38,21 @@ func _ready():
 func _physics_process(delta):
 	if is_instance_valid(player):
 		checkPlayer()#checks if the player is in sight
+		if playerSpotted:
+			patrolling = false
+			updatePathfinding()#sets the target location of the path as the player
+		if not patrolling:#if the drone has seen the player at least once
+			if playerInRange:
+				animPlayer.play("shootLeft")#the shootLeft animation calls the shoot function at the end so this just means the drone shoots#
+			else:
+				animate()#animates the drone as per usual
+				move(delta)#the drone moves toward the player
 	if patrolling:
 		patrol(patrolDirection)#if the drone should be patrolling the procecdure is called
 		animate()#plays the drones animations
-	if playerSpotted:
-		patrolling = false
-		updatePathfinding()#sets the target location of the path as the player 
-	if not patrolling:#if the drone has seen the player at least once
-		if playerInRange:
-			animPlayer.play("shootLeft")#the shootLeft animation calls the shoot function at the end so this just means the drone shoots
-		else:
-			animate()#animates the drone as per usual
-			move(delta)#the drone moves toward the player
+
+	
+		
 	controlBullets(delta)
 
 func move(delta):
@@ -110,7 +113,6 @@ func controlBullets(delta):
 	for i in projectiles:#loop through the array
 		var p = i["projectile"]#the bullet object is stored in the variable p
 		var velocity = i["velocity"]
-		print(velocity)
 		if i["ticks"] >= 200:#checks if the game has ticked more than the bulletlifetime
 			projectiles.erase(i)#the infromation is erased from the array
 		var collision = p.move_and_collide(velocity*delta)#an in-built function is used to make the bullet move
@@ -118,7 +120,9 @@ func controlBullets(delta):
 			var collider = collision.collider
 			if (collider.is_in_group("Player")):#if the collidr is the player then damage is applied to the player
 				collider.applyDamage(damage)
+			p.queue_free()
 			projectiles.erase(i)#if the Sbullet collides then it is deleted
+			
 		i["ticks"]+=1#ticks are incremented
 	
 	

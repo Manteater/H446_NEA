@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Source/Actors/Stomper.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Source/Actors/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Tech Dungeon/tileset x3.png" type="Texture" id=3]
 [ext_resource path="res://Source/Actors/Drone.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Tech Dungeon/Enemies/enemies x3.png" type="Texture" id=5]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
@@ -46,9 +47,9 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 1/z_index = 0
 
 [sub_resource type="NavigationPolygon" id=6]
-vertices = PoolVector2Array( 984, 1038, 972, 982, 1651, 985, 1803, 1036, 1802, 125, 1651, 953, 1651, 466, 854, 174, 851, 114, 1083, 175, 1513, 463, 1081, 493, 1470, 485 )
-polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 3, 2, 5 ), PoolIntArray( 4, 5, 6 ), PoolIntArray( 7, 8, 4, 9 ), PoolIntArray( 9, 4, 6, 10 ), PoolIntArray( 11, 9, 10, 12 ) ]
-outlines = [ PoolVector2Array( 851, 114, 854, 174, 1083, 175, 1081, 493, 1470, 485, 1513, 463, 1651, 466, 1651, 953, 1651, 985, 972, 982, 984, 1038, 1803, 1036, 1802, 125 ) ]
+vertices = PoolVector2Array( 854, 174, 851, 114, 1802, 125, 1083, 175, 1510, 487, 1081, 493, 1513, 463, 1651, 466, 1803, 1047, 1651, 953, 1651, 985, 972, 1044, 972, 982 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 5, 3, 6 ), PoolIntArray( 6, 3, 2, 7 ), PoolIntArray( 7, 2, 8, 9 ), PoolIntArray( 10, 9, 8 ), PoolIntArray( 10, 8, 11, 12 ) ]
+outlines = [ PoolVector2Array( 851, 114, 854, 174, 1083, 175, 1081, 493, 1510, 487, 1513, 463, 1651, 466, 1651, 953, 1651, 985, 972, 982, 972, 1044, 1803, 1047, 1802, 125 ) ]
 
 [sub_resource type="NavigationPolygon" id=5]
 vertices = PoolVector2Array( 851, 106, 850, 491, 759, 473, 503, 178, 774, 557, 506, 557, 275, 114, 275, 181 )
@@ -56,9 +57,9 @@ polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 2, 4, 5, 3 ), PoolIntArra
 outlines = [ PoolVector2Array( 275, 114, 275, 181, 503, 178, 506, 557, 774, 557, 759, 473, 850, 491, 851, 106 ) ]
 
 [sub_resource type="NavigationPolygon" id=4]
-vertices = PoolVector2Array( 786, 571, 762, 481, 859, 496, 1523, 478, 1502, 836, 1131, 829, 856, 837, 790, 688, 510, 567, 572, 564, 569, 685, 478, 608, 123, 928, 115, 104, 268, 112, 273, 617, 222, 931, 858, 1036, 232, 1039 )
-polygons = [ PoolIntArray( 0, 1, 2 ), PoolIntArray( 2, 3, 4, 5 ), PoolIntArray( 0, 2, 5, 6, 7 ), PoolIntArray( 8, 9, 10, 11 ), PoolIntArray( 12, 13, 14, 15, 16 ), PoolIntArray( 6, 17, 18, 16, 15, 10 ), PoolIntArray( 10, 7, 6 ), PoolIntArray( 10, 15, 11 ) ]
-outlines = [ PoolVector2Array( 115, 104, 123, 928, 222, 931, 232, 1039, 858, 1036, 856, 837, 1131, 829, 1502, 836, 1523, 478, 859, 496, 762, 481, 786, 571, 790, 688, 569, 685, 572, 564, 510, 567, 478, 608, 273, 617, 268, 112 ) ]
+vertices = PoolVector2Array( 786, 571, 762, 481, 859, 496, 510, 567, 572, 564, 569, 685, 508, 598, 123, 928, 115, 104, 268, 112, 278, 595, 222, 931, 856, 837, 858, 1036, 217, 1034, 1523, 478, 1521, 847, 1132, 850, 790, 688 )
+polygons = [ PoolIntArray( 0, 1, 2 ), PoolIntArray( 3, 4, 5, 6 ), PoolIntArray( 7, 8, 9, 10, 11 ), PoolIntArray( 12, 13, 14, 11, 10, 5 ), PoolIntArray( 0, 2, 15, 16, 17, 12, 18 ), PoolIntArray( 5, 18, 12 ), PoolIntArray( 5, 10, 6 ) ]
+outlines = [ PoolVector2Array( 115, 104, 123, 928, 222, 931, 217, 1034, 858, 1036, 856, 837, 1132, 850, 1521, 847, 1523, 478, 859, 496, 762, 481, 786, 571, 790, 688, 569, 685, 572, 564, 510, 567, 508, 598, 278, 595, 268, 112 ) ]
 
 [node name="WorldTemplate" type="Node2D"]
 
@@ -88,12 +89,16 @@ navpoly = SubResource( 4 )
 [node name="Enemies" type="Node" parent="Navigation2D"]
 
 [node name="Drone" parent="Navigation2D/Enemies" instance=ExtResource( 4 )]
-position = Vector2( 1073, 635 )
-playerPath = NodePath("../../../Player")
+position = Vector2( 343, 1613 )
+playerPath = NodePath("../../Player")
 
 [node name="Stomper" parent="Navigation2D/Enemies" instance=ExtResource( 1 )]
 position = Vector2( 561, 860 )
-playerPath = NodePath("../../../Player")
+playerPath = NodePath("../../Player")
 
-[node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 182, 216 )
+[node name="Player" parent="Navigation2D" instance=ExtResource( 2 )]
+position = Vector2( 171, 162 )
+
+[node name="EnemiesX3" type="Sprite" parent="."]
+position = Vector2( 2590, 820 )
+texture = ExtResource( 5 )
