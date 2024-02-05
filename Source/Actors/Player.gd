@@ -105,8 +105,7 @@ func immune(immunity)->void:
 
 
 func handleSkillTree():
-	skillTree.visible = true
-	get_tree().paused = true
+	$CanvasLayer/HUD.toggleSkillTree()
 
 func applyDamage(damage):
 	currentHealth -= damage#applies the damage to the player

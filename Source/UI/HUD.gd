@@ -32,6 +32,10 @@ func setPaused(value):
 	tree.paused = value
 	pauseOverlay.visible = value
 
+func toggleSkillTree():
+	$skillTree.visible = true
+	tree.paused = true
+
 func _unhandled_input(event):#triggers when a button is pressed
 	if event.is_action_pressed("escape"):#if that button is the escape key the game is paused
 		self.paused = not paused

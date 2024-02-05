@@ -19,27 +19,26 @@ color = Color( 0.117647, 0.117647, 0.117647, 0.592157 )
 
 [node name="TextureButton" parent="." instance=ExtResource( 1 )]
 pause_mode = 2
-anchor_left = 0.52
-anchor_top = 1.0
-anchor_right = 0.52
-anchor_bottom = 1.0
-margin_left = -32.48
-margin_top = -167.0
-margin_right = 32.52
-margin_bottom = -103.0
+anchor_bottom = 0.0
+margin_left = 505.0
+margin_top = 432.0
+margin_right = 504.488
+margin_bottom = 496.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="TextureButton" parent="TextureButton" instance=ExtResource( 1 )]
-margin_left = 128.0
-margin_top = -128.0
-margin_right = 187.905
-margin_bottom = -70.848
+margin_left = 119.0
+margin_top = -107.0
+margin_right = 178.968
+margin_bottom = -49.848
 disabled = true
 
 [node name="TextureButton" parent="TextureButton/TextureButton" instance=ExtResource( 1 )]
-margin_left = 128.0
-margin_top = -128.0
-margin_right = 187.968
-margin_bottom = -70.848
+margin_left = 127.0
+margin_top = -125.0
+margin_right = 186.968
+margin_bottom = -67.848
 disabled = true
 
 [node name="TextureButton3" parent="TextureButton/TextureButton/TextureButton" instance=ExtResource( 1 )]

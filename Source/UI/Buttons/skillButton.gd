@@ -9,15 +9,15 @@ export var upgradeValue:= 0#this will determine how much this will be upgraded b
 export var upgradeCost= 1
 
 func _ready():
-	if get_parent().is_in_group("skillNodes"):#if it has a skillNode parent
-		line.add_point(self.rect_global_position+self.rect_size/2)#points at the centreof itself and it parent are added to the line which is automatically drawn
-		line.add_point(get_parent().rect_global_position+self.rect_size/2)
-		line.set_as_toplevel(true)#the line is set to not inherit the position of its parent node
-		line.show_behind_parent = true
-		
-		
+	var position = rect_global_position
+	var size = rect_size
+#	if get_parent().is_in_group("skillNodes"):#if it has a skillNode parent
+#		line.add_point(position+size/2)#points at the centreof itself and it parent are added to the line which is automatically drawn
+#		line.add_point(get_parent().rect_global_position+size/2)
+#		line.set_as_toplevel(true)
+
 func _on_TextureButton_pressed():
-	if upgradeCost - Global.characterSave.xpPoints >= 0:
+	if upgradeCost <= Global.characterSave.xpPoints:
 		active = true
 	if active:
 		$Panel.show_behind_parent = true#this will make the button change color
@@ -28,9 +28,9 @@ func _on_TextureButton_pressed():
 				#if a child is a skillNode and the button is active then the child will be clickable
 				skill.disabled = false
 			match upgradeType:
-				"speed": Global.characterSave.speed = upgradeValue
-				"maxHealth": Global.characterSave.maxHealth = upgradeValue
-				"bulletDamage": Global.characterSave.bulletDamage = upgradeValue
-				"bulletSpeed": Global.characterSave.bulletSpeed = upgradeValue
-				"bulletAmount": Global.characterSave.bulletAmount = upgradeValue
+				"speed": Global.characterSave.speed += upgradeValue
+				"maxHealth": Global.characterSave.maxHealth += upgradeValue
+				"bulletDamage": Global.characterSave.bulletDamage += upgradeValue
+				"bulletSpeed": Global.characterSave.bulletSpeed += upgradeValue
+				"bulletAmount": Global.characterSave.bulletAmount += upgradeValue
 				

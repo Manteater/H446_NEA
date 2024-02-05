@@ -7,7 +7,7 @@ signal loadGame(Save)
 func _on_loadSaveGameButton_button_up():
 	get_tree().change_scene(next_scene_path)#opens the hub scene as this will always be the case for any load game
 	save = ResourceLoader.load(saveGamePath,"",true)#saves the game using the resourcesaver
-	Global.characterSave = save.character#copies the file to a global variable
+	Global.characterSave = save.Character#copies the file to a global variable
 	
 
 
