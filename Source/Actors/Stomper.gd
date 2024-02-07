@@ -34,8 +34,7 @@ func _physics_process(delta):#function calls every frame of the game
 			move(delta)
 		else:
 			velocity = Vector2.ZERO
-#		if attack:
-#			attackPlayer()
+
 	else:
 		die()
 	
@@ -87,11 +86,7 @@ func checkPlayer():
 
 func die():
 	animPlayer.play("Death")#the death animation calls the queue_free() function and delets the node
-#
-#func attackPlayer():
-#	player.applyDamage()
-#	var timer = get_tree().create_timer(0.5)
-#	yield(timer,"timeout")
+
 
 func _on_playerKiller_body_entered(body):
 	attack = true

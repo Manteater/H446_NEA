@@ -171,9 +171,9 @@ shape = SubResource( 1 )
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 1, -23 )
 texture = ExtResource( 1 )
+flip_h = true
 hframes = 8
 vframes = 13
-frame = 46
 
 [node name="dash_timer" type="Timer" parent="."]
 wait_time = 0.2

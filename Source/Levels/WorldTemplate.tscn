@@ -4,7 +4,7 @@
 [ext_resource path="res://Source/Actors/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Tech Dungeon/tileset x3.png" type="Texture" id=3]
 [ext_resource path="res://Source/Actors/Drone.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Assets/Tech Dungeon/Enemies/enemies x3.png" type="Texture" id=5]
+[ext_resource path="res://Source/Actors/RunnerGuy.tscn" type="PackedScene" id=5]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
@@ -57,9 +57,9 @@ polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 2, 4, 5, 3 ), PoolIntArra
 outlines = [ PoolVector2Array( 275, 114, 275, 181, 503, 178, 506, 557, 774, 557, 759, 473, 850, 491, 851, 106 ) ]
 
 [sub_resource type="NavigationPolygon" id=4]
-vertices = PoolVector2Array( 786, 571, 762, 481, 859, 496, 510, 567, 572, 564, 569, 685, 508, 598, 123, 928, 115, 104, 268, 112, 278, 595, 222, 931, 856, 837, 858, 1036, 217, 1034, 1523, 478, 1521, 847, 1132, 850, 790, 688 )
-polygons = [ PoolIntArray( 0, 1, 2 ), PoolIntArray( 3, 4, 5, 6 ), PoolIntArray( 7, 8, 9, 10, 11 ), PoolIntArray( 12, 13, 14, 11, 10, 5 ), PoolIntArray( 0, 2, 15, 16, 17, 12, 18 ), PoolIntArray( 5, 18, 12 ), PoolIntArray( 5, 10, 6 ) ]
-outlines = [ PoolVector2Array( 115, 104, 123, 928, 222, 931, 217, 1034, 858, 1036, 856, 837, 1132, 850, 1521, 847, 1523, 478, 859, 496, 762, 481, 786, 571, 790, 688, 569, 685, 572, 564, 510, 567, 508, 598, 278, 595, 268, 112 ) ]
+vertices = PoolVector2Array( 786, 571, 762, 481, 859, 496, 123, 928, 115, 104, 268, 112, 278, 595, 222, 931, 856, 837, 858, 1036, 217, 1034, 580, 686, 1523, 478, 1521, 847, 1132, 850, 783, 686, 510, 567, 580, 565, 508, 598 )
+polygons = [ PoolIntArray( 0, 1, 2 ), PoolIntArray( 3, 4, 5, 6, 7 ), PoolIntArray( 8, 9, 10, 7, 6, 11 ), PoolIntArray( 0, 2, 12, 13, 14, 8, 15 ), PoolIntArray( 16, 17, 11, 18 ), PoolIntArray( 11, 15, 8 ), PoolIntArray( 11, 6, 18 ) ]
+outlines = [ PoolVector2Array( 115, 104, 123, 928, 222, 931, 217, 1034, 858, 1036, 856, 837, 1132, 850, 1521, 847, 1523, 478, 859, 496, 762, 481, 786, 571, 783, 686, 580, 686, 580, 565, 510, 567, 508, 598, 278, 595, 268, 112 ) ]
 
 [node name="WorldTemplate" type="Node2D"]
 
@@ -96,9 +96,9 @@ playerPath = NodePath("../../Player")
 position = Vector2( 561, 860 )
 playerPath = NodePath("../../Player")
 
-[node name="Player" parent="Navigation2D" instance=ExtResource( 2 )]
-position = Vector2( 171, 162 )
+[node name="RunnerGuy" parent="Navigation2D/Enemies" instance=ExtResource( 5 )]
+position = Vector2( 1428, 672 )
+playerPath = NodePath("../../Player")
 
-[node name="EnemiesX3" type="Sprite" parent="."]
-position = Vector2( 2590, 820 )
-texture = ExtResource( 5 )
+[node name="Player" parent="Navigation2D" instance=ExtResource( 2 )]
+position = Vector2( 173, 200 )
