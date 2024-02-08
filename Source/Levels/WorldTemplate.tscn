@@ -90,15 +90,12 @@ navpoly = SubResource( 4 )
 
 [node name="Drone" parent="Navigation2D/Enemies" instance=ExtResource( 4 )]
 position = Vector2( 343, 1613 )
-playerPath = NodePath("../../Player")
 
 [node name="Stomper" parent="Navigation2D/Enemies" instance=ExtResource( 1 )]
 position = Vector2( 561, 860 )
-playerPath = NodePath("../../Player")
 
 [node name="RunnerGuy" parent="Navigation2D/Enemies" instance=ExtResource( 5 )]
 position = Vector2( 1428, 672 )
-playerPath = NodePath("../../Player")
 
 [node name="Player" parent="Navigation2D" instance=ExtResource( 2 )]
 position = Vector2( 173, 200 )

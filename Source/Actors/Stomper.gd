@@ -1,25 +1,20 @@
 extends Actor
 #exports
 export var maxSpeed: int  = 150
-export var playerPath := NodePath()#allows importing of the player scene
 
 #Nodes
-onready var animPlayer = $AnimationPlayer #access to animation player
-onready var player := get_node(playerPath)
-onready var agent = $NavigationAgent2D# access to the navigation of the level
 onready var pathTimer = $pathTimer#access to timer to update pathfinding
-onready var los = $RayCast2D#acess to the Stompers line of sight
 
 #other
-var velocity := Vector2.ZERO
-var playerSpotted = false
-var collider = null
 var awoken = false
 var moved = false
 var attack = false
 
 
 func _ready():
+	los = $RayCast2D#acess to the Stompers line of sight
+	agent = $NavigationAgent2D#access to the navigation
+	animPlayer = $AnimationPlayer#access to animation player
 	playerSpotted = false#by default player is not spotted
 	updatePathfinding()#sets up the pathfinding loop
 	pathTimer.connect("timeout",self,"updatePathfinding")#calls the updatepathfinding function everytime the timer timesout
@@ -71,21 +66,9 @@ func move(delta):
 		velocity = move_and_slide(velocity)#actually moves the stomper on the screen
 	
 
-func updatePathfinding():
-	if playerSpotted:			#only sets a path when the player is spotted
-		agent.set_target_location(player.global_position)	#sets target location of the path
 
-func checkPlayer():
-	los.look_at(player.global_position)
-	collider = los.get_collider() #collidr is the hitbox of the raycast
-	if collider and collider.is_in_group("Player"):#if the line of sight is inside of the player
-		playerSpotted = true
-	else:
-		playerSpotted = false
-		
 
-func die():
-	animPlayer.play("Death")#the death animation calls the queue_free() function and delets the node
+
 
 
 func _on_playerKiller_body_entered(body):

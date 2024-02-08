@@ -166,10 +166,9 @@ speed = 300
 [node name="EnemiesX3" type="Sprite" parent="."]
 position = Vector2( -2, -14 )
 texture = ExtResource( 1 )
-flip_h = true
 hframes = 10
 vframes = 16
-frame = 140
+frame = 120
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -3, 4 )

@@ -1,59 +1,53 @@
 extends Actor
+
 #exported variables
-#this defines the speed of the drone when it is chasing the player
 export var patrolSpeed = 150#this defines the speed of the drone when it is patrolling
-export var playerPath := NodePath() #gives access to the player node if it is in the same tree
 
 #nodes
-onready var animPlayer = $AnimationPlayer#access to animation player
-onready var lineOfSight = $lineOfSight#access to the RayCast2D
-onready var agent = $NavigationAgent2D#access to the navigation
-onready var pathTimer = $pathTimer#timer to update the pathfinding
-onready var player := get_node(playerPath)
+onready var pathTimer = $pathTimer#timer to update the pathfinding 
 onready var bullet = preload("res://Source/Weapons/droneBullet.tscn")
 
 #bools
 var patrolling = true#this is the state that the drone spawns in at
-var playerSpotted = false#determines wether the player is in sight
 var playerInRange = false#determines if the player is in range to shoot at
 var collided = false#is used to detect when the drone has collided with a wall
 var canShoot = false#determines if the drone can shoot at the player or not
 
 #weapons
 var projectiles = []#stores all of the drones projectiles
-export var damage = 20#the damage that the drones' bullets do
 
 #other
-var velocity := Vector2.ZERO
-var collider = null
 var rng = RandomNumberGenerator.new() #used to make random numbers
 var patrolDirection = null
 
 
 func _ready():
-		pathTimer.connect("timeout",self,"updatePathfinding")#calls the updatepathfinding function everytime the timer timesout
-		rng.randomize()#resets the seed for the randomizer - else it would keep spitting out the same number as it is only pseudo random
-		patrolDirection = rng.randi_range(1,2)#1 and 2 refer to x or y direction for patrolling
+	agent = $NavigationAgent2D#access to the navigation
+	los = $lineOfSight#access to the RayCast2D
+	animPlayer = $AnimationPlayer#access to animation player
+	pathTimer.connect("timeout",self,"updatePathfinding")#calls the updatepathfinding function everytime the timer timesout
+	rng.randomize()#resets the seed for the randomizer - else it would keep spitting out the same number as it is only pseudo random
+	patrolDirection = rng.randi_range(1,2)#1 and 2 refer to x or y direction for patrolling
 
 func _physics_process(delta):
-	if is_instance_valid(player):
-		checkPlayer()#checks if the player is in sight
-		if playerSpotted:
-			patrolling = false
-			updatePathfinding()#sets the target location of the path as the player
-		if not patrolling:#if the drone has seen the player at least once
-			if playerInRange:
-				animPlayer.play("shootLeft")#the shootLeft animation calls the shoot function at the end so this just means the drone shoots#
-			else:
-				animate()#animates the drone as per usual
-				move(delta)#the drone moves toward the player
-	if patrolling:
-		patrol(patrolDirection)#if the drone should be patrolling the procecdure is called
-		animate()#plays the drones animations
-
-	
-		
-	controlBullets(delta)
+	if not dead:
+		if is_instance_valid(player):
+			checkPlayer()#checks if the player is in sight
+			if playerSpotted:
+				patrolling = false
+				updatePathfinding()#sets the target location of the path as the player
+			if not patrolling:#if the drone has seen the player at least once
+				if playerInRange:
+					animPlayer.play("shootLeft")#the shootLeft animation calls the shoot function at the end so this just means the drone shoots#
+				else:
+					animate()#animates the drone as per usual
+					move(delta)#the drone moves toward the player
+		if patrolling:
+			patrol(patrolDirection)#if the drone should be patrolling the procecdure is called
+			animate()#plays the drones animations
+		controlBullets(delta)
+	else:
+		die()
 
 func move(delta):
 	if agent.is_navigation_finished():#if the navigation is completed it cancels the function
@@ -87,22 +81,13 @@ func animate():
 	else:#if the drone isnt moving then it plays the idle animation
 		animPlayer.play("idle")
 
-func updatePathfinding():
-	if playerSpotted:#only sets a path when the player is spotted
-		agent.set_target_location(player.global_position)#sets target location of the path
 
-func checkPlayer():
-	lineOfSight.look_at(player.global_position)#the raycast looks at the players position
-	collider = lineOfSight.get_collider() #collider is the hitbox of the raycast
-	if collider and collider.is_in_group("Player"):#if the line of sight is inside of the player
-		playerSpotted = true
-	else:
-		playerSpotted = false
+
 		
 func shoot():
 	var velocity = Vector2.ZERO#the velocity of the bullet
 	var projectile = bullet.instance()#a new instance of the drone bullet is created
-	projectile.rotation = lineOfSight.rotation# the line of sight tracks the player so the bullets rotation can be simply set to this
+	projectile.rotation = los.rotation# the line of sight tracks the player so the bullets rotation can be simply set to this
 	projectile.add_collision_exception_with(get_parent())#prevents the bullet from colliding with the parent
 	projectile.global_position = global_position#bullet position is set to the same position as the drone
 	get_node("/root").add_child(projectile)#the bullet is set as the child of the root node
