@@ -15,9 +15,29 @@ _global_script_classes=[ {
 "path": "res://Source/Actors/Actor.gd"
 }, {
 "base": "Resource",
+"class": "Character",
+"language": "GDScript",
+"path": "res://Source/Tools/Character.gd"
+}, {
+"base": "Node2D",
+"class": "Room_",
+"language": "GDScript",
+"path": "res://Source/Levels/Rooms/baseRoom.gd"
+}, {
+"base": "Resource",
 "class": "SaveGame",
 "language": "GDScript",
 "path": "res://Source/Tools/saveGame.gd"
+}, {
+"base": "TextureButton",
+"class": "SkillNode",
+"language": "GDScript",
+"path": "res://Source/UI/Buttons/skillButton.gd"
+}, {
+"base": "Node",
+"class": "Upgrade",
+"language": "GDScript",
+"path": "res://Source/Prop stuff/Upgrades/Upgrade.gd"
 }, {
 "base": "Area2D",
 "class": "interact",
@@ -26,7 +46,11 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Actor": "",
+"Character": "",
+"Room_": "",
 "SaveGame": "",
+"SkillNode": "",
+"Upgrade": "",
 "interact": ""
 }
 
