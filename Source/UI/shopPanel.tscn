@@ -19,10 +19,6 @@ margin_bottom = 149.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 1 )
-cost = null
-upgradeName = null
-upgradeValue = null
-upgradeDescription = null
 
 [node name="name" type="Label" parent="."]
 anchor_left = 0.5

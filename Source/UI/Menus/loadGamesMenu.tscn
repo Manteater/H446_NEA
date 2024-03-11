@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Assets/UI/SpaceStationGenerator.png" type="Texture" id=1]
 [ext_resource path="res://Source/UI/Buttons/loadSaveGameButton.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Source/UI/Title.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Source/UI/Buttons/changeSceneButton.tscn" type="PackedScene" id=4]
 
 [node name="loadGames" type="Control"]
 anchor_right = 1.0
@@ -107,3 +108,11 @@ margin_right = 264.0
 margin_bottom = 135.0
 text = "LoaD Game 6"
 saveGamePath = "user://save6.tres"
+
+[node name="changeSceneButton" parent="." instance=ExtResource( 4 )]
+margin_left = 452.0
+margin_top = 508.0
+margin_right = 604.0
+margin_bottom = 552.0
+text = "Back"
+next_scene_path = "res://Source/UI/Menus/Main Menu.tscn"

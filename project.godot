@@ -34,10 +34,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Source/UI/Buttons/skillButton.gd"
 }, {
-"base": "Node",
+"base": "Resource",
 "class": "Upgrade",
 "language": "GDScript",
-"path": "res://Source/Prop stuff/Upgrades/Upgrade.gd"
+"path": "res://Source/Tools/upgrade.gd"
 }, {
 "base": "Area2D",
 "class": "interact",
