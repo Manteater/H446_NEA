@@ -10,7 +10,7 @@ export var xp := 0
 export var xpPoints := 20
 export var maxHealth := 100
 export var xpNeeded = 100
-export var money = 0
+export var money = 19
 
 export var bulletSpeed = 1000#the speed that the bullet will travel at
 export var cooldown = 5#this is the cooldown in between shots

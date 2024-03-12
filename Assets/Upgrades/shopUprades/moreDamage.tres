@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource( 1 )
-upgradeName = "Extra Bullet"
-upgradeType = "bulletAmount"
-upgradeDescription = "Adds A bullet!!!!"
-upgradeValue = 1
+upgradeName = "More Damage!"
+upgradeType = "bulletDamage"
+upgradeDescription = "Adds damage to your gun"
+upgradeValue = 2
 upgradeCost = 20

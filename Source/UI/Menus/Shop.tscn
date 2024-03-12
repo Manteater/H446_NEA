@@ -9,7 +9,8 @@
 script/source = "extends Control
 
 
-
+func _physics_process(delta):
+	$MoneyLbl.text = \"Money: \"+str(Global.characterSave.money)
 
 func _on_button_pressed():
 	visible = false
@@ -70,56 +71,32 @@ columns = 3
 
 [node name="Panel" parent="GridContainer" instance=ExtResource( 1 )]
 margin_bottom = 151.0
-cost = 0
-upgradeName = ""
-upgradeValue = 0
-upgradeDescription = ""
 
 [node name="Panel2" parent="GridContainer" instance=ExtResource( 1 )]
 margin_left = 227.0
 margin_right = 450.0
 margin_bottom = 151.0
-cost = 0
-upgradeName = ""
-upgradeValue = 0
-upgradeDescription = ""
 
 [node name="Panel3" parent="GridContainer" instance=ExtResource( 1 )]
 margin_left = 454.0
 margin_right = 677.0
 margin_bottom = 151.0
-cost = 0
-upgradeName = ""
-upgradeValue = 0
-upgradeDescription = ""
 
 [node name="Panel4" parent="GridContainer" instance=ExtResource( 1 )]
 margin_top = 155.0
 margin_bottom = 305.0
-cost = 0
-upgradeName = ""
-upgradeValue = 0
-upgradeDescription = ""
 
 [node name="Panel5" parent="GridContainer" instance=ExtResource( 1 )]
 margin_left = 227.0
 margin_top = 155.0
 margin_right = 450.0
 margin_bottom = 305.0
-cost = 0
-upgradeName = ""
-upgradeValue = 0
-upgradeDescription = ""
 
 [node name="Panel6" parent="GridContainer" instance=ExtResource( 1 )]
 margin_left = 454.0
 margin_top = 155.0
 margin_right = 677.0
 margin_bottom = 305.0
-cost = 0
-upgradeName = ""
-upgradeValue = 0
-upgradeDescription = ""
 
 [node name="button" parent="." instance=ExtResource( 4 )]
 margin_left = 415.0
