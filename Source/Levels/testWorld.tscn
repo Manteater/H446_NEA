@@ -1,12 +1,18 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Source/Actors/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Tiles/floorTiles.tres" type="TileSet" id=2]
 [ext_resource path="res://Assets/Tiles/wallTiles.tres" type="TileSet" id=3]
 [ext_resource path="res://Source/UI/HUD.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Source/Prop stuff/NPC.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Source/Prop stuff/Acid.tscn" type="PackedScene" id=6]
 
 [node name="testWorld" type="Node2D"]
+
+[node name="Acid" parent="." instance=ExtResource( 6 )]
+
+[node name="acid" parent="Acid" index="0"]
+tile_data = PoolIntArray( 393216, 3, 0, 393217, 2, 0, 393218, 2, 0, 393219, 2, 0, 393220, 2, 0, 393221, 2, 0, 393222, 2, 0, 393223, 2, 0, 458752, 1, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 524288, 1, 0, 524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 524294, 0, 0, 524295, 0, 0 )
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 2 )
@@ -33,3 +39,5 @@ position = Vector2( 200, 389 )
 layer = 99
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 4 )]
+
+[editable path="Acid"]

@@ -138,7 +138,7 @@ func executeInteractions():
 	if interactions:
 		var curInteraction = interactions[0]#fetches the object at index 0
 		match curInteraction.interactValue:#matches the interact value with a given action
-			"open Shop": stats.speed = 1000#in this case the shop will open
+			"open Shop": $CanvasLayer/HUD/Shop.visible=true#in this case the shop will open
 			"open skillTree": handleSkillTree()
 			
 

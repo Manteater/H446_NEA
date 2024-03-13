@@ -5,4 +5,4 @@ func _ready():
 	#LevelGenerator.wall = $wall
 	LevelGenerator.ground = $ground
 	LevelGenerator.border=$border
-	LevelGenerator.generateMap(8)#test
+	LevelGenerator.generateMap(-11)#test
