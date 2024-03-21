@@ -89,13 +89,20 @@ navpoly = SubResource( 4 )
 [node name="Enemies" type="Node" parent="Navigation2D"]
 
 [node name="Drone" parent="Navigation2D/Enemies" instance=ExtResource( 4 )]
-position = Vector2( 343, 1613 )
+position = Vector2( 1224, 297 )
+health = 100
+speed = 150
+damage = 200
 
 [node name="Stomper" parent="Navigation2D/Enemies" instance=ExtResource( 1 )]
 position = Vector2( 561, 860 )
+health = 1000
+speed = 50
+damage = 100
 
 [node name="RunnerGuy" parent="Navigation2D/Enemies" instance=ExtResource( 5 )]
 position = Vector2( 1428, 672 )
+damage = 100
 
 [node name="Player" parent="Navigation2D" instance=ExtResource( 2 )]
 position = Vector2( 173, 200 )

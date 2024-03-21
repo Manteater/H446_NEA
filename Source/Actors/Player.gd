@@ -106,6 +106,10 @@ func immune(immunity)->void:
 func handleSkillTree():
 	$CanvasLayer/HUD.toggleSkillTree()
 
+func handleShop():
+	get_tree().paused = true#pauses the tree so player cant move
+	$CanvasLayer/HUD/Shop.visible=true#shows the shop
+
 func applyDamage(damage):
 	currentHealth -= damage#applies the damage to the player
 	print(currentHealth)
@@ -138,7 +142,7 @@ func executeInteractions():
 	if interactions:
 		var curInteraction = interactions[0]#fetches the object at index 0
 		match curInteraction.interactValue:#matches the interact value with a given action
-			"open Shop": $CanvasLayer/HUD/Shop.visible=true#in this case the shop will open
+			"open Shop": handleShop()
 			"open skillTree": handleSkillTree()
 			
 

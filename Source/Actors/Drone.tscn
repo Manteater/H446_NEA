@@ -240,7 +240,7 @@ texture = ExtResource( 1 )
 flip_h = true
 hframes = 10
 vframes = 16
-frame = 7
+frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Death = SubResource( 1 )
@@ -274,7 +274,6 @@ shape = SubResource( 10 )
 collision_layer = 0
 
 [node name="rangeHitbox" type="CollisionShape2D" parent="Range"]
-position = Vector2( 1, 0 )
 shape = SubResource( 11 )
 
 [connection signal="body_entered" from="WallDetector" to="." method="_on_WallDetector_body_entered"]

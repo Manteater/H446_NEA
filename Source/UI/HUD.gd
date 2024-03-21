@@ -11,13 +11,13 @@ onready var xpPoints = $xpPoints
 
 func _ready():
 	healthbar.max_value = playerStats.maxHealth
-	
+	healthbar.value = playerStats.maxHealth
 	
 
 
 func _physics_process(delta):
 	playerStats = Global.characterSave
-	healthbar.value = (playerStats.health/playerStats.maxHealth)*100
+	healthbar.value = playerStats.health
 	expBar.value = playerStats.xp
 	xpLvl.text = "Lvl: "+ String(playerStats.level)
 	xpPoints.text = "Pts: "+String(playerStats.xpPoints)

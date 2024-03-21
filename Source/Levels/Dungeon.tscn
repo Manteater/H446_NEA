@@ -130,11 +130,8 @@ format = 1
 zoom = Vector2( 4, 4 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( -430, -559 )
+position = Vector2( 34, 1 )
 z_index = 1
-
-[node name="Camera2D" parent="Player" index="7"]
-zoom = Vector2( 4, 4 )
 
 [node name="CollisionShape2D" parent="Player/interactionArea" index="0"]
 position = Vector2( 3, -3 )
