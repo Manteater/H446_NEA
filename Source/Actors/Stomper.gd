@@ -1,6 +1,6 @@
 extends Actor
 #exports
-export var maxSpeed: int  = 150
+
 
 #Nodes
 onready var pathTimer = $pathTimer#access to timer to update pathfinding
@@ -60,7 +60,7 @@ func move(delta):
 		awoken = true#this controls when the stomper stops playing the sleep animation
 	if not moved:#this is to make sure that the stomper only moves once the awakening animation is completed.
 		var direction := global_position.direction_to(agent.get_next_location()) #sets the direction to the desired position
-		var desiredVelocity := direction * maxSpeed #sets the speed of the stomper
+		var desiredVelocity := direction * speed #sets the speed of the stomper
 		var steering = (desiredVelocity - velocity)*delta*4.0 #sets the speed in relation to current speed
 		velocity += steering
 		velocity = move_and_slide(velocity)#actually moves the stomper on the screen

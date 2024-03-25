@@ -19,6 +19,9 @@ func _on_button_pressed():
 		$button.disabled = true#the button is disabled so the player cant buy it twice
 		match upgrade.upgradeType:#mathes the type of upgrade to an exceuted function
 			"bulletAmount": Global.characterSave.bulletAmount+= upgrade.upgradeValue
+			"cooldown":Global.characterSave.cooldown = Global.characterSave.cooldown*upgrade.upgradeValue
+			"health": handleHealth()
+			"damage": Global.characterSave.bulletDamage += upgrade.upgradeValue
 		$name.text = "SOLD!"#displsy thay it has been sold
 		$cost.text = ""
 		$description.text = ""
@@ -45,3 +48,9 @@ func getUpgrade():
 	var result = load(upgrades[randi()%upgrades.size()])#chooses a random upgrade from the array
 	#print(result)
 	return result
+	
+func handleHealth():
+	if (Global.characterSave.health+upgrade.upgradeValue)>Global.characterSave.maxHealth:#makes sure that health isnt increased to more than that of the maxHealth
+		Global.characterSave.health = Global.characterSave.maxHealth#setes the health equal to the maxhealth value
+	else:
+		Global.characterSave.health+=upgrade.upgradeValue#adds the healing value of the upgrade on top of the current health.

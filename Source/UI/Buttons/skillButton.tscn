@@ -51,7 +51,6 @@ align = 1
 visible = false
 show_behind_parent = true
 light_mask = 0
-position = Vector2( 32, 35 )
 z_index = -1
 width = 3.0
 default_color = Color( 0.168627, 0.168627, 0.388235, 1 )

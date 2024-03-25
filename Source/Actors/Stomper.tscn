@@ -179,7 +179,11 @@ radius = 47.0
 collision_layer = 2
 collision_mask = 5
 script = ExtResource( 2 )
-maxSpeed = 100
+health = 300
+speed = 150
+damage = 50
+experienceDropped = 30
+moneyDropped = 3
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 1, 1.03125 )
