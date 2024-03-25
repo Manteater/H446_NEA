@@ -14,7 +14,8 @@ func _ready():
 	if get_parent().is_in_group("skillNodes"):#if it has a skillNode parent
 		line.add_point(position+size/2)#points at the centreof itself and it parent are added to the line which is automatically drawn
 		line.add_point(get_parent().rect_global_position+size/2)
-		line.set_as_toplevel(true)
+		#line.set_as_toplevel(true)
+		line.visible = false
 
 func _physics_process(delta):
 	line.visible = visible
