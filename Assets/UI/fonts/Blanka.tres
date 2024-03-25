@@ -4,7 +4,7 @@
 
 [resource]
 resource_local_to_scene = true
-size = 11
+size = 10
 outline_color = Color( 0, 0, 0, 1 )
 use_mipmaps = true
 font_data = ExtResource( 1 )
