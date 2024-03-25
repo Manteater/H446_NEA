@@ -233,6 +233,11 @@ radius = 271.002
 collision_layer = 2
 collision_mask = 16
 script = ExtResource( 2 )
+health = 30
+speed = 600
+damage = 40
+experienceDropped = 15
+moneyDropped = 2
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 3, 11 )

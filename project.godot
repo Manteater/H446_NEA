@@ -57,7 +57,7 @@ _global_script_class_icons={
 [application]
 
 config/name="H446_NEA Project"
-run/main_scene="res://Source/Levels/Dungeon.tscn"
+run/main_scene="res://Source/UI/Menus/Main Menu.tscn"
 config/icon="res://icon.png"
 
 [autoload]
