@@ -4,11 +4,11 @@ class_name Character
 export var speed := 400
 export var dashSpeed := 1500
 export var health: int
+export var maxHealth := 100
 
 export var level := 3
 export var xp := 20
 export var xpPoints := 20
-export var maxHealth := 100
 export var xpNeeded = 100
 export var money = 40
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Source/UI/Buttons/skillButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Source/Tools/upgrade.gd" type="Script" id=2]
@@ -15,453 +15,118 @@ font_data = ExtResource( 8 )
 size = 25
 font_data = ExtResource( 8 )
 
-[sub_resource type="StreamTexture" id=3]
+[sub_resource type="StreamTexture" id=32]
 flags = 4
 load_path = "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
 
-[sub_resource type="GDScript" id=4]
-script/source = "extends TextureButton
-class_name SkillNode
-
-onready var label = $Label
-onready var line = $Line2D
-var active = false
-export var upgrade: Resource
-
-func _ready():
-	var position = rect_global_position
-	var size = rect_size
-	if get_parent().is_in_group(\"skillNodes\"):#if it has a skillNode parent
-		line.add_point(position+size/2)#points at the centreof itself and it parent are added to the line which is automatically drawn
-		line.add_point(get_parent().rect_global_position+size/2)
-		line.set_as_toplevel(true)
-		line.visible = false
-	$Cost.text = \"Cost: \"+str(upgrade.upgradeCost)
-	$Name.text = upgrade.upgradeName
-
-
-
-
-func _on_TextureButton_pressed():
-	if upgrade.upgradeCost <= Global.characterSave.xpPoints:
-		active = true
-	if active:
-		$Panel.show_behind_parent = true#this will make the button change color
-		line.default_color = Color(1,1,0.25)#this will make the line yellow
-		var skills = get_children()
-		for skill in skills:
-			if skill.is_in_group(\"skillNodes\") and active:
-				#if a child is a skillNode and the button is active then the child will be clickable
-				skill.disabled = false
-			match upgrade.upgradeType:
-				\"speed\": Global.characterSave.speed += upgrade.upgradeValue
-				\"maxHealth\": Global.characterSave.maxHealth += upgrade.upgradeValue
-				\"bulletDamage\": Global.characterSave.bulletDamage += upgrade.upgradeValue
-				\"bulletSpeed\": Global.characterSave.bulletSpeed += upgrade.upgradeValue
-				\"bulletAmount\": Global.characterSave.bulletAmount += upgrade.upgradeValue
-				
-"
-
-[sub_resource type="Resource" id=7]
+[sub_resource type="Resource" id=43]
 resource_local_to_scene = true
 script = ExtResource( 2 )
-upgradeName = "Health"
+upgradeName = "health"
 upgradeType = "maxHealth"
 upgradeDescription = ""
-upgradeValue = 10.0
+upgradeValue = 50.0
 upgradeCost = 1
 
-[sub_resource type="StreamTexture" id=5]
+[sub_resource type="StreamTexture" id=30]
 flags = 4
 load_path = "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
 
-[sub_resource type="GDScript" id=6]
-script/source = "extends TextureButton
-class_name SkillNode
-
-onready var label = $Label
-onready var line = $Line2D
-var active = false
-export var upgrade: Resource
-
-func _ready():
-	var position = rect_global_position
-	var size = rect_size
-	if get_parent().is_in_group(\"skillNodes\"):#if it has a skillNode parent
-		line.add_point(position+size/2)#points at the centreof itself and it parent are added to the line which is automatically drawn
-		line.add_point(get_parent().rect_global_position+size/2)
-		line.set_as_toplevel(true)
-		line.visible = false
-	$Cost.text = \"Cost: \"+str(upgrade.upgradeCost)
-	$Name.text = upgrade.upgradeName
-
-
-
-
-func _on_TextureButton_pressed():
-	if upgrade.upgradeCost <= Global.characterSave.xpPoints:
-		active = true
-	if active:
-		$Panel.show_behind_parent = true#this will make the button change color
-		line.default_color = Color(1,1,0.25)#this will make the line yellow
-		var skills = get_children()
-		for skill in skills:
-			if skill.is_in_group(\"skillNodes\") and active:
-				#if a child is a skillNode and the button is active then the child will be clickable
-				skill.disabled = false
-			match upgrade.upgradeType:
-				\"speed\": Global.characterSave.speed += upgrade.upgradeValue
-				\"maxHealth\": Global.characterSave.maxHealth += upgrade.upgradeValue
-				\"bulletDamage\": Global.characterSave.bulletDamage += upgrade.upgradeValue
-				\"bulletSpeed\": Global.characterSave.bulletSpeed += upgrade.upgradeValue
-				\"bulletAmount\": Global.characterSave.bulletAmount += upgrade.upgradeValue
-				
-"
-
-[sub_resource type="Resource" id=20]
+[sub_resource type="Resource" id=42]
 resource_local_to_scene = true
 script = ExtResource( 2 )
-upgradeName = "More Damage!!"
-upgradeType = "damage"
+upgradeName = "damage"
+upgradeType = "bulletDamage"
 upgradeDescription = ""
-upgradeValue = 2.0
+upgradeValue = 5.0
 upgradeCost = 1
 
 [sub_resource type="StreamTexture" id=8]
 flags = 4
 load_path = "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
 
-[sub_resource type="GDScript" id=9]
-script/source = "extends TextureButton
-class_name SkillNode
-
-onready var label = $Label
-onready var line = $Line2D
-var active = false
-export var upgrade: Resource
-
-func _ready():
-	var position = rect_global_position
-	var size = rect_size
-	if get_parent().is_in_group(\"skillNodes\"):#if it has a skillNode parent
-		line.add_point(position+size/2)#points at the centreof itself and it parent are added to the line which is automatically drawn
-		line.add_point(get_parent().rect_global_position+size/2)
-		line.set_as_toplevel(true)
-		line.visible = false
-	$Cost.text = \"Cost: \"+str(upgrade.upgradeCost)
-	$Name.text = upgrade.upgradeName
-
-
-
-
-func _on_TextureButton_pressed():
-	if upgrade.upgradeCost <= Global.characterSave.xpPoints:
-		active = true
-	if active:
-		$Panel.show_behind_parent = true#this will make the button change color
-		line.default_color = Color(1,1,0.25)#this will make the line yellow
-		var skills = get_children()
-		for skill in skills:
-			if skill.is_in_group(\"skillNodes\") and active:
-				#if a child is a skillNode and the button is active then the child will be clickable
-				skill.disabled = false
-			match upgrade.upgradeType:
-				\"speed\": Global.characterSave.speed += upgrade.upgradeValue
-				\"maxHealth\": Global.characterSave.maxHealth += upgrade.upgradeValue
-				\"bulletDamage\": Global.characterSave.bulletDamage += upgrade.upgradeValue
-				\"bulletSpeed\": Global.characterSave.bulletSpeed += upgrade.upgradeValue
-				\"bulletAmount\": Global.characterSave.bulletAmount += upgrade.upgradeValue
-				
-"
-
-[sub_resource type="Resource" id=21]
+[sub_resource type="Resource" id=36]
 resource_local_to_scene = true
 script = ExtResource( 2 )
-upgradeName = "even More Damag!!!"
-upgradeType = "damage"
+upgradeName = "shoot fasterrr"
+upgradeType = "cooldown"
 upgradeDescription = ""
-upgradeValue = 7.0
-upgradeCost = 2
+upgradeValue = 0.9
+upgradeCost = 1
 
 [sub_resource type="StreamTexture" id=10]
 flags = 4
 load_path = "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
 
-[sub_resource type="GDScript" id=11]
-script/source = "extends TextureButton
-class_name SkillNode
-
-onready var label = $Label
-onready var line = $Line2D
-var active = false
-export var upgrade: Resource
-
-func _ready():
-	var position = rect_global_position
-	var size = rect_size
-	if get_parent().is_in_group(\"skillNodes\"):#if it has a skillNode parent
-		line.add_point(position+size/2)#points at the centreof itself and it parent are added to the line which is automatically drawn
-		line.add_point(get_parent().rect_global_position+size/2)
-		line.set_as_toplevel(true)
-		line.visible = false
-	$Cost.text = \"Cost: \"+str(upgrade.upgradeCost)
-	$Name.text = upgrade.upgradeName
-
-
-
-
-func _on_TextureButton_pressed():
-	if upgrade.upgradeCost <= Global.characterSave.xpPoints:
-		active = true
-	if active:
-		$Panel.show_behind_parent = true#this will make the button change color
-		line.default_color = Color(1,1,0.25)#this will make the line yellow
-		var skills = get_children()
-		for skill in skills:
-			if skill.is_in_group(\"skillNodes\") and active:
-				#if a child is a skillNode and the button is active then the child will be clickable
-				skill.disabled = false
-			match upgrade.upgradeType:
-				\"speed\": Global.characterSave.speed += upgrade.upgradeValue
-				\"maxHealth\": Global.characterSave.maxHealth += upgrade.upgradeValue
-				\"bulletDamage\": Global.characterSave.bulletDamage += upgrade.upgradeValue
-				\"bulletSpeed\": Global.characterSave.bulletSpeed += upgrade.upgradeValue
-				\"bulletAmount\": Global.characterSave.bulletAmount += upgrade.upgradeValue
-				
-"
-
-[sub_resource type="Resource" id=22]
+[sub_resource type="Resource" id=37]
 resource_local_to_scene = true
 script = ExtResource( 2 )
-upgradeName = ""
-upgradeType = ""
+upgradeName = "extra bullet"
+upgradeType = "bulletAmount"
 upgradeDescription = ""
-upgradeValue = 0.0
-upgradeCost = 0
+upgradeValue = 1.0
+upgradeCost = 2
 
 [sub_resource type="StreamTexture" id=12]
 flags = 4
 load_path = "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
 
-[sub_resource type="GDScript" id=13]
-script/source = "extends TextureButton
-class_name SkillNode
-
-onready var label = $Label
-onready var line = $Line2D
-var active = false
-export var upgrade: Resource
-
-func _ready():
-	var position = rect_global_position
-	var size = rect_size
-	if get_parent().is_in_group(\"skillNodes\"):#if it has a skillNode parent
-		line.add_point(position+size/2)#points at the centreof itself and it parent are added to the line which is automatically drawn
-		line.add_point(get_parent().rect_global_position+size/2)
-		line.set_as_toplevel(true)
-		line.visible = false
-	$Cost.text = \"Cost: \"+str(upgrade.upgradeCost)
-	$Name.text = upgrade.upgradeName
-
-
-
-
-func _on_TextureButton_pressed():
-	if upgrade.upgradeCost <= Global.characterSave.xpPoints:
-		active = true
-	if active:
-		$Panel.show_behind_parent = true#this will make the button change color
-		line.default_color = Color(1,1,0.25)#this will make the line yellow
-		var skills = get_children()
-		for skill in skills:
-			if skill.is_in_group(\"skillNodes\") and active:
-				#if a child is a skillNode and the button is active then the child will be clickable
-				skill.disabled = false
-			match upgrade.upgradeType:
-				\"speed\": Global.characterSave.speed += upgrade.upgradeValue
-				\"maxHealth\": Global.characterSave.maxHealth += upgrade.upgradeValue
-				\"bulletDamage\": Global.characterSave.bulletDamage += upgrade.upgradeValue
-				\"bulletSpeed\": Global.characterSave.bulletSpeed += upgrade.upgradeValue
-				\"bulletAmount\": Global.characterSave.bulletAmount += upgrade.upgradeValue
-				
-"
-
-[sub_resource type="Resource" id=23]
+[sub_resource type="Resource" id=38]
 resource_local_to_scene = true
 script = ExtResource( 2 )
-upgradeName = ""
-upgradeType = ""
+upgradeName = "speeeed"
+upgradeType = "speed"
 upgradeDescription = ""
-upgradeValue = 0.0
-upgradeCost = 0
+upgradeValue = 50.0
+upgradeCost = 1
 
 [sub_resource type="StreamTexture" id=14]
 flags = 4
 load_path = "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
 
-[sub_resource type="GDScript" id=15]
-script/source = "extends TextureButton
-class_name SkillNode
-
-onready var label = $Label
-onready var line = $Line2D
-var active = false
-export var upgrade: Resource
-
-func _ready():
-	var position = rect_global_position
-	var size = rect_size
-	if get_parent().is_in_group(\"skillNodes\"):#if it has a skillNode parent
-		line.add_point(position+size/2)#points at the centreof itself and it parent are added to the line which is automatically drawn
-		line.add_point(get_parent().rect_global_position+size/2)
-		line.set_as_toplevel(true)
-		line.visible = false
-	$Cost.text = \"Cost: \"+str(upgrade.upgradeCost)
-	$Name.text = upgrade.upgradeName
-
-
-
-
-func _on_TextureButton_pressed():
-	if upgrade.upgradeCost <= Global.characterSave.xpPoints:
-		active = true
-	if active:
-		$Panel.show_behind_parent = true#this will make the button change color
-		line.default_color = Color(1,1,0.25)#this will make the line yellow
-		var skills = get_children()
-		for skill in skills:
-			if skill.is_in_group(\"skillNodes\") and active:
-				#if a child is a skillNode and the button is active then the child will be clickable
-				skill.disabled = false
-			match upgrade.upgradeType:
-				\"speed\": Global.characterSave.speed += upgrade.upgradeValue
-				\"maxHealth\": Global.characterSave.maxHealth += upgrade.upgradeValue
-				\"bulletDamage\": Global.characterSave.bulletDamage += upgrade.upgradeValue
-				\"bulletSpeed\": Global.characterSave.bulletSpeed += upgrade.upgradeValue
-				\"bulletAmount\": Global.characterSave.bulletAmount += upgrade.upgradeValue
-				
-"
-
-[sub_resource type="Resource" id=24]
+[sub_resource type="Resource" id=39]
 resource_local_to_scene = true
 script = ExtResource( 2 )
-upgradeName = ""
-upgradeType = ""
+upgradeName = "more speeed"
+upgradeType = "maxHealth"
 upgradeDescription = ""
-upgradeValue = 0.0
-upgradeCost = 0
+upgradeValue = 100.0
+upgradeCost = 3
+
+[sub_resource type="Resource" id=27]
+resource_local_to_scene = true
+script = ExtResource( 2 )
+upgradeName = "bullet Speeed"
+upgradeType = "bulletSpeed"
+upgradeDescription = ""
+upgradeValue = 50.0
+upgradeCost = 1
 
 [sub_resource type="StreamTexture" id=16]
 flags = 4
 load_path = "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
 
-[sub_resource type="GDScript" id=17]
-script/source = "extends TextureButton
-class_name SkillNode
-
-onready var label = $Label
-onready var line = $Line2D
-var active = false
-export var upgrade: Resource
-
-func _ready():
-	var position = rect_global_position
-	var size = rect_size
-	if get_parent().is_in_group(\"skillNodes\"):#if it has a skillNode parent
-		line.add_point(position+size/2)#points at the centreof itself and it parent are added to the line which is automatically drawn
-		line.add_point(get_parent().rect_global_position+size/2)
-		line.set_as_toplevel(true)
-		line.visible = false
-	$Cost.text = \"Cost: \"+str(upgrade.upgradeCost)
-	$Name.text = upgrade.upgradeName
-
-
-
-
-func _on_TextureButton_pressed():
-	if upgrade.upgradeCost <= Global.characterSave.xpPoints:
-		active = true
-	if active:
-		$Panel.show_behind_parent = true#this will make the button change color
-		line.default_color = Color(1,1,0.25)#this will make the line yellow
-		var skills = get_children()
-		for skill in skills:
-			if skill.is_in_group(\"skillNodes\") and active:
-				#if a child is a skillNode and the button is active then the child will be clickable
-				skill.disabled = false
-			match upgrade.upgradeType:
-				\"speed\": Global.characterSave.speed += upgrade.upgradeValue
-				\"maxHealth\": Global.characterSave.maxHealth += upgrade.upgradeValue
-				\"bulletDamage\": Global.characterSave.bulletDamage += upgrade.upgradeValue
-				\"bulletSpeed\": Global.characterSave.bulletSpeed += upgrade.upgradeValue
-				\"bulletAmount\": Global.characterSave.bulletAmount += upgrade.upgradeValue
-				
-"
-
-[sub_resource type="Resource" id=25]
+[sub_resource type="Resource" id=40]
 resource_local_to_scene = true
 script = ExtResource( 2 )
-upgradeName = ""
-upgradeType = ""
+upgradeName = "MOREEE health"
+upgradeType = "maxHealth"
 upgradeDescription = ""
-upgradeValue = 0.0
-upgradeCost = 0
+upgradeValue = 100.0
+upgradeCost = 3
 
 [sub_resource type="StreamTexture" id=18]
 flags = 4
 load_path = "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
 
-[sub_resource type="GDScript" id=19]
-script/source = "extends TextureButton
-class_name SkillNode
-
-onready var label = $Label
-onready var line = $Line2D
-var active = false
-export var upgrade: Resource
-
-func _ready():
-	var position = rect_global_position
-	var size = rect_size
-	if get_parent().is_in_group(\"skillNodes\"):#if it has a skillNode parent
-		line.add_point(position+size/2)#points at the centreof itself and it parent are added to the line which is automatically drawn
-		line.add_point(get_parent().rect_global_position+size/2)
-		line.set_as_toplevel(true)
-		line.visible = false
-	$Cost.text = \"Cost: \"+str(upgrade.upgradeCost)
-	$Name.text = upgrade.upgradeName
-
-
-
-
-func _on_TextureButton_pressed():
-	if upgrade.upgradeCost <= Global.characterSave.xpPoints:
-		active = true
-	if active:
-		$Panel.show_behind_parent = true#this will make the button change color
-		line.default_color = Color(1,1,0.25)#this will make the line yellow
-		var skills = get_children()
-		for skill in skills:
-			if skill.is_in_group(\"skillNodes\") and active:
-				#if a child is a skillNode and the button is active then the child will be clickable
-				skill.disabled = false
-			match upgrade.upgradeType:
-				\"speed\": Global.characterSave.speed += upgrade.upgradeValue
-				\"maxHealth\": Global.characterSave.maxHealth += upgrade.upgradeValue
-				\"bulletDamage\": Global.characterSave.bulletDamage += upgrade.upgradeValue
-				\"bulletSpeed\": Global.characterSave.bulletSpeed += upgrade.upgradeValue
-				\"bulletAmount\": Global.characterSave.bulletAmount += upgrade.upgradeValue
-				
-"
-
-[sub_resource type="Resource" id=26]
+[sub_resource type="Resource" id=41]
 resource_local_to_scene = true
 script = ExtResource( 2 )
-upgradeName = ""
-upgradeType = ""
+upgradeName = "even more health"
+upgradeType = "maxHealth"
 upgradeDescription = ""
-upgradeValue = 0.0
-upgradeCost = 0
+upgradeValue = 100.0
+upgradeCost = 4
 
 [node name="SkillTree" type="Control"]
 anchor_right = 1.0
@@ -474,6 +139,7 @@ margin_top = 20.0
 margin_right = 198.0
 margin_bottom = 88.0
 custom_fonts/font = SubResource( 1 )
+text = "Skill tree"
 
 [node name="points" parent="." instance=ExtResource( 7 )]
 margin_left = 225.0
@@ -484,46 +150,47 @@ custom_fonts/font = SubResource( 2 )
 text = "Points:"
 
 [node name="TextureButton2" parent="." instance=ExtResource( 1 )]
-margin_left = 490.0
-margin_top = 440.0
-margin_right = 490.488
-margin_bottom = 439.8
-texture_normal = SubResource( 3 )
-script = SubResource( 4 )
-upgrade = SubResource( 7 )
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -32.0
+margin_top = -175.0
+margin_right = 33.0
+margin_bottom = -111.0
+disabled = false
+texture_normal = SubResource( 32 )
+upgrade = SubResource( 43 )
 
 [node name="TextureButton" parent="TextureButton2" instance=ExtResource( 1 )]
 margin_left = -138.0
-margin_top = -91.0
+margin_top = -82.0
 margin_right = -78.095
-margin_bottom = -33.848
-texture_normal = SubResource( 5 )
-script = SubResource( 6 )
-upgrade = SubResource( 20 )
+margin_bottom = -24.848
+texture_normal = SubResource( 30 )
+upgrade = SubResource( 42 )
 
 [node name="TextureButton7" parent="TextureButton2/TextureButton" instance=ExtResource( 1 )]
-margin_left = -138.0
+margin_left = -76.0
 margin_top = -91.0
-margin_right = -78.032
+margin_right = -16.032
 margin_bottom = -33.848
 texture_normal = SubResource( 8 )
-script = SubResource( 9 )
 __meta__ = {
 "_editor_description_": ""
 }
-upgrade = SubResource( 21 )
+upgrade = SubResource( 36 )
 
 [node name="TextureButton5" parent="TextureButton2/TextureButton" instance=ExtResource( 1 )]
-margin_left = 70.0
-margin_top = -83.0
-margin_right = 129.968
-margin_bottom = -25.848
+margin_left = 73.0
+margin_top = -91.0
+margin_right = 132.968
+margin_bottom = -33.848
 texture_normal = SubResource( 10 )
-script = SubResource( 11 )
 __meta__ = {
 "_editor_description_": ""
 }
-upgrade = SubResource( 22 )
+upgrade = SubResource( 37 )
 
 [node name="TextureButton4" parent="TextureButton2" instance=ExtResource( 1 )]
 margin_left = 196.0
@@ -531,53 +198,60 @@ margin_top = -82.0
 margin_right = 255.905
 margin_bottom = -24.848
 texture_normal = SubResource( 12 )
-script = SubResource( 13 )
 __meta__ = {
 "_editor_description_": ""
 }
-upgrade = SubResource( 23 )
+upgrade = SubResource( 38 )
 
 [node name="TextureButton6" parent="TextureButton2/TextureButton4" instance=ExtResource( 1 )]
-margin_left = -138.0
-margin_top = -91.0
-margin_right = -78.032
-margin_bottom = -33.848
+margin_left = -100.0
+margin_top = -88.0
+margin_right = -40.032
+margin_bottom = -30.848
 texture_normal = SubResource( 14 )
-script = SubResource( 15 )
 __meta__ = {
 "_editor_description_": ""
 }
-upgrade = SubResource( 24 )
+upgrade = SubResource( 39 )
+
+[node name="skillButton" parent="TextureButton2/TextureButton4/TextureButton6" instance=ExtResource( 1 )]
+margin_left = 56.0
+margin_top = -87.0
+margin_right = 115.968
+margin_bottom = -29.848
+upgrade = SubResource( 27 )
 
 [node name="TextureButton8" parent="TextureButton2/TextureButton4" instance=ExtResource( 1 )]
 margin_left = 73.0
-margin_top = -104.0
+margin_top = -88.0
 margin_right = 132.968
-margin_bottom = -46.848
+margin_bottom = -30.848
 texture_normal = SubResource( 16 )
-script = SubResource( 17 )
 __meta__ = {
 "_editor_description_": ""
 }
-upgrade = SubResource( 25 )
+upgrade = SubResource( 40 )
 
 [node name="TextureButton3" parent="TextureButton2/TextureButton4/TextureButton8" instance=ExtResource( 1 )]
-margin_left = 87.0
+margin_left = 83.0
 margin_top = -87.0
-margin_right = 146.968
+margin_right = 142.968
 margin_bottom = -29.848
 texture_normal = SubResource( 18 )
-script = SubResource( 19 )
 __meta__ = {
 "_editor_description_": ""
 }
-upgrade = SubResource( 26 )
+upgrade = SubResource( 41 )
 
 [node name="button" parent="." instance=ExtResource( 4 )]
-margin_left = 478.0
-margin_top = 533.0
-margin_right = 584.0
-margin_bottom = 577.0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -56.0
+margin_top = -80.0
+margin_right = 50.0
+margin_bottom = -36.0
 text = "return"
 
 [connection signal="pressed" from="button" to="." method="_on_button_pressed"]

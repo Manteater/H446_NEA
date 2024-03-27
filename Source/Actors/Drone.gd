@@ -46,8 +46,9 @@ func _physics_process(delta):
 			patrol(patrolDirection)#if the drone should be patrolling the procecdure is called
 			animate()#plays the drones animations
 		controlBullets(delta)
-	else:
+	elif not died:
 		die()
+		died = true
 
 func move(delta):
 	if agent.is_navigation_finished():#if the navigation is completed it cancels the function

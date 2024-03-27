@@ -27,9 +27,9 @@ func _physics_process(delta):
 			move(delta)#moves along the path
 		else:
 			velocity = Vector2.ZERO#doersnt move if no player is found
-	else:
+	elif not died:
 		die()#delets the node and triggers any other events such as giving poitns or money
-	
+		died =true
 
 func animate():
 	if velocity != Vector2.ZERO:#if the stomper is moving

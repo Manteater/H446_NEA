@@ -29,10 +29,9 @@ func _physics_process(delta):#function calls every frame of the game
 			move(delta)
 		else:
 			velocity = Vector2.ZERO
-
-	else:
+	elif not died:
 		die()
-	
+		died = true
 func animate():
 	if not awoken:#if the stomper hasnt seen the player then it sleeps
 			animPlayer.play("sleeping")

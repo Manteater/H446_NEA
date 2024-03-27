@@ -2,11 +2,13 @@ extends KinematicBody2D
 class_name Actor
 
 #properies
-export var health : int = 0#healthof enemy
-export var speed : int = 0#speed of enemy
-export var damage := 0#damage enmy applies when attackingplayer
-export var experienceDropped := 0#the experience the player gains when killing enemy
-export var moneyDropped := 0#theamount of money the enemy drops on death
+export var health : int = 100#healthof enemy
+export var speed : int = 100#speed of enemy
+export var damage := 10#damage enmy applies when attackingplayer
+export var experienceDropped := 10#the experience the player gains when killing enemy
+export var moneyDropped := 1#theamount of money the enemy drops on death
+var Coin = preload("res://Source/Prop stuff/Coin.tscn")
+var died = false
 
 #bools
 var dead = false#tracks whether the enmy is dead or not
@@ -34,6 +36,11 @@ func applyDamage(amount):
 
 func die():
 	animPlayer.play("Death")#the death animation calls the queue_free() function and delets the node
+	var coin = Coin.instance()#instances a coin 
+	coin.global_position = global_position#sets the global position of the coin
+	coin.value = moneyDropped#gives the coin the correct money value
+	get_node("/root").add_child(coin)#makes the coin a child of the root node
+	Global.characterSave.xp += experienceDropped#adds the experience to the player 
 
 func checkPlayer():
 	los.look_at(player.global_position)
