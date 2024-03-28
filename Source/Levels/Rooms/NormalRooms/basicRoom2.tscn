@@ -5,16 +5,8 @@
 [ext_resource path="res://Source/Levels/Rooms/baseRoom.gd" type="Script" id=3]
 [ext_resource path="res://Assets/Tiles/connection_arrows.tres" type="TileSet" id=4]
 [ext_resource path="res://Source/Prop stuff/Acid.tscn" type="PackedScene" id=5]
-
-[sub_resource type="NavigationPolygon" id=1]
-vertices = PoolVector2Array( -165.591, -5426.98, 5082.36, -1706.28, 3767.66, 110.401, 112.162, -2534.35, -5095, 1688.66, -3613.71, 2709.59 )
-polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 0, 3, 5 ) ]
-outlines = [ PoolVector2Array( -5095, 1688.66, -165.591, -5426.98, 5082.36, -1706.28, 3767.66, 110.401, 112.162, -2534.35, -3613.71, 2709.59 ) ]
-
-[sub_resource type="NavigationPolygon" id=2]
-vertices = PoolVector2Array( 2230.24, -722.595, 3657.04, 233.509, 67.9748, 5424.08, -56.4042, 2490.05, -3580.58, 2733.56, -2250.03, 953.749 )
-polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 3, 2, 4, 5 ) ]
-outlines = [ PoolVector2Array( -3580.58, 2733.56, -2250.03, 953.749, -56.4042, 2490.05, 2230.24, -722.595, 3657.04, 233.509, 67.9748, 5424.08 ) ]
+[ext_resource path="res://Source/Actors/Drone.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Source/Actors/RunnerGuy.tscn" type="PackedScene" id=7]
 
 [node name="basicRoom2" type="Node2D" groups=["rooms"]]
 position = Vector2( 0, -4 )
@@ -64,18 +56,30 @@ tile_data = PoolIntArray( -327681, 3, 0, -65543, 1, 0, 6, 2, 0, 327680, 0, 0 )
 [node name="acid" parent="Acid" index="0"]
 tile_data = PoolIntArray( -65539, 3, 0, -65538, 2, 0, -65537, 2, 0, -131072, 2, 0, -131071, 2, 0, -131070, 2, 0, -3, 0, 0, -2, 0, 0, -1, 0, 0, -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 131069, 0, 0, 131070, 0, 0, 131071, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0 )
 
-[node name="Navigation2D" type="Navigation2D" parent="."]
+[node name="enemies" type="Node" parent="."]
 
-[node name="NavigationPolygonInstance2" type="NavigationPolygonInstance" parent="Navigation2D"]
-rotation = 0.953558
-scale = Vector2( 0.147681, 0.144874 )
-navpoly = SubResource( 1 )
+[node name="Drone" parent="." instance=ExtResource( 6 )]
+position = Vector2( -358, 230 )
 
-[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
-rotation = 0.953558
-scale = Vector2( 0.147681, 0.144874 )
-navpoly = SubResource( 2 )
+[node name="Drone2" parent="." instance=ExtResource( 6 )]
+position = Vector2( 252, 252 )
 
-[node name="enemies" type="Node" parent="Navigation2D"]
+[node name="Drone3" parent="." instance=ExtResource( 6 )]
+position = Vector2( 469, 17 )
+
+[node name="Drone4" parent="." instance=ExtResource( 6 )]
+position = Vector2( -527, -32 )
+
+[node name="RunnerGuy" parent="." instance=ExtResource( 7 )]
+position = Vector2( -510, 350 )
+
+[node name="RunnerGuy2" parent="." instance=ExtResource( 7 )]
+position = Vector2( -227, 379 )
+
+[node name="RunnerGuy3" parent="." instance=ExtResource( 7 )]
+position = Vector2( 92, 415 )
+
+[node name="RunnerGuy4" parent="." instance=ExtResource( 7 )]
+position = Vector2( 430, 384 )
 
 [editable path="Acid"]
