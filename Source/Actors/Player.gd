@@ -1,20 +1,19 @@
 extends KinematicBody2D
 
-var stats: Character 
+var stats: Character #this is the stats which stores all of the player's data
 
-onready var anim_player: AnimationPlayer = $AnimationPlayer#fetches the animationplayer node
+onready var anim_player: AnimationPlayer = $AnimationPlayer#fetches the animationplayer node (used to play the animations)
 onready var tree = get_tree()#fetches access to the node tree
 onready var interactions = []#stores all the objects being interacted with in a stack
-onready var interactLabel = $interactLabel
-onready var skillTree = $skillTree
-var player = null
-var _velocity = Vector2.ZERO
-var currentHealth = null
-var currentSpeed = null
-var dead = false
+onready var interactLabel = $interactLabel#this is the textbox that appears when the player walks into an interact area
+var _velocity = Vector2.ZERO#the direction of movement and speed of player is stored here
+var currentHealth = null#stores the value of the current health the player is at
+var currentSpeed = null#stores the value of the max speed of the player
+var dead = false#stores wether the player has died or not
 
 func _ready():
 	stats = Global.characterSave#the ststs file is simply copied down from the global variable
+	#sets the new values for the speed and health, fetched from the global variable
 	currentSpeed = stats.speed
 	currentHealth = stats.maxHealth
 	updateInteractions()
@@ -22,9 +21,9 @@ func _ready():
 
 func _physics_process(delta: float) -> void:
 	stats = Global.characterSave#refreshes the stats every frame, this means that other nodes can change variables in it
-	stats.health = currentHealth
+	stats.health = currentHealth#updlaods the health of theplayer back up to the global node
 	#allowing the player to upgrade
-	if currentHealth == 0:
+	if currentHealth == 0:#theplayer executes the die() function when health is at 0
 		die()
 	#fetches the position vector of the cursor
 	var mouse = get_global_mouse_position()
@@ -42,7 +41,7 @@ func get_direction() -> Vector2:#returns a vector2 for the direction of movement
 		
 func calculate_move_velocity(linear_velocity: Vector2,direction: Vector2,speed) -> Vector2:
 		var out=linear_velocity
-		#multiplies the direction by the speed of the player
+		#multiplies the direction vector by the speed to increase the movement:
 		out.x = speed*direction.x
 		out.y = speed*direction.y
 		return out
@@ -56,19 +55,19 @@ func read_input():
 	if Input.is_action_pressed("dash") and $dash_cooldown.time_left == 0:#if the dash key is pressed and cooldown has reset the player dashes
 		dash()
 	
-	if Input.is_action_pressed("shoot"):
-		var gun = $Gun
-		gun.fire()
+	if Input.is_action_pressed("shoot"):#if the LMB is clicked then the player attempts to shoot
+		var gun = $Gun#fetches the gun node
+		gun.fire()#the gun is told to execute it shooting function
 	
-	if Input.is_action_just_pressed("Interact"):
-		executeInteractions()
+	if Input.is_action_just_pressed("Interact"):#when E is pressed
+		executeInteractions()#executes the interactions
 
 func dash():
 	currentSpeed = stats.dashSpeed#increases the speed of the player
 	immune(true)#makes theplayer immune to damage
-	#starts the timersS
-	$dash_timer.start()
-	$dash_cooldown.start()
+	#starts the timers
+	$dash_timer.start()#this timer controls how long the dash takes
+	$dash_cooldown.start()#this timer controls how long until theplayer can dash again
 
 func _on_dash_timer_timeout():
 	currentSpeed = stats.speed#resets the speed of the player
@@ -76,25 +75,25 @@ func _on_dash_timer_timeout():
 	
 
 func _on_hit_detector_body_entered(body):#if a body enters the player's hitbox
-	currentHealth -= 10
+	currentHealth -= 10#reduces the players health
 	
 
 func animate(mouse):
 	if _velocity != Vector2.ZERO:#when player IS moving
 		if self.global_position.x < mouse.x:#if the mouse is to the right of the player
-			anim_player.play("run_right")
+			anim_player.play("run_right")#animation player plays the relevant animation
 		else:
-			anim_player.play("run_left")
+			anim_player.play("run_left")#animation player plays the relevant animation
 	else:#when player isnt moving
 		if self.global_position.x < mouse.x:#if the mouse is to the right of the player
-			anim_player.play("idle_right")
+			anim_player.play("idle_right")#animation player plays the relevant animation
 		else:
-			anim_player.play("idle_left")
+			anim_player.play("idle_left")#animation player plays the relevant animation
 
 
 
 func immune(immunity)->void:
-	if immunity:
+	if immunity:#when the player is immune then he is invincible
 		modulate.a = 0.5#makes the player slightly transparent to show the player that i frames are active
 		$hit_detector/bullet_detector.disabled = true#disables the player's hitbox
 	elif not immunity:
@@ -104,7 +103,7 @@ func immune(immunity)->void:
 
 
 func handleSkillTree():
-	$CanvasLayer/HUD.toggleSkillTree()
+	$CanvasLayer/HUD.toggleSkillTree()#function just makesskill tree visible
 
 func handleShop():
 	get_tree().paused = true#pauses the tree so player cant move

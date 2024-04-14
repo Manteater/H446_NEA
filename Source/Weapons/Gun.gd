@@ -1,46 +1,45 @@
 extends Sprite
 
-onready var player = get_parent()
-var bullet = preload("res://Source/Weapons/PlayerBullet.tscn")
-
+onready var player = get_parent()#fetches the parent node, whch is the player
+var bullet = preload("res://Source/Weapons/PlayerBullet.tscn")#loads the player bullet scene so it can be instanced
 var reloadTimer = 0#this is the timer that tracks when the cooldown is over
 var projectiles = []#the array to store all of the bullets
-var angles = [0,0.1,-0.1,0.2,-0.2,0.4,-0.3,0.4,-0.4]
-onready var stats = Global.characterSave
+var angles = [0,0.1,-0.1,0.2,-0.2,0.4,-0.3,0.4,-0.4]#angles to spread out the bullets
+onready var stats = Global.characterSave#allows access to the global player values
 
 func _ready():
-	set_as_toplevel(true)
+	set_as_toplevel(true)#makes the gun appear on top of the player
 	#print(player.stats)
 	
 func _physics_process(delta: float)-> void:
-	reloadTimer+=1
+	reloadTimer+=1#increases the timer every fram as the gun works in ticks rather thsan actual time
 	position.x = lerp(position.x,get_parent().position.x,0.5)#adjusts the position of the gun to stay with the parent
 	position.y = lerp(position.y,get_parent().position.y+10,0.5)
-	var mouse = get_global_mouse_position()
+	var mouse = get_global_mouse_position()#gets the mouse postion on screen
 	look_at(mouse)# makes the gun look towards the cursor
 	animate(mouse)
 	for i in projectiles:#loop through the array
 		var p = i["projectile"]#the bullet object is stored in the variable p
 		var velocity = i["velocity"]
 		if i["ticks"] >= stats.bulletLifetime:#checks if the game has ticked more than the bulletlifetime
-			p.get_node("AnimationPlayer").play("Collide")
+			p.get_node("AnimationPlayer").play("Collide")#plays the collision animation
 			projectiles.erase(i)#the infromation is erased from the array
 		var collision = p.move_and_collide(velocity*delta)#an in-built function is used to make the bullet move
 		
 		if (collision):
 			#print("collided")
-			var collider = collision.collider
+			var collider = collision.collider#gets the object that is being collided with
 			#print(collider.get_class())
-			if (collider.is_in_group("enemy")):
+			if (collider.is_in_group("enemy")):#checsk whether it is an enemy or not
 				#print("hit")
 				collider.applyDamage(stats.bulletDamage)
-				p.get_node("AnimationPlayer").play("Collide")
+				p.get_node("AnimationPlayer").play("Collide")#plays collsion animation
 				projectiles.erase(i)#the infromation is erased from the array
 			elif i["bounces"]>0:
 				i["velocity"] = velocity.bounce(collision.normal)#new velocity is set
-				i["bounces"]-=1
+				i["bounces"]-=1#reduces the number of bounces remaining
 			else:
-				p.get_node("Sprite").offset.x = -25
+				p.get_node("Sprite").offset.x = -25#changes offset of sprite so animation looks correct
 				p.get_node("AnimationPlayer").play("Collide")#plays the collsion animation
 				#p.queue_free()#the projectile is destroyed
 				projectiles.erase(i)#the infromation is erased from the array
