@@ -4,7 +4,7 @@
 [ext_resource path="res://Source/Actors/Stomper.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 22, 21 )
+extents = Vector2( 40.25, 45.5 )
 
 [sub_resource type="Animation" id=3]
 resource_name = "Awake"
@@ -173,7 +173,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="CircleShape2D" id=9]
-radius = 47.0
+radius = 77.026
 
 [node name="Stomper" type="KinematicBody2D" groups=["enemy"]]
 collision_layer = 2
@@ -194,7 +194,7 @@ vframes = 16
 frame = 102
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 8 )
+position = Vector2( -2, -4 )
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -222,6 +222,7 @@ cast_to = Vector2( 510, 0 )
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerKiller"]
+position = Vector2( -4, 1 )
 shape = SubResource( 9 )
 
 [connection signal="body_entered" from="playerKiller" to="." method="_on_playerKiller_body_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Assets/Tiles/wallTiles.tres" type="TileSet" id=1]
 [ext_resource path="res://Assets/Tiles/floorTiles.tres" type="TileSet" id=2]
@@ -7,6 +7,14 @@
 [ext_resource path="res://Source/Prop stuff/Light.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Source/Tools/Teleporter.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Source/Levels/Dungeon.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Assets/UI/fonts/Blanka.otf" type="DynamicFontData" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+resource_local_to_scene = true
+size = 20
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+font_data = ExtResource( 8 )
 
 [node name="HUB" type="Node2D"]
 
@@ -49,41 +57,76 @@ position = Vector2( -87, 27 )
 [node name="CanvasModulate" type="CanvasModulate" parent="Lights"]
 color = Color( 1, 1, 1, 0.486275 )
 
+[node name="Light12" parent="Lights" instance=ExtResource( 5 )]
+position = Vector2( 2009, 820 )
+
+[node name="Light6" parent="Lights" instance=ExtResource( 5 )]
+position = Vector2( 825, 913 )
+
+[node name="Light5" parent="Lights" instance=ExtResource( 5 )]
+position = Vector2( 1503, 261 )
+
+[node name="Light4" parent="Lights" instance=ExtResource( 5 )]
+position = Vector2( 2039, 1401 )
+
+[node name="Light3" parent="Lights" instance=ExtResource( 5 )]
+position = Vector2( 193, 1356 )
+
+[node name="Light11" parent="Lights" instance=ExtResource( 5 )]
+position = Vector2( 5804, 845 )
+
+[node name="Light10" parent="Lights" instance=ExtResource( 5 )]
+position = Vector2( 4491, 808 )
+
+[node name="Light9" parent="Lights" instance=ExtResource( 5 )]
+position = Vector2( 3813, 813 )
+
+[node name="Light8" parent="Lights" instance=ExtResource( 5 )]
+position = Vector2( 2959, 813 )
+
+[node name="Light7" parent="Lights" instance=ExtResource( 5 )]
+position = Vector2( 1214, 844 )
+
+[node name="Light" parent="Lights" instance=ExtResource( 5 )]
+position = Vector2( 204, 322 )
+
 [node name="Light2" parent="Lights" instance=ExtResource( 5 )]
 position = Vector2( 223, 801 )
 
-[node name="Light7" parent="Lights/Light2" instance=ExtResource( 5 )]
-position = Vector2( 991, 43 )
+[node name="Label" type="Label" parent="."]
+margin_left = 58.0
+margin_top = 712.0
+margin_right = 473.0
+margin_bottom = 759.0
+custom_fonts/font = SubResource( 1 )
+text = "use WASD to move and RMB to dash"
 
-[node name="Light" parent="Lights/Light2" instance=ExtResource( 5 )]
-position = Vector2( -19, -479 )
+[node name="Label2" type="Label" parent="."]
+margin_left = 1413.0
+margin_top = 1359.0
+margin_right = 1785.0
+margin_bottom = 1425.0
+custom_fonts/font = SubResource( 1 )
+text = "You can unlock p[ermanent upgrades in the skill tree using points gained from levelling up"
+autowrap = true
 
-[node name="Light8" parent="Lights/Light2" instance=ExtResource( 5 )]
-position = Vector2( 2736, 12 )
+[node name="Label3" type="Label" parent="."]
+margin_left = 680.0
+margin_top = 690.0
+margin_right = 1052.0
+margin_bottom = 756.0
+custom_fonts/font = SubResource( 1 )
+text = "Use lmb to fire your weapon, dont worry it will get stronger soon"
+autowrap = true
 
-[node name="Light9" parent="Lights/Light2" instance=ExtResource( 5 )]
-position = Vector2( 3590, 12 )
-
-[node name="Light10" parent="Lights/Light2" instance=ExtResource( 5 )]
-position = Vector2( 4268, 7 )
-
-[node name="Light11" parent="Lights/Light2" instance=ExtResource( 5 )]
-position = Vector2( 5581, 44 )
-
-[node name="Light2" parent="Lights/Light2" instance=ExtResource( 5 )]
-position = Vector2( -30, 555 )
-
-[node name="Light3" parent="Lights/Light2" instance=ExtResource( 5 )]
-position = Vector2( 1816, 600 )
-
-[node name="Light4" parent="Lights/Light2" instance=ExtResource( 5 )]
-position = Vector2( 1786, 19 )
-
-[node name="Light5" parent="Lights/Light2" instance=ExtResource( 5 )]
-position = Vector2( 1280, -540 )
-
-[node name="Light6" parent="Lights/Light2" instance=ExtResource( 5 )]
-position = Vector2( 602, 112 )
+[node name="Label4" type="Label" parent="."]
+margin_left = 5178.0
+margin_top = 770.0
+margin_right = 5550.0
+margin_bottom = 836.0
+custom_fonts/font = SubResource( 1 )
+text = "Kill enemies and defeat the boss to beat the dungeon "
+autowrap = true
 
 [editable path="NPC"]
 [editable path="NPC/interactArea"]
