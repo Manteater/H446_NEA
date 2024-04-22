@@ -1,14 +1,13 @@
 extends TextureButton
 class_name SkillNode
 
-onready var label = $Label
 onready var line = $Line2D
 var active = false
 export var upgrade: Resource
 
 func _ready():
-	var position = rect_global_position#position of the button
-	var size = rect_size#size of the button
+	#var position = rect_global_position#position of the button
+	#var size = rect_size#size of the button
 	#if get_parent().is_in_group("skillNodes"):#if it has a skillNode parent
 		#line.add_point(position+size/2)#points at the centreof itself and it parent are added to the line which is automatically drawn
 		#line.add_point(get_parent().rect_global_position+size/2)

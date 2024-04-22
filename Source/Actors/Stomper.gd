@@ -78,5 +78,5 @@ func _on_playerKiller_body_entered(body):
 			yield(get_tree().create_timer(1),"timeout")#the stomper can only attack once per second
 
 
-func _on_playerKiller_body_exited(body):
+func _on_playerKiller_body_exited(_body):
 	attack = false#attack is reset so the player doesnt take damage when out of range

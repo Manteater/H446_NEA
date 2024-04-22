@@ -1,46 +1,11 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://Assets/Tiles/wallTiles.tres" type="TileSet" id=1]
 [ext_resource path="res://Assets/Tiles/floorTiles.tres" type="TileSet" id=2]
 [ext_resource path="res://Assets/Tech Dungeon/tileset x3.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Tiles/connection_arrows.tres" type="TileSet" id=4]
 [ext_resource path="res://Source/Actors/Stomper.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Source/Actors/RunnerGuy.tscn" type="PackedScene" id=6]
-
-[sub_resource type="GDScript" id=62]
-script/source = "extends Node2D
-class_name Room_
-
-onready var border = $border #this is the part of the tilemap that outlines the room
-onready var connection = $connections
-#export var avoid_collisions := true#this means the room avoids collisions with toher rooms
-#export var add_connections := true#this means that the room can accept new connections
-export var rightRadius: int
-export var leftRadius: int
-export var downRadius: int
-export var upRadius: int
-var coord = null
-
-
-enum Directions{down,left,right,up}#stores the connections in each direction
-
-func getConnectionTiles():
-	var result = {\"up\":[],\"down\":[],\"left\":[],\"right\":[]}#dictionary to store arrays of all connections in each direction
-	
-	for i in $connections.get_used_cells():#iterates over all used tiles in the tilemap of connections
-		match $connections.get_cell(i.x,i.y):#fetches the x and y co-ordinates of each used cell
-			Directions.down: result.down.append(i)#stores this is the dictionary
-			Directions.left: result.left.append(i)
-			Directions.right: result.right.append(i)
-			Directions.up: result.up.append(i)
-	
-	return result
-
-func getRoomSize():
-	var x = (rightRadius+leftRadius)*96
-	var y = (upRadius+downRadius)*96
-	return Vector2(x,y)
-"
+[ext_resource path="res://Source/Levels/Rooms/baseRoom.gd" type="Script" id=7]
 
 [sub_resource type="OccluderPolygon2D" id=49]
 polygon = PoolVector2Array( 96, 32, 0, 32, 0, 0, 96, 0 )
@@ -494,7 +459,7 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 
 [node name="basicRoom1" type="Node2D" groups=["rooms"]]
 position = Vector2( 0, -4 )
-script = SubResource( 62 )
+script = ExtResource( 7 )
 __meta__ = {
 "_edit_vertical_guides_": [ 769.0 ]
 }
@@ -533,16 +498,4 @@ format = 1
 tile_data = PoolIntArray( -262144, 3, 0, 65530, 1, 0, 131078, 2, 0, 458750, 0, 0 )
 
 [node name="Stomper" parent="." instance=ExtResource( 5 )]
-position = Vector2( -394, 77 )
-
-[node name="Stomper2" parent="." instance=ExtResource( 5 )]
-position = Vector2( -180, 450 )
-
-[node name="Stomper3" parent="." instance=ExtResource( 5 )]
-position = Vector2( 402, 307 )
-
-[node name="RunnerGuy" parent="." instance=ExtResource( 6 )]
-position = Vector2( -235, -127 )
-
-[node name="RunnerGuy2" parent="." instance=ExtResource( 6 )]
-position = Vector2( 371, -110 )
+position = Vector2( 58, 264 )

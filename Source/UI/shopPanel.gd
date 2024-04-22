@@ -53,4 +53,4 @@ func handleHealth():
 	if (Global.characterSave.health+upgrade.upgradeValue)>Global.characterSave.maxHealth:#makes sure that health isnt increased to more than that of the maxHealth
 		Global.characterSave.health = Global.characterSave.maxHealth#setes the health equal to the maxhealth value
 	else:
-		Global.characterSave.health+=upgrade.upgradeValue#adds the healing value of the upgrade on top of the current health.
+		Global.characterSave.health+=float(upgrade.upgradeValue)#adds the healing value of the upgrade on top of the current health.

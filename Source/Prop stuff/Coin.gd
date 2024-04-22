@@ -10,5 +10,5 @@ func picked() -> void:
 	Global.characterSave.money += value#increases the players money
 
 
-func _on_Coin_body_entered(body):
+func _on_Coin_body_entered(_body):
 	picked()

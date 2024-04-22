@@ -54,14 +54,15 @@ func move(delta):
 
 
 func _on_killArea_body_entered(body):
-	attack = true
-	while attack:
-		if player.global_position.x<global_position.x:#makes sure the attack animation is playing in the same direction as the player is in relation to the runner
-			animPlayer.play("shootLeft")
-		else:
-			animPlayer.play("shootRight")
-		yield(animPlayer,"animation_finished")#waits for the animation to end before applying the damage
-		body.applyDamage(20)#20 damage is applied to theplayer
+	if body.is_in_group("Player"):
+		attack = true
+		while attack:
+			if player.global_position.x<global_position.x:#makes sure the attack animation is playing in the same direction as the player is in relation to the runner
+				animPlayer.play("shootLeft")
+			else:
+				animPlayer.play("shootRight")
+			yield(animPlayer,"animation_finished")#waits for the animation to end before applying the damage
+			body.applyDamage(20)#20asdasdasda damage is applied to the player
 
-func _on_killArea_body_exited(body):
+func _on_killArea_body_exited(_body):
 	attack = false# when the player exits the area the runner can no longer attack

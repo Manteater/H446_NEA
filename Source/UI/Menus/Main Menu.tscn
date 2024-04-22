@@ -81,6 +81,7 @@ size_flags_vertical = 3
 [node name="changeSceneButton" parent="VBoxContainer1/MarginContainer3" instance=ExtResource( 6 )]
 margin_right = 231.0
 margin_bottom = 59.0
+text = "Settings"
 next_scene_path = "res://Source/UI/Menus/settingsMenu.tscn"
 
 [node name="MarginContainer4" type="MarginContainer" parent="VBoxContainer1"]

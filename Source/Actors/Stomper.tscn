@@ -225,5 +225,9 @@ collision_layer = 0
 position = Vector2( -4, 1 )
 shape = SubResource( 9 )
 
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+process_parent = true
+physics_process_parent = true
+
 [connection signal="body_entered" from="playerKiller" to="." method="_on_playerKiller_body_entered"]
 [connection signal="body_exited" from="playerKiller" to="." method="_on_playerKiller_body_exited"]

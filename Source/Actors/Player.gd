@@ -19,7 +19,7 @@ func _ready():
 	updateInteractions()
 	
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	stats = Global.characterSave#refreshes the stats every frame, this means that other nodes can change variables in it
 	stats.health = currentHealth#updlaods the health of theplayer back up to the global node
 	#allowing the player to upgrade
@@ -74,7 +74,7 @@ func _on_dash_timer_timeout():
 	immune(false)#immunity is false
 	
 
-func _on_hit_detector_body_entered(body):#if a body enters the player's hitbox
+func _on_hit_detector_body_entered(_body):#if a body enters the player's hitbox
 	currentHealth -= 10#reduces the players health
 	
 

@@ -15,7 +15,7 @@ func _ready():
 	
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	playerStats = Global.characterSave
 	healthbar.value = playerStats.health
 	expBar.value = playerStats.xp

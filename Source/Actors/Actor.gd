@@ -27,6 +27,7 @@ var velocity := Vector2.ZERO#the direction the enemy is moving
 
 func _ready():
 	player = get_tree().get_nodes_in_group("Player")[0]#gives the player node a value
+	set_physics_process(false)
 
 func applyDamage(amount):
 	health-=amount#reduces health by the damage

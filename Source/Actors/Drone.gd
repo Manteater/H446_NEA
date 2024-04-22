@@ -114,13 +114,13 @@ func controlBullets(delta):
 	
 
 
-func _on_WallDetector_body_entered(body):
+func _on_WallDetector_body_entered(_body):
 	collided = true#when a walls hitbox enters the drones hitbox this function is called
 
 
-func _on_Range_body_entered(body):
+func _on_Range_body_entered(_body):
 	playerInRange = true#detects when the player moves into range
 
 
-func _on_Range_body_exited(body):
+func _on_Range_body_exited(_body):
 	playerInRange = false#detects whn the player leaves the range

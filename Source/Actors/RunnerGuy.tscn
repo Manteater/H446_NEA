@@ -164,7 +164,6 @@ health = 50
 speed = 400
 damage = 35
 experienceDropped = 20
-moneyDropped = 1
 
 [node name="EnemiesX3" type="Sprite" parent="."]
 position = Vector2( -2, -14 )
@@ -200,6 +199,10 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="killArea"]
 shape = SubResource( 7 )
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+process_parent = true
+physics_process_parent = true
 
 [connection signal="body_entered" from="killArea" to="." method="_on_killArea_body_entered"]
 [connection signal="body_exited" from="killArea" to="." method="_on_killArea_body_exited"]

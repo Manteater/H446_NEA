@@ -111,7 +111,7 @@ func getOppositeDirection(direction):
 
 
 
-func saveRoomExits(currentCoord:Vector2,room:Room_,exceptions = []):
+func saveRoomExits(_currentCoord:Vector2,room:Room_,exceptions = []):
 	var exitCells = room.get_node("connections").get_used_cells()#gets the connections in the given room
 	for i in exitCells:
 		if i in exceptions: continue
