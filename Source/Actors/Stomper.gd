@@ -66,16 +66,13 @@ func move(delta):
 	
 
 
-
-
-
-
 func _on_playerKiller_body_entered(body):
-	attack = true
-	while attack:#while the player is in the attack range
-		if body.is_in_group("Player"):
-			body.applyDamage(35)#the player  takes damage
-			yield(get_tree().create_timer(1),"timeout")#the stomper can only attack once per second
+	if player.is_in_group("Player"):
+		attack = true
+		while attack:#while the player is in the attack range
+			if body.is_in_group("Player"):
+				body.applyDamage(damage)#the player  takes damage
+				yield(get_tree().create_timer(1.5),"timeout")#the stomper can only attack once per second
 
 
 func _on_playerKiller_body_exited(_body):

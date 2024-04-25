@@ -31,9 +31,8 @@ func _ready():
 
 func applyDamage(amount):
 	health-=amount#reduces health by the damage
-	if health < 0:
+	if health <= 0:
 		dead = true#the enemy dies when health drops below 0
-		
 
 func die():
 	animPlayer.play("Death")#the death animation calls the queue_free() function and delets the node

@@ -7,7 +7,6 @@ onready var tree = get_tree()#fetches access to the node tree
 onready var interactions = []#stores all the objects being interacted with in a stack
 onready var interactLabel = $interactLabel#this is the textbox that appears when the player walks into an interact area
 var _velocity = Vector2.ZERO#the direction of movement and speed of player is stored here
-var currentHealth = null#stores the value of the current health the player is at
 var currentSpeed = null#stores the value of the max speed of the player
 var dead = false#stores wether the player has died or not
 
@@ -15,16 +14,13 @@ func _ready():
 	stats = Global.characterSave#the ststs file is simply copied down from the global variable
 	#sets the new values for the speed and health, fetched from the global variable
 	currentSpeed = stats.speed
-	currentHealth = stats.maxHealth
+	stats.health = stats.maxHealth
 	updateInteractions()
 	
 
 func _physics_process(_delta: float) -> void:
 	stats = Global.characterSave#refreshes the stats every frame, this means that other nodes can change variables in it
-	stats.health = currentHealth#updlaods the health of theplayer back up to the global node
 	#allowing the player to upgrade
-	if currentHealth == 0:#theplayer executes the die() function when health is at 0
-		die()
 	#fetches the position vector of the cursor
 	var mouse = get_global_mouse_position()
 	#moves the player
@@ -74,10 +70,6 @@ func _on_dash_timer_timeout():
 	immune(false)#immunity is false
 	
 
-func _on_hit_detector_body_entered(_body):#if a body enters the player's hitbox
-	currentHealth -= 10#reduces the players health
-	
-
 func animate(mouse):
 	if _velocity != Vector2.ZERO:#when player IS moving
 		if self.global_position.x < mouse.x:#if the mouse is to the right of the player
@@ -110,9 +102,9 @@ func handleShop():
 	$CanvasLayer/HUD/Shop.visible=true#shows the shop
 
 func applyDamage(damage):
-	currentHealth -= damage#applies the damage to the player
-	print(currentHealth)
-	if currentHealth < 0:
+	stats.health -= damage#applies the damage to the player
+	print(stats.health)
+	if stats.health <= 0:
 		dead = true#this boolean controls wether the other animations are completed
 		
 		die()#the die function is called

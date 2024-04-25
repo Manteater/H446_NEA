@@ -34,7 +34,7 @@ shadow_color = Color( 0.0666667, 0.0666667, 0.0666667, 0.6 )
 shadow_size = 2
 
 [sub_resource type="StyleBoxFlat" id=4]
-bg_color = Color( 0, 0, 0, 0 )
+bg_color = Color( 0, 0, 0, 0.647059 )
 
 [sub_resource type="DynamicFont" id=1]
 size = 85
@@ -79,18 +79,17 @@ rounded = true
 percent_visible = false
 
 [node name="healthBar" type="ProgressBar" parent="."]
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -241.0
-margin_top = -257.0
-margin_right = -7.0
-margin_bottom = -239.0
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 44.0
+margin_top = -66.0
+margin_right = 302.0
+margin_bottom = -42.0
 theme = ExtResource( 7 )
 custom_styles/fg = SubResource( 3 )
 custom_styles/bg = SubResource( 4 )
 step = 1.0
+value = 50.0
 
 [node name="PauseOverlay" type="ColorRect" parent="."]
 visible = false

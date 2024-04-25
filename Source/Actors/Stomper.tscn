@@ -173,15 +173,15 @@ tracks/0/keys = {
 }
 
 [sub_resource type="CircleShape2D" id=9]
-radius = 77.026
+radius = 57.0789
 
 [node name="Stomper" type="KinematicBody2D" groups=["enemy"]]
 collision_layer = 2
 collision_mask = 5
 script = ExtResource( 2 )
-health = 300
+health = 150
 speed = 150
-damage = 50
+damage = 25
 experienceDropped = 30
 moneyDropped = 3
 
@@ -222,10 +222,11 @@ cast_to = Vector2( 510, 0 )
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="playerKiller"]
-position = Vector2( -4, 1 )
 shape = SubResource( 9 )
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+position = Vector2( 0.500006, -1.5 )
+scale = Vector2( 7.05, 6.55 )
 process_parent = true
 physics_process_parent = true
 

@@ -98,7 +98,6 @@ tracks/1/keys = {
 [sub_resource type="Animation" id=5]
 resource_name = "shootLeft"
 length = 0.75
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("EnemiesX3:frame")
 tracks/0/interp = 1
@@ -127,7 +126,6 @@ tracks/1/keys = {
 [sub_resource type="Animation" id=6]
 resource_name = "shootRight"
 length = 0.75
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("EnemiesX3:frame")
 tracks/0/interp = 1
@@ -154,7 +152,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="CircleShape2D" id=7]
-radius = 55.0
+radius = 54.0093
 
 [node name="RunnerGuy" type="KinematicBody2D" groups=["enemy"]]
 collision_layer = 2
@@ -170,7 +168,7 @@ position = Vector2( -2, -14 )
 texture = ExtResource( 1 )
 hframes = 10
 vframes = 16
-frame = 120
+frame = 140
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -3, 4 )
@@ -188,7 +186,7 @@ anims/shootRight = SubResource( 6 )
 [node name="lineOfSight" type="RayCast2D" parent="."]
 position = Vector2( 1, 2 )
 enabled = true
-cast_to = Vector2( 1445, -1 )
+cast_to = Vector2( 978, -1 )
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
@@ -201,6 +199,8 @@ collision_layer = 0
 shape = SubResource( 7 )
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+position = Vector2( 4.50001, -3.8147e-06 )
+scale = Vector2( 11.55, 8.9 )
 process_parent = true
 physics_process_parent = true
 

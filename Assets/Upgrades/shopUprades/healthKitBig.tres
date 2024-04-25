@@ -7,5 +7,5 @@ script = ExtResource( 1 )
 upgradeName = "Health kit"
 upgradeType = "health"
 upgradeDescription = "heal yourself with this handy medkit"
-upgradeValue = 0.0
+upgradeValue = 50.0
 upgradeCost = 35
