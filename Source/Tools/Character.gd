@@ -6,11 +6,11 @@ export var dashSpeed := 1500
 export var health: int
 export var maxHealth := 100
 
-export var level := 3
-export var xp := 20
-export var xpPoints := 20
+export var level := 0
+export var xp := 0
+export var xpPoints := 0
 export var xpNeeded = 100
-export var money = 40
+export var money = 0
 
 export var bulletSpeed = 500#the speed that the bullet will travel at
 export var cooldown = 30#this is the cooldown in between shots
